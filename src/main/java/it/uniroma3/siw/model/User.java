@@ -4,11 +4,17 @@ import java.time.LocalDate;
 import java.util.Objects;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 
 @Entity
 public class User {
 	
-	/*--------VAR. D'ISTANZA--------*/
+	/*--------ID E VAR. D'ISTANZA--------*/
+	@Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+	private Long id;
 	private String nome;
 	private String cognome;
 	private LocalDate dataNascita;
@@ -40,7 +46,15 @@ public class User {
 	
 	
 	
+	
 	/*--------METODI GETTERS AND SETTERS--------*/
+	public Long getId() {
+		return id;
+	}
+	public void setId(Long id) {
+		this.id = id;
+	}
+	
 	public String getNome() {
 		return nome;
 	}
