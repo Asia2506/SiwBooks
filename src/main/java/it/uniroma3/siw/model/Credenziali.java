@@ -10,7 +10,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.OneToOne;
 
 @Entity
-public class Credentials {
+public class Credenziali {
 	
 	/*--------ID E VAR. D'ISTANZA--------*/
 	@Id
@@ -22,7 +22,7 @@ public class Credentials {
 	
 	/*--------ASSOCIAZIONI--------*/
 	@OneToOne(cascade=CascadeType.ALL)
-	private User user;
+	private Utente user;
 
 	
 	
@@ -41,7 +41,7 @@ public class Credentials {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Credentials other = (Credentials) obj;
+		Credenziali other = (Credenziali) obj;
 		return Objects.equals(password, other.password) && Objects.equals(username, other.username);
 	}
 
@@ -78,10 +78,10 @@ public class Credentials {
 		this.role = role;
 	}
 
-	public User getUser() {
+	public Utente getUser() {
 		return user;
 	}
-	public void setUser(User user) {
+	public void setUser(Utente user) {
 		this.user = user;
 	}
 	

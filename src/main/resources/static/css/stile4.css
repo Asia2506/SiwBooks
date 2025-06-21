@@ -1,0 +1,320 @@
+/* Stili Generali e Reset */
+html, body {
+    height: 100%; /* Assicura che html e body occupino l'intera altezza del viewport */
+    margin: 0;
+    padding: 0;
+    overflow: hidden; /* Impedisce lo scorrimento del body */
+}
+*, *::before, *::after {
+    box-sizing: border-box;
+}
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f0f0f0; /* Sfondo generale chiaro */
+    color: #333;
+    display: flex; /* Permette a header, main, footer di dividere lo spazio */
+    flex-direction: column;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+/* Stili Header Principale */
+.main-header {
+    background-color: #1E3A4D; /* Blu scuro/grigio dal tema del mare/cielo */
+    color: #F8F8F8; /* Testo quasi bianco */
+    padding: 15px 40px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    width: 100%;
+    flex-shrink: 0;
+}
+
+.header-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.logo {
+    font-size: 1.5em;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+}
+
+.logo-icon {
+    font-size: 1.2em;
+    margin-right: 5px;
+}
+
+.tagline {
+    font-size: 0.7em;
+    font-weight: normal;
+    margin-left: 10px;
+    opacity: 0.8;
+}
+
+.main-nav ul {
+    display: flex;
+    gap: 25px;
+}
+
+.main-nav a {
+    color: #F8F8F8; /* Testo quasi bianco */
+    font-weight: 600;
+    padding: 5px 0;
+    position: relative;
+    transition: color 0.3s ease;
+}
+
+.main-nav a::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    background-color: #4DCDE1; /* Blu brillante dal cielo/mare */
+    bottom: -5px;
+    left: 0;
+    transition: width 0.3s ease;
+}
+
+.main-nav a:hover {
+    color: #4DCDE1; /* Blu brillante al passaggio del mouse */
+}
+
+.main-nav a:hover::after {
+    width: 100%;
+}
+
+
+/* Stili Sezione Eroe (Hero Section) */
+.hero-section {
+    position: relative;
+    width: 100%;
+    flex-grow: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    overflow: hidden;
+    text-align: center;
+}
+
+.hero-background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('/images/sfondodali.png'); /* Immagine di sfondo Dalí caricata */
+    background-size: cover;
+    background-position: center bottom; /* Allinea il bordo inferiore dell'immagine con il bordo inferiore del div */
+    z-index: -2;
+    filter: blur(1px) brightness(0.5); /* Sfocatura leggera e scurimento per far risaltare il testo */
+}
+
+.hero-content-centered {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    max-width: 900px;
+    padding: 20px;
+    box-sizing: border-box;
+    z-index: 1;
+}
+
+.hero-content-centered h1 {
+    font-size: 3.5em;
+    margin-bottom: 30px;
+    line-height: 1.1;
+    color: #F8F8F8; /* Testo quasi bianco */
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+}
+
+/* Stili per il Contenitore delle Card (Libri, Autori) */
+.card-container {
+    display: flex;
+    flex-direction: row;
+    gap: 30px;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    margin-top: 20px;
+    width: 100%;
+}
+
+/* Stili per le Singole Card */
+.card {
+    background-color: rgba(255, 255, 255, 0.9); /* Sfondo semi-trasparente bianco */
+    color: #333;
+    padding: 25px;
+    border-radius: 10px;
+    box-shadow: 0 8px 16px rgba(0,0,0,0.3);
+    text-align: center;
+    width: 250px;
+    height: 200px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    text-decoration: none;
+    flex-shrink: 0;
+}
+
+.card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 12px 24px rgba(0,0,0,0.4);
+}
+
+.card h2 {
+    margin-top: 0;
+    margin-bottom: 15px;
+    font-size: 1.8em;
+    color: #006080; /* Blu scuro/verde dal mare, per i titoli delle card */
+}
+
+.card p {
+    font-size: 1em;
+    color: #555;
+    line-height: 1.5;
+}
+
+/* Stili Footer */
+.main-footer {
+    background-color: #1E3A4D; /* Blu scuro/grigio dal tema del mare/cielo */
+    color: #F8F8F8; /* Testo quasi bianco */
+    text-align: center;
+    padding: 20px 0;
+    font-size: 0.9em;
+    flex-shrink: 0;
+}
+
+/* Media Queries per la Responsività */
+@media (max-width: 992px) {
+    .main-header {
+        padding: 10px 20px;
+    }
+    .main-nav ul {
+        gap: 15px;
+    }
+    .hero-content-centered h1 {
+        font-size: 2.8em;
+    }
+    .card {
+        width: 220px;
+        height: 180px;
+    }
+}
+
+@media (max-width: 768px) {
+    .header-content {
+        flex-direction: column;
+        gap: 10px;
+    }
+    .main-nav ul {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 10px;
+    }
+    .main-nav a {
+        font-size: 0.9em;
+    }
+    .hero-content-centered h1 {
+        font-size: 2.2em;
+    }
+    .card-container {
+        flex-direction: column;
+        gap: 20px;
+    }
+    .card {
+        width: 80%;
+        height: auto;
+        min-height: 160px;
+    }
+}
+
+@media (max-width: 480px) {
+    .main-header {
+        padding: 10px 15px;
+    }
+    .logo {
+        font-size: 1.2em;
+    }
+    .tagline {
+        display: none;
+    }
+    .hero-content-centered h1 {
+        font-size: 1.8em;
+        margin-bottom: 20px;
+    }
+    .card-container {
+        gap: 15px;
+    }
+    .card {
+        width: 90%;
+        min-height: 140px;
+    }
+    .card h2 {
+        font-size: 1.5em;
+    }
+    .card p {
+        font-size: 0.9em;
+    }
+}
+
+/* Regolazione per schermi con altezza limitata */
+@media (max-height: 700px) {
+    .hero-content-centered h1 {
+        font-size: 2.5em;
+        margin-bottom: 15px;
+    }
+    .card-container {
+        gap: 15px;
+        margin-top: 10px;
+    }
+    .card {
+        width: 200px;
+        height: 140px;
+        padding: 15px;
+    }
+    .card h2 {
+        font-size: 1.4em;
+    }
+    .card p {
+        font-size: 0.85em;
+    }
+}
+
+@media (max-height: 550px) {
+    .hero-content-centered h1 {
+        font-size: 2em;
+        margin-bottom: 10px;
+    }
+    .card-container {
+        gap: 10px;
+        margin-top: 5px;
+    }
+    .card {
+        width: 180px;
+        height: 120px;
+        padding: 10px;
+    }
+    .card h2 {
+        font-size: 1.2em;
+    }
+    .card p {
+        font-size: 0.8em;
+    }
+}

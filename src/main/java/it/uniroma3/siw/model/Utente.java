@@ -9,7 +9,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 
 @Entity
-public class User {
+public class Utente {
 	
 	/*--------ID E VAR. D'ISTANZA--------*/
 	@Id
@@ -38,7 +38,7 @@ public class User {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		User other = (User) obj;
+		Utente other = (Utente) obj;
 		return Objects.equals(cognome, other.cognome) && Objects.equals(email, other.email)
 				&& Objects.equals(nome, other.nome);
 	}
