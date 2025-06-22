@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+    <head>
+        <title>SiwBooks - Gestione Libri</title>
+        <!-- Link al file CSS esterno per lo stile dell'applicazione -->
+        <link rel="stylesheet" href="/css/stile4.css"/>
+    </head>
+    <body>
+        <!-- Header Principale (struttura simile alla Home) -->
+        <header class="main-header">
+            <div class="header-content">
+                <div class="logo">
+                    <span class="logo-icon">&#128218;</span> SIWBOOKS
+                    <span class="tagline">BOOK REVIEWS (Admin)</span>
+                </div>
+                <nav class="main-nav">
+                    <ul>
+                        <li><a th:href="@{/logout}">Logout</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </header>
+
+        <!-- Sezione Principale della Pagina di Gestione Libri -->
+        <main class="content-page-section">
+            <div class="page-header-content">
+                <h1>Gestione Libri</h1>
+                <a th:href="@{/}" class="back-to-home">Torna alla Home</a>
+            </div>
+
+            <!-- Barra di Ricerca per Titolo -->
+            <div class="search-bar">
+                <form th:action="@{/admin/manageBooks}" method="GET">
+                    <input type="text" name="title" placeholder="Cerca un libro per titolo...">
+                    <button type="submit">Cerca</button>
+                </form>
+            </div>
+
+            <!-- Sezione Azioni Amministratore -->
+            <div class="admin-actions-container">
+                <a th:href="@{/admin/addBookForm}" class="details-button">Aggiungi Nuovo Libro</a>
+                <!-- Puoi aggiungere altri pulsanti per altre azioni di gestione -->
+                <!-- <a th:href="@{/admin/manageAuthors}" class="details-button">Gestisci Autori</a> -->
+                <!-- <a th:href="@{/admin/manageReviews}" class="details-button">Gestisci Recensioni</a> -->
+            </div>
+
+            <!-- Griglia di Libri (simil-catalogo ma con opzioni admin) -->
+            <div class="item-grid book-grid">
+                <!-- Esempio di un libro (da popolare dinamicamente con Thymeleaf se c'è un backend) -->
+                <!-- th:each="book : ${books}" sarà usato in un vero scenario -->
+                <div th:each="book : ${books}" class="book-card-item">
+                    <img th:src="${book.immagini != null ? book.immagini[0].path : 'https://placehold.co/150x220/808080/FFFFFF?text=Copertina'}"
+                        alt="Copertina del libro" class="book-cover">
+                    <h3 th:text="${book.titolo}">Titolo del Libro di Esempio</h3>
+                    <p class="book-authors">
+                        <span th:each="autore, stat : ${book.autori}">
+                            <span th:text="${autore.nome + ' ' + autore.cognome}">Nome Cognome</span><span th:if="${!stat.last}">, </span>
+                        </span>
+                    </p>
+                    <div class="card-admin-actions">
+                        <a th:href="@{'/admin/books/edit/' + ${book.id}}" class="details-button edit-button">Modifica</a>
+                        <a th:href="@{'/admin/books/delete/' + ${book.id}}" class="details-button delete-button"
+                        onclick="return confirm('Sei sicuro di voler eliminare questo libro?');">Elimina</a>
+                    </div>
+                </div>
+
+                <!-- Messaggio se non ci sono libri -->
+                <div th:if="${books == null || books.isEmpty()}" class="no-items-found">
+                    Nessun libro trovato.
+                </div>
+            </div>
+        </main>
+
+        <!-- Footer Principale (stessa struttura della Home) -->
+        <footer class="main-footer">
+            <p>&copy; 2025 SIWBOOKS. </p>
+        </footer>
+    </body>
+</html>

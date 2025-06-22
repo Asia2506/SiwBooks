@@ -3,6 +3,7 @@ package it.uniroma3.siw.model;
 import java.util.List;
 import java.util.Objects;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -22,13 +23,13 @@ public class Libro {
 	
 	/*--------ASSOCIAZIONI--------*/
 	//una o più immagine
-	@OneToMany
+	@OneToMany(cascade = CascadeType.ALL)
 	List<Immagine> immagini;
 	//uno o più autori
 	@ManyToMany(mappedBy="libri")
 	List<Autore> autori;
 	//recensioni
-	@OneToMany(mappedBy="libro")
+	@OneToMany(mappedBy="libro",cascade = CascadeType.ALL)
 	List<Recensione> recenzioni;
 	
 	

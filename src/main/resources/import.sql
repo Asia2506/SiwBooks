@@ -9,19 +9,44 @@
 --    con le colonne 'id' configurate per la generazione automatica tramite sequenze (es. BIGSERIAL in PostgreSQL).
 
 
+--Inserimento dati per la tabella IMMAGINE
+INSERT INTO immagine (id,descrizione, path) VALUES (nextval('immagine_seq'),'Copertina di Cent''anni di solitudine', '/images/copertine/copertina100AnniSol.jpg');
+INSERT INTO immagine (id,descrizione, path) VALUES (nextval('immagine_seq'),'Copertina de Le città invisibili', '/images/copertine/copertinaLeCittaInv.jpg');
+INSERT INTO immagine (id,descrizione, path) VALUES (nextval('immagine_seq'),'Copertina de Il nome della rosa', '/images/copertine/copertinaIlNomeDellaRosa.jpg');
+INSERT INTO immagine (id,descrizione, path) VALUES (nextval('immagine_seq'),'Copertina di Orgoglio e pregiudizio', '/images/copertine/copertinaOrgEPreg.jpg');
+INSERT INTO immagine (id,descrizione, path) VALUES (nextval('immagine_seq'),'Copertina di Moby Dick', '/images/copertine/copertinaMobyDick.jpg');
+INSERT INTO immagine (id,descrizione, path) VALUES (nextval('immagine_seq'),'Copertina di Mrs Dalloway', '/images/copertine/copertinaMrsDalloway.jpg');
+INSERT INTO immagine (id,descrizione, path) VALUES (nextval('immagine_seq'),'Copertina di Delitto e castigo', '/images/copertine/copertinaDelECast.jpg');
+INSERT INTO immagine (id,descrizione, path) VALUES (nextval('immagine_seq'),'Copertina di Dieci piccoli indiani', '/images/copertine/copertina10PiccoliInd.jpg');
+INSERT INTO immagine (id,descrizione, path) VALUES (nextval('immagine_seq'),'Copertina de La metamorfosi', '/images/copertine/copertinaLaMetamorfosi.jpg');
+INSERT INTO immagine (id,descrizione, path) VALUES (nextval('immagine_seq'),'Copertina de Il Signore degli Anelli', '/images/copertine/copertinaIlSignDegliAnelli.jpg');
+INSERT INTO immagine (id,descrizione, path) VALUES (nextval('immagine_seq'),'Copertina de Lo Hobbit', '/images/copertine/copertinaLoHobbit.jpg');
+INSERT INTO immagine (id,descrizione, path) VALUES (nextval('immagine_seq'),'Copertina di Guerra e pace', '/images/copertine/copertinaGuerraEPace.jpeg');
+INSERT INTO immagine (id, descrizione, path) VALUES (nextval('immagine_seq'), 'Fotografia di Jane Austen', '/images/fotografie/austen.jpg');
+INSERT INTO immagine (id, descrizione, path) VALUES (nextval('immagine_seq'), 'Fotografia di Italo Calvino', '/images/fotografie/calvino.jpg');
+INSERT INTO immagine (id, descrizione, path) VALUES (nextval('immagine_seq'), 'Fotografia di Agatha Christie', '/images/fotografie/christie.jpg');
+INSERT INTO immagine (id, descrizione, path) VALUES (nextval('immagine_seq'), 'Fotografia di Fëdor Dostoevskij', '/images/fotografie/dostoevskij.jpg');
+INSERT INTO immagine (id, descrizione, path) VALUES (nextval('immagine_seq'), 'Fotografia di Umberto Eco', '/images/fotografie/eco.jpg');
+INSERT INTO immagine (id, descrizione, path) VALUES (nextval('immagine_seq'), 'Fotografia di Gabriel García Márquez', '/images/fotografie/garciaMarquez.jpg');
+INSERT INTO immagine (id, descrizione, path) VALUES (nextval('immagine_seq'), 'Fotografia di Franz Kafka', '/images/fotografie/kafka.jpg');
+INSERT INTO immagine (id, descrizione, path) VALUES (nextval('immagine_seq'), 'Fotografia di Herman Melville', '/images/fotografie/melville.jpg');
+INSERT INTO immagine (id, descrizione, path) VALUES (nextval('immagine_seq'), 'Fotografia di J.R.R. Tolkien', '/images/fotografie/tolkien.jpg');
+INSERT INTO immagine (id, descrizione, path) VALUES (nextval('immagine_seq'), 'Fotografia di Virginia Woolf', '/images/fotografie/woolf.jpg');
+
+
 
 -- Inserimento dati per la tabella AUTORE
 -- Gli ID saranno generati automaticamente dal database (es. tramite sequenze)
-INSERT INTO autore (id,nome, cognome, data_nascita, data_morte, nazionalita) VALUES (nextval('autore_seq'),'Gabriel', 'Garcia Marquez', '1927-03-06', '2014-04-17', 'colombiana');
-INSERT INTO autore (id,nome, cognome, data_nascita, data_morte, nazionalita) VALUES (nextval('autore_seq'),'Italo', 'Calvino', '1923-10-15', '1985-09-19', 'italiana');
-INSERT INTO autore (id,nome, cognome, data_nascita, data_morte, nazionalita) VALUES (nextval('autore_seq'),'Umberto', 'Eco', '1932-01-05', '2016-02-19', 'italiana');
-INSERT INTO autore (id,nome, cognome, data_nascita, data_morte, nazionalita) VALUES (nextval('autore_seq'),'Jane', 'Austen', '1775-12-16', '1817-07-18', 'britannica');
-INSERT INTO autore (id,nome, cognome, data_nascita, data_morte, nazionalita) VALUES (nextval('autore_seq'),'Herman', 'Melville', '1819-08-01', '1891-09-28', 'americana');
-INSERT INTO autore (id,nome, cognome, data_nascita, data_morte, nazionalita) VALUES (nextval('autore_seq'),'Virginia', 'Woolf', '1882-01-25', '1941-03-28', 'britannica');
-INSERT INTO autore (id,nome, cognome, data_nascita, data_morte, nazionalita) VALUES (nextval('autore_seq'),'Fyodor', 'Dostoevsky', '1821-11-11', '1881-02-09', 'russa');
-INSERT INTO autore (id,nome, cognome, data_nascita, data_morte, nazionalita) VALUES (nextval('autore_seq'),'Agatha', 'Christie', '1890-09-15', '1976-01-12', 'britannica');
-INSERT INTO autore (id,nome, cognome, data_nascita, data_morte, nazionalita) VALUES (nextval('autore_seq'),'Franz', 'Kafka', '1883-07-03', '1924-06-03', 'boema');
-INSERT INTO autore (id,nome, cognome, data_nascita, data_morte, nazionalita) VALUES (nextval('autore_seq'),'J.R.R.', 'Tolkien', '1892-01-03', '1973-09-02', 'britannica');
+INSERT INTO autore (id,nome, cognome, data_nascita, data_morte, nazionalita,fotografia_id) VALUES (nextval('autore_seq'),'Gabriel', 'Garcia Marquez', '1927-03-06', '2014-04-17', 'colombiana',(SELECT id FROM immagine WHERE descrizione='Fotografia di Gabriel García Márquez'));
+INSERT INTO autore (id,nome, cognome, data_nascita, data_morte, nazionalita,fotografia_id) VALUES (nextval('autore_seq'),'Italo', 'Calvino', '1923-10-15', '1985-09-19', 'italiana',(SELECT id FROM immagine WHERE descrizione='Fotografia di Italo Calvino'));
+INSERT INTO autore (id,nome, cognome, data_nascita, data_morte, nazionalita,fotografia_id) VALUES (nextval('autore_seq'),'Umberto', 'Eco', '1932-01-05', '2016-02-19', 'italiana',(SELECT id FROM immagine WHERE descrizione='Fotografia di Umberto Eco'));
+INSERT INTO autore (id,nome, cognome, data_nascita, data_morte, nazionalita,fotografia_id) VALUES (nextval('autore_seq'),'Jane', 'Austen', '1775-12-16', '1817-07-18', 'britannica',(SELECT id FROM immagine WHERE descrizione='Fotografia di Jane Austen'));
+INSERT INTO autore (id,nome, cognome, data_nascita, data_morte, nazionalita,fotografia_id) VALUES (nextval('autore_seq'),'Herman', 'Melville', '1819-08-01', '1891-09-28', 'americana',(SELECT id FROM immagine WHERE descrizione='Fotografia di Herman Melville'));
+INSERT INTO autore (id,nome, cognome, data_nascita, data_morte, nazionalita,fotografia_id) VALUES (nextval('autore_seq'),'Virginia', 'Woolf', '1882-01-25', '1941-03-28', 'britannica',(SELECT id FROM immagine WHERE descrizione='Fotografia di Virginia Woolf'));
+INSERT INTO autore (id,nome, cognome, data_nascita, data_morte, nazionalita,fotografia_id) VALUES (nextval('autore_seq'),'Fyodor', 'Dostoevsky', '1821-11-11', '1881-02-09', 'russa',(SELECT id FROM immagine WHERE descrizione='Fotografia di Fëdor Dostoevskij'));
+INSERT INTO autore (id,nome, cognome, data_nascita, data_morte, nazionalita,fotografia_id) VALUES (nextval('autore_seq'),'Agatha', 'Christie', '1890-09-15', '1976-01-12', 'britannica',(SELECT id FROM immagine WHERE descrizione='Fotografia di Agatha Christie'));
+INSERT INTO autore (id,nome, cognome, data_nascita, data_morte, nazionalita,fotografia_id) VALUES (nextval('autore_seq'),'Franz', 'Kafka', '1883-07-03', '1924-06-03', 'boema',(SELECT id FROM immagine WHERE descrizione='Fotografia di Franz Kafka'));
+INSERT INTO autore (id,nome, cognome, data_nascita, data_morte, nazionalita,fotografia_id) VALUES (nextval('autore_seq'),'J.R.R.', 'Tolkien', '1892-01-03', '1973-09-02', 'britannica',(SELECT id FROM immagine WHERE descrizione='Fotografia di J.R.R. Tolkien'));
 
 
 -- Inserimento dati per la tabella LIBRO
@@ -79,22 +104,6 @@ INSERT INTO autore_libri (autori_id, libri_id) VALUES ((SELECT id FROM autore WH
 
 
 
-INSERT INTO immagine (id,descrizione, path) VALUES (nextval('immagine_seq'),'Copertina di Cent''anni di solitudine', '/images/copertine/copertina100AnniSol.jpg');
-INSERT INTO immagine (id,descrizione, path) VALUES (nextval('immagine_seq'),'Copertina de Le città invisibili', '/images/copertine/copertinaLeCittaInv.jpg');
-INSERT INTO immagine (id,descrizione, path) VALUES (nextval('immagine_seq'),'Copertina de Il nome della rosa', '/images/copertine/copertinaIlNomeDellaRosa.jpg');
-INSERT INTO immagine (id,descrizione, path) VALUES (nextval('immagine_seq'),'Copertina di Orgoglio e pregiudizio', '/images/copertine/copertinaOrgEPreg.jpg');
-INSERT INTO immagine (id,descrizione, path) VALUES (nextval('immagine_seq'),'Copertina di Moby Dick', '/images/copertine/copertinaMobyDick.jpg');
-INSERT INTO immagine (id,descrizione, path) VALUES (nextval('immagine_seq'),'Copertina di Mrs Dalloway', '/images/copertine/copertinaMrsDalloway.jpg');
-INSERT INTO immagine (id,descrizione, path) VALUES (nextval('immagine_seq'),'Copertina di Delitto e castigo', '/images/copertine/copertinaDelECast.jpg');
-INSERT INTO immagine (id,descrizione, path) VALUES (nextval('immagine_seq'),'Copertina di Dieci piccoli indiani', '/images/copertine/copertina10PiccoliInd.jpg');
-INSERT INTO immagine (id,descrizione, path) VALUES (nextval('immagine_seq'),'Copertina de La metamorfosi', '/images/copertine/copertinaLaMetamorfosi.jpg');
-INSERT INTO immagine (id,descrizione, path) VALUES (nextval('immagine_seq'),'Copertina de Il Signore degli Anelli', '/images/copertine/copertinaIlSignDegliAnelli.jpg');
-INSERT INTO immagine (id,descrizione, path) VALUES (nextval('immagine_seq'),'Copertina de Lo Hobbit', '/images/copertine/copertinaLoHobbit.jpg');
-INSERT INTO immagine (id,descrizione, path) VALUES (nextval('immagine_seq'),'Copertina di Guerra e pace', '/images/copertine/copertinaGuerraEPace.jpeg');
-
-
-
-
 INSERT INTO libro_immagini (immagini_id, libro_id) VALUES ((SELECT id FROM immagine WHERE descrizione='Copertina di Cent''anni di solitudine'),(SELECT id FROM libro WHERE titolo='Cent''anni di solitudine'));
 INSERT INTO libro_immagini (immagini_id, libro_id) VALUES ((SELECT id FROM immagine WHERE descrizione='Copertina de Le città invisibili'),(SELECT id FROM libro WHERE titolo='Le città invisibili'));
 INSERT INTO libro_immagini (immagini_id, libro_id) VALUES ((SELECT id FROM immagine WHERE descrizione='Copertina de Il nome della rosa'),(SELECT id FROM libro WHERE titolo='Il nome della rosa'));
@@ -109,6 +118,10 @@ INSERT INTO libro_immagini (immagini_id, libro_id) VALUES ((SELECT id FROM immag
 INSERT INTO libro_immagini (immagini_id, libro_id) VALUES ((SELECT id FROM immagine WHERE descrizione='Copertina di Guerra e pace'),(SELECT id FROM libro WHERE titolo='Guerra e pace'));
 
 
+--CREO L'ADMIN
+INSERT INTO users (id, nome, cognome, data_nascita, luogo_nascita, email) VALUES (nextval('users_seq'), 'Asia', 'Fulvi', '25-06-2003', 'Roma', 'admin@gmail.com');
+INSERT INTO credentials (id, username, password, role, user_id) VALUES (nextval('credentials_seq'), 'asia25', '$2a$10$3xz1InFVQCU3kbTE625NYuInyA74bnRLc9ycPtcv9A/rHerSDk2Iq', 'ADMIN', (SELECT id FROM users WHERE nome='Asia' AND cognome='Fulvi' AND email='admin@gmail.com'));
+--$2a$10$3xz1InFVQCU3kbTE625NYuInyA74bnRLc9ycPtcv9A/rHerSDk2Iq
 
 
 

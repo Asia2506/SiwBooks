@@ -5,6 +5,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import it.uniroma3.siw.service.AutoreService;
 
@@ -16,8 +17,13 @@ public class AutoreController {
 	
 	
 	@GetMapping("/authors")
-	public String showAutors(Model model) {
-		model.addAttribute("authors",this.autoreService.getAllAutors());
+	public String showAutors(@RequestParam(value="surname",required=false) String cognome,Model model) {
+		
+		if(cognome!=null && !cognome.isEmpty()) 
+			model.addAttribute("authors",this.autoreService.getAllAuthorsBySurname(cognome));
+		else	
+			model.addAttribute("authors",this.autoreService.getAllAuthors());
+		
 		return "authors.html";
 	}
 	

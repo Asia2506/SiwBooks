@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+    <head>
+        <title>Registrazione Effettuata!</title>
+        <!-- Link al file CSS principale per mantenere la coerenza dello stile -->
+        <link rel="stylesheet" href="/css/stile4.css?version=2"/>
+    </head>
+    <body>
+        <!-- Header Principale (stessa struttura delle altre pagine) -->
+        <header class="main-header">
+            <div class="header-content">
+                <div class="logo">
+                    <span class="logo-icon">&#128218;</span> SIWBOOKS
+                    <span class="tagline">BOOK REVIEWS</span>
+                </div>
+                <nav class="main-nav">
+                    <ul>
+                        <li><a th:href="@{/login}">Login</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </header>
+
+        <!-- Sezione Principale della Pagina di Successo -->
+        <main class="content-page-section">
+            <div class="page-header-content">
+                <h1>Registrazione Effettuata!</h1>
+                <a th:href="@{/}" class="back-to-home">Torna alla Home</a>
+            </div>
+
+            <!-- Contenitore del Messaggio di Successo -->
+            <div class="form-container"> <!-- Riutilizzo del form-container per il layout centrato -->
+                <h3 class="success-message">Il tuo account è stato creato con successo!</h3>
+                <p>Ora puoi accedere con le tue credenziali.</p>
+                
+                <a th:href="@{/login}" class="submit-button">Accedi Ora</a>
+            </div>
+        </main>
+
+        <!-- Footer Principale (stessa struttura delle altre pagine) -->
+        <footer class="main-footer">
+            <p>&copy; 2025 SIWBOOKS. </p>
+        </footer>
+    </body>
+</html>

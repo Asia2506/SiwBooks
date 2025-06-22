@@ -2,7 +2,7 @@
 	<html lang="it" xmlns:th="http://www.thymeleaf.org">
 	<head>
 	    <title>SIWBOOKS</title>
-	    <link rel="stylesheet" href="/css/stile4.css?versione=4"/>
+	    <link rel="stylesheet" href="/css/stile4.css?versione=2"/>
 	 </head>
 	<body>
 	    <header class="main-header">
@@ -15,7 +15,7 @@
 	            <nav class="main-nav">
 	                <ul>
 	                    <li><a th:href="@{/login}">Login</a></li>
-	                    <li><a th:href="@{/Register}">Register</a></li>
+	                    <li><a th:href="@{/register}">Register</a></li>
 	                </ul>
 	            </nav>
 	        </div>
@@ -23,7 +23,7 @@
 	
 	    <main class="hero-section">
 	        <div class="hero-background"></div> <!-- Sfondo per l'effetto sfocato/artistico -->
-	        <div class="hero-text-content">
+	        <div class="hero-text-content-centered">
 	            <h1>Benvenuto in <br>SiwBooks!</h1>
 				<div class="card-container">
 	                <a th:href="@{/books}" class="card">

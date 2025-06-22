@@ -14,7 +14,7 @@ public class AutoreService {
 	
 	
 	
-	public Iterable<Autore> getAllAutors(){
+	public Iterable<Autore> getAllAuthors(){
 		return this.autoreRepository.findAll();
 	}
 	
@@ -22,5 +22,10 @@ public class AutoreService {
 	
 	public Autore getAuthorById(Long id) {
 		return this.autoreRepository.findById(id).orElse(null);
+	}
+	
+	
+	public Iterable<Autore> getAllAuthorsBySurname(String cognome){
+		return this.autoreRepository.findByCognomeContainingIgnoreCase(cognome);
 	}
 }

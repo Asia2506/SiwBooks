@@ -1,19 +1,22 @@
 /*
  * File: style.css
  * Descrizione: Foglio di stile principale per l'applicazione SiwBooks.
- * Include stili per la Home Page, i cataloghi (Libri e Autori) e le pagine di dettaglio.
+ * Questo file contiene gli stili generali, l'header, il footer,
+ * gli stili per le sezioni principali (home, cataloghi, dettagli)
+ * e le regole di responsività per adattarsi a diversi dispositivi.
  */
 
 /* ------------------------------------------- */
-/* Stili Generali e Reset */
-/* Queste regole assicurano una base pulita per il layout su tutti i browser. */
+/* 1. Stili Generali e Reset */
+/* Queste regole di base assicurano una resa consistente su tutti i browser e impostano il font. */
 /* ------------------------------------------- */
 html, body {
     height: 100%; /* Fa sì che l'elemento HTML e il Body occupino l'intera altezza del viewport. */
     margin: 0; /* Rimuove i margini predefiniti del browser. */
     padding: 0; /* Rimuove il padding predefinito del browser. */
-    overflow-x: hidden; /* Impedisce lo scorrimento orizzontale del body. */
-    /* Nota: Rimosso overflow: hidden dal body per la pagina libri in favore di overflow-y: auto sulla main.content-page-section */
+    overflow-x: hidden; /* Impedisce lo scorrimento orizzontale su qualsiasi pagina. */
+    /* overflow-y auto è gestito per la .content-page-section per il contenuto scorrevole. */
+    /* Nota: 'overflow: hidden' sul body è usato solo per la homepage per il layout a schermo intero (non in questo file principale). */
 }
 /* box-sizing: border-box assicura che padding e border siano inclusi nella dimensione dell'elemento, semplificando il layout. */
 *, *::before, *::after {
@@ -21,19 +24,19 @@ html, body {
 }
 body {
     font-family: Arial, sans-serif; /* Imposta il font principale. */
-    background-color: #f0f0f0; /* Sfondo generale chiaro (usato se non c'è uno sfondo più specifico). */
+    background-color: #f0f0f0; /* Sfondo generale chiaro per le pagine di contenuto. */
     color: #333; /* Colore del testo predefinito. */
     display: flex; /* Utilizza Flexbox per allineare l'header, il main e il footer in colonna. */
     flex-direction: column; /* Gli elementi Flexbox si dispongono in colonna. */
 }
 
-/* Stili per i link */
+/* Stili per i link generici */
 a {
     text-decoration: none; /* Rimuove la sottolineatura predefinita dei link. */
     color: inherit; /* I link ereditano il colore del testo genitore. */
 }
 
-/* Stili per le liste */
+/* Stili per le liste non ordinate (es. navigazione) */
 ul {
     list-style: none; /* Rimuove i pallini/numeri predefiniti delle liste. */
     padding: 0; /* Rimuove il padding predefinito delle liste. */
@@ -42,35 +45,37 @@ ul {
 
 
 /* ------------------------------------------- */
-/* Stili Header Principale */
-/* Header superiore con logo e navigazione, presente su tutte le pagine. */
+/* 2. Stili Header Principale */
+/* Header superiore della pagina, contiene il logo e i link di navigazione. */
+/* Presente su tutte le pagine dell'applicazione. */
 /* ------------------------------------------- */
 .main-header {
     background-color: #1E3A4D; /* Colore di sfondo scuro. */
-    color: #F8F8F8; /* Colore testo chiaro. */
-    padding: 15px 40px; /* Padding interno. */
+    color: #F8F8F8; /* Colore testo chiaro per un buon contrasto. */
+    padding: 15px 40px; /* Padding interno per spazio. */
     box-shadow: 0 2px 5px rgba(0,0,0,0.2); /* Leggera ombra sotto l'header. */
     width: 100%; /* Larghezza piena. */
-    flex-shrink: 0; /* Impedisce che l'header si rimpicciolisca in altezza. */
+    flex-shrink: 0; /* Impedisce che l'header si rimpicciolisca in altezza in layout flessibili. */
 }
 
 .header-content {
-    display: flex; /* Allinea logo e nav orizzontalmente. */
+    display: flex; /* Allinea il logo e la navigazione orizzontalmente. */
     justify-content: space-between; /* Sposta il logo a sinistra e la nav a destra. */
     align-items: center; /* Centra verticalmente gli elementi. */
-    max-width: 1200px; /* Larghezza massima. */
-    margin: 0 auto; /* Centra il contenuto dell'header. */
+    max-width: 1200px; /* Larghezza massima del contenuto dell'header per leggibilità. */
+    margin: 0 auto; /* Centra il contenuto dell'header orizzontalmente. */
 }
 
+/* Stili per il blocco del logo */
 .logo {
-    font-size: 1.5em; /* Dimensione del font per il logo testuale. */
+    font-size: 1.5em; /* Dimensione del font per il testo del logo. */
     font-weight: bold; /* Rende il testo del logo in grassetto. */
-    display: flex; /* Allinea l'icona e il testo del logo. */
+    display: flex; /* Allinea l'icona (simulata) e il testo del logo. */
     align-items: center; /* Centra verticalmente l'icona e il testo. */
 }
 
 .logo-icon {
-    font-size: 1.2em; /* Dimensione per l'icona del logo. */
+    font-size: 1.2em; /* Dimensione per l'icona del logo (es. emoji libro). */
     margin-right: 5px; /* Spazio tra l'icona e il testo. */
 }
 
@@ -81,7 +86,7 @@ ul {
     opacity: 0.8; /* Rende la tagline leggermente trasparente. */
 }
 
-/* Navigazione principale */
+/* Navigazione principale (link) */
 .main-nav ul {
     display: flex; /* Voci di navigazione in riga. */
     gap: 25px; /* Spazio tra le voci. */
@@ -95,10 +100,11 @@ ul {
     transition: color 0.3s ease; /* Transizione fluida per il cambio colore. */
 }
 
+/* Effetto sottolineatura animata per i link di navigazione */
 .main-nav a::after {
     content: ''; /* Elemento grafico per la sottolineatura. */
     position: absolute;
-    width: 0;
+    width: 0; /* Larghezza iniziale zero (invisibile). */
     height: 2px;
     background-color: #4DCDE1; /* Colore accento per la linea. */
     bottom: -5px; /* Posiziona la linea sotto il testo. */
@@ -116,19 +122,20 @@ ul {
 
 
 /* ------------------------------------------- */
-/* Stili Sezione Eroe (Hero Section) - Solo per la Home Page */
-/* Banner principale con immagine di sfondo e testo centrato. */
+/* 3. Stili Sezione Eroe (Hero Section) */
+/* Questa sezione è usata sia per la Home Page pubblica che per la Home dell'Amministratore. */
+/* Include uno sfondo e un contenuto centrato (titolo e card). */
 /* ------------------------------------------- */
 .hero-section {
-    position: relative; /* Contenitore per lo sfondo assoluto. */
+    position: relative; /* Contenitore per lo sfondo assoluto e per centrare il contenuto. */
     width: 100%; /* Larghezza piena. */
-    flex-grow: 1; /* Occupa tutto lo spazio verticale disponibile. */
+    flex-grow: 1; /* Occupa tutto lo spazio verticale disponibile tra header e footer. */
     display: flex; /* Centra il contenuto del testo e delle card. */
     align-items: center; /* Centra verticalmente. */
     justify-content: center; /* Centra orizzontalmente. */
-    color: #fff; /* Colore del testo. */
+    color: #fff; /* Colore del testo predefinito (bianco). */
     overflow: hidden; /* Nasconde l'overflow dello sfondo. */
-    text-align: center; /* Centra il testo all'interno. */
+    text-align: center; /* Centra il testo all'interno del suo contenitore. */
 }
 
 .hero-background {
@@ -137,15 +144,24 @@ ul {
     left: 0;
     width: 100%;
     height: 100%;
-    background-image: url('/images/sfondodali.png'); /* Immagine di sfondo. */
+    background-image: url('/images/sfondodali.png'); /* Immagine di sfondo predefinita (per Home Pubblica). */
     background-size: cover;
     background-position: center bottom;
-    z-index: -2;
-    filter: blur(1px) brightness(0.5); /* Sfocatura e oscuramento dell'immagine. */
+    z-index: -2; /* Mette lo sfondo dietro tutti gli altri contenuti. */
+    filter: blur(1px) brightness(0.5); /* Sfocatura e oscuramento dell'immagine per leggibilità del testo. */
 }
 
+/* Stile specifico per lo sfondo della Home Amministratore (override l'immagine con un colore). */
+.hero-background.admin-background-color {
+    background-image: none; /* Rimuove l'immagine di sfondo. */
+    background-color: #1E3A4D; /* Imposta un colore di sfondo solido. */
+    filter: none; /* Rimuove qualsiasi filtro. */
+    opacity: 0.9; /* Opacità per renderlo leggermente trasparente, simile alle card. */
+}
+
+/* Contenitore per il testo e le card al centro della sezione hero. */
 .hero-content-centered {
-    display: flex; /* Contenuto in colonna e centrato. */
+    display: flex; /* Contenuto disposto in colonna e centrato. */
     flex-direction: column;
     align-items: center;
     justify-content: center;
@@ -155,29 +171,31 @@ ul {
     z-index: 1; /* Assicura che il contenuto sia sopra lo sfondo. */
 }
 
-.hero-content-centered h1 {
+/* Stili per il titolo principale della sezione hero (h1 per home, h2 per admin home). */
+.hero-content-centered h1,
+.hero-content-centered h2 {
     font-size: 3.5em; /* Grande dimensione del font per il titolo. */
     margin-bottom: 30px; /* Spazio sotto il titolo. */
     line-height: 1.1; /* Altezza della riga. */
-    color: #F8F8F8; /* Colore del testo. */
+    color: #F8F8F8; /* Colore del testo (quasi bianco). */
     text-shadow: 2px 2px 4px rgba(0,0,0,0.5); /* Ombra per il testo per leggibilità. */
 }
 
-/* Contenitore per le "Flashcard" (Libri, Autori) nella Home Page */
+/* Contenitore per le card (es. Libri, Autori, Azioni Admin). */
 .card-container {
-    display: flex; /* Card allineate orizzontalmente. */
+    display: flex; /* Le card sono allineate orizzontalmente. */
     flex-direction: row; /* Disposizione in riga. */
     gap: 30px; /* Spazio tra le card. */
     justify-content: center; /* Centra le card orizzontalmente. */
     align-items: center; /* Centra le card verticalmente. */
-    flex-wrap: wrap; /* Permette alle card di andare a capo. */
+    flex-wrap: wrap; /* Permette alle card di andare a capo su schermi piccoli. */
     margin-top: 20px; /* Spazio sopra il contenitore. */
     width: 100%; /* Larghezza piena. */
 }
 
-/* Stili per le Singole Card nella Home Page */
+/* Stili per le singole card generiche (usate in home, admin home). */
 .card {
-    background-color: rgba(255, 255, 255, 0.9); /* Sfondo semi-trasparente. */
+    background-color: rgba(255, 255, 255, 0.9); /* Sfondo semi-trasparente per le card. */
     color: #333; /* Colore del testo. */
     padding: 25px; /* Padding interno. */
     border-radius: 10px; /* Bordi arrotondati. */
@@ -194,18 +212,22 @@ ul {
     flex-shrink: 0; /* Impedisce alle card di restringersi. */
 }
 
+/* Effetto hover per le card */
 .card:hover {
     transform: translateY(-10px); /* Le card si sollevano leggermente. */
     box-shadow: 0 12px 24px rgba(0,0,0,0.4); /* Ombra più intensa. */
 }
 
-.card h2 {
+/* Stili per i titoli all'interno delle card (h2 per home, h3 per admin home). */
+.card h2,
+.card h3 {
     margin-top: 0; /* Rimuove margine superiore. */
     margin-bottom: 15px; /* Spazio sotto il titolo. */
     font-size: 1.8em; /* Dimensione del font. */
     color: #006080; /* Colore accento. */
 }
 
+/* Stili per i paragrafi all'interno delle card */
 .card p {
     font-size: 1em; /* Dimensione del font. */
     color: #555; /* Colore del testo. */
@@ -214,42 +236,42 @@ ul {
 
 
 /* ------------------------------------------- */
-/* Stili Footer Principale */
+/* 4. Stili Footer Principale */
 /* Piè di pagina presente su tutte le pagine. */
 /* ------------------------------------------- */
 .main-footer {
-    background-color: #1E3A4D; /* Stesso colore dell'header. */
+    background-color: #1E3A4D; /* Stesso colore dell'header per coerenza. */
     color: #F8F8F8; /* Colore testo chiaro. */
     text-align: center; /* Centra il testo. */
     padding: 20px 0; /* Padding verticale. */
     font-size: 0.9em; /* Dimensione del font. */
-    flex-shrink: 0; /* Impedisce che il footer si restringa. */
+    flex-shrink: 0; /* Impedisce che il footer si restringa in layout flessibili. */
 }
 
 
 /* ------------------------------------------- */
-/* Stili Generici per Pagine di Contenuto (books.html, authors.html, book_details.html, author_details.html) */
-/* Classi riutilizzabili per layout e elementi comuni. */
+/* 5. Stili Generici per Pagine di Contenuto */
+/* Classi riutilizzabili per layout e elementi comuni di pagine come cataloghi, dettagli, login/registrazione e pannelli admin. */
 /* ------------------------------------------- */
 .content-page-section {
     flex-grow: 1; /* Occupa lo spazio verticale disponibile. */
     padding: 40px 20px; /* Padding interno. */
     background-color: #f8f8f8; /* Sfondo leggermente più chiaro. */
-    overflow-y: auto; /* Permette scorrimento verticale solo a questa sezione. */
+    overflow-y: auto; /* Permette lo scorrimento verticale solo a questa sezione se il contenuto è lungo. */
     -webkit-overflow-scrolling: touch; /* Migliora lo scorrimento su iOS. */
 }
 
-/* MODIFICATO: Layout per Titolo, Bottone "Torna alla Home" e Barra di Ricerca */
+/* Contenitore per il titolo della pagina e il pulsante "Torna alla Home". */
 .page-header-content {
-    display: flex;
+    display: flex; /* Allinea titolo e pulsante orizzontalmente. */
     flex-wrap: wrap; /* Consente agli elementi di andare a capo se non c'è spazio. */
-    justify-content: space-between; /* Spinge titolo/pulsante ai lati */
-    align-items: center; /* Centra verticalmente gli elementi */
-    margin-bottom: 0; /* Rimosso margine inferiore diretto per maggiore controllo */
-    max-width: 1200px; /* Larghezza massima */
-    margin-left: auto;
+    justify-content: space-between; /* Spinge titolo a sinistra, pulsante a destra. */
+    align-items: center; /* Centra verticalmente gli elementi. */
+    margin-bottom: 0; /* Rimosso margine inferiore diretto per maggiore controllo. */
+    max-width: 1200px; /* Larghezza massima. */
+    margin-left: auto; /* Centra orizzontalmente. */
     margin-right: auto;
-    gap: 15px; /* Spazio tra gli elementi sulla stessa riga */
+    gap: 15px; /* Spazio tra gli elementi sulla stessa riga. */
 }
 
 .page-header-content h1 {
@@ -257,15 +279,16 @@ ul {
     font-size: 2.5em; /* Dimensione del font. */
     margin: 0; /* Rimuove margini predefiniti. */
     text-shadow: none; /* Rimuove ombra. */
-    white-space: nowrap; /* Impedisce al titolo di andare a capo */
-    overflow: hidden; /* Nasconde l'overflow del testo */
-    text-overflow: ellipsis; /* Aggiunge i puntini di sospensione se il testo è troppo lungo */
-    flex-grow: 1; /* Permette al titolo di espandersi */
-    flex-shrink: 1; /* Permette al titolo di restringersi */
-    flex-basis: auto; /* Base flessibile automatica */
-    min-width: 0; /* Permette al titolo di restringersi al minimo assoluto prima di troncare */
+    white-space: nowrap; /* Impedisce al titolo di andare a capo. */
+    overflow: hidden; /* Nasconde l'overflow del testo. */
+    text-overflow: ellipsis; /* Aggiunge i puntini di sospensione se il testo è troppo lungo. */
+    flex-grow: 1; /* Permette al titolo di espandersi. */
+    flex-shrink: 1; /* Permette al titolo di restringersi. */
+    flex-basis: auto; /* Base flessibile automatica. */
+    min-width: 0; /* Permette al titolo di restringersi al minimo assoluto prima di troncare. */
 }
 
+/* Pulsante generico "Torna alla Home" o "Torna al Catalogo". */
 .back-to-home {
     background-color: #4DCDE1; /* Colore accento. */
     color: #fff; /* Colore testo. */
@@ -273,8 +296,8 @@ ul {
     border-radius: 5px; /* Bordi arrotondati. */
     font-weight: bold; /* Testo in grassetto. */
     transition: background-color 0.3s ease, transform 0.2s ease; /* Effetti hover. */
-    white-space: nowrap; /* Impedisce che il testo del pulsante vada a capo */
-    flex-shrink: 0; /* Impedisce al pulsante di restringersi */
+    white-space: nowrap; /* Impedisce che il testo del pulsante vada a capo. */
+    flex-shrink: 0; /* Impedisce al pulsante di restringersi. */
 }
 
 .back-to-home:hover {
@@ -282,536 +305,698 @@ ul {
     transform: translateY(-2px); /* Effetto leggero di sollevamento. */
 }
 
+/* Barra di ricerca generica (es. per libri, autori). */
 .search-bar {
-    width: 100%; /* La search bar occupa sempre la larghezza completa quando va a capo */
-    order: 2; /* Forza la search bar ad andare per ultima nell'ordine flex */
-    margin-top: 25px; /* Spazio superiore significativo per separarla da titolo/bottone */
-    margin-bottom: 30px; /* Spazio sotto la barra di ricerca */
+    width: 100%; /* La search bar occupa sempre la larghezza completa quando va a capo. */
+    order: 2; /* Forza la search bar ad andare per ultima nell'ordine flex (su schermi grandi). */
+    margin-top: 25px; /* Spazio superiore significativo per separarla da titolo/bottone. */
+    margin-bottom: 30px; /* Spazio sotto la barra di ricerca. */
     text-align: center; /* Centra il contenuto. */
 }
 
-/* Modifica il form della search bar per la flessibilità interna */
+/* Form all'interno della barra di ricerca. */
 .search-bar form {
-    display: flex;
-    justify-content: center;
-    gap: 10px;
-    max-width: 600px;
-    margin: 0 auto;
+    display: flex; /* Allinea input e button di ricerca. */
+    justify-content: center; /* Centra gli elementi. */
+    gap: 10px; /* Spazio tra gli elementi. */
+    max-width: 600px; /* Larghezza massima del form. */
+    margin: 0 auto; /* Centra il form. */
 }
 
 .search-bar input[type="text"] {
-    flex-grow: 1;
-    padding: 12px 15px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    font-size: 1em;
-    box-shadow: inset 0 1px 3px rgba(0,0,0,0.1);
+    flex-grow: 1; /* L'input di testo si espande. */
+    padding: 12px 15px; /* Padding interno. */
+    border: 1px solid #ccc; /* Bordo sottile. */
+    border-radius: 5px; /* Bordi arrotondati. */
+    font-size: 1em; /* Dimensione del font. */
+    box-shadow: inset 0 1px 3px rgba(0,0,0,0.1); /* Ombra interna. */
 }
 
 .search-bar button[type="submit"] {
-    background-color: #006080;
-    color: #fff;
-    padding: 12px 20px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 1em;
-    font-weight: bold;
-    transition: background-color 0.3s ease;
-    flex-shrink: 0;
+    background-color: #006080; /* Colore di sfondo. */
+    color: #fff; /* Colore testo. */
+    padding: 12px 20px; /* Padding interno. */
+    border: none; /* Rimuove il bordo. */
+    border-radius: 5px; /* Bordi arrotondati. */
+    cursor: pointer; /* Cursore puntatore. */
+    font-size: 1em; /* Dimensione del font. */
+    font-weight: bold; /* Testo in grassetto. */
+    transition: background-color 0.3s ease; /* Transizione colore. */
+    flex-shrink: 0; /* Impedisce al pulsante di restringersi. */
 }
 
 .search-bar button[type="submit"]:hover {
-    background-color: #1E3A4D;
+    background-color: #1E3A4D; /* Cambia colore all'hover. */
 }
 
-/* Griglia per gli elementi (es. libri, autori) */
+/* Contenitore per le azioni specifiche dell'amministratore (es. Aggiungi Nuovo Libro). */
+.admin-actions-container {
+    display: flex; /* Allinea i pulsanti orizzontalmente. */
+    justify-content: center; /* Centra i pulsanti. */
+    gap: 20px; /* Spazio tra i pulsanti. */
+    margin-bottom: 30px; /* Spazio sotto il contenitore. */
+    flex-wrap: wrap; /* Permette ai pulsanti di andare a capo. */
+}
+
+/* Contenitore per i pulsanti di modifica/eliminazione all'interno delle card admin. */
+.card-admin-actions {
+    display: flex; /* Impila i pulsanti modifica/elimina. */
+    flex-direction: column;
+    gap: 8px; /* Spazio tra i pulsanti. */
+    margin-top: 15px; /* Spazio sopra i pulsanti. */
+    width: 100%; /* I pulsanti occuperanno la larghezza della card. */
+}
+
+/* Stili per il pulsante "Modifica" (nelle card admin). */
+.edit-button {
+    background-color: #007bff; /* Esempio di colore per Modifica (blu). */
+}
+
+.edit-button:hover {
+    background-color: #0056b3; /* Colore più scuro all'hover. */
+}
+
+/* Stili per il pulsante "Elimina" (nelle card admin). */
+.delete-button {
+    background-color: #dc3545; /* Esempio di colore per Elimina (rosso). */
+}
+
+.delete-button:hover {
+    background-color: #c82333; /* Colore più scuro all'hover. */
+}
+
+/* Griglia per gli elementi in catalogo (es. libri, autori). */
 .item-grid, .book-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 30px;
-    max-width: 1200px;
-    margin: 0 auto;
-    padding-bottom: 40px;
+    display: grid; /* Layout a griglia responsiva. */
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); /* Colonne adattive. */
+    gap: 30px; /* Spazio tra le card. */
+    max-width: 1200px; /* Larghezza massima. */
+    margin: 0 auto; /* Centra la griglia. */
+    padding-bottom: 40px; /* Padding inferiore. */
 }
 
 
 /* ------------------------------------------- */
-/* Stili Specifici per le Card di Libri (books.html) */
+/* 6. Stili Specifici per le Card di Libri (books.html) */
+/* Definizione dell'aspetto delle singole card libro nel catalogo. */
 /* ------------------------------------------- */
 .book-card-item {
-    background-color: #fff;
-    border-radius: 10px;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-    text-align: center;
-    padding: 20px;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    display: flex;
+    background-color: #fff; /* Sfondo bianco. */
+    border-radius: 10px; /* Bordi arrotondati. */
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1); /* Ombra leggera. */
+    text-align: center; /* Centra il testo. */
+    padding: 20px; /* Padding interno. */
+    transition: transform 0.3s ease, box-shadow 0.3s ease; /* Effetti hover. */
+    display: flex; /* Contenuto in colonna e centrato. */
     flex-direction: column;
     align-items: center;
-    height: auto;
+    height: auto; /* Altezza automatica. */
+    min-height: 350px; /* Altezza minima per titoli lunghi e contenuto variabile. */
 }
 
+/* Effetto hover per le card libro */
 .book-card-item:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+    transform: translateY(-5px); /* La card si solleva. */
+    box-shadow: 0 8px 25px rgba(0,0,0,0.15); /* Ombra più pronunciata. */
 }
 
 .book-cover {
-    width: 150px;
-    height: 220px;
-    object-fit: cover;
-    border-radius: 5px;
-    margin-bottom: 15px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+    width: 150px; /* Larghezza fissa. */
+    height: 220px; /* Altezza fissa. */
+    object-fit: cover; /* Scala l'immagine per coprire l'area. */
+    border-radius: 5px; /* Bordi arrotondati. */
+    margin-bottom: 15px; /* Spazio sotto la copertina. */
+    box-shadow: 0 2px 8px rgba(0,0,0,0.2); /* Ombra per la copertina. */
 }
 
 .book-card-item h3 {
-    font-size: 1.3em;
-    color: #1E3A4D;
-    margin-bottom: 10px;
-    white-space: normal;
-    width: 100%;
+    font-size: 1.3em; /* Dimensione del font per il titolo del libro. */
+    color: #1E3A4D; /* Colore del titolo. */
+    margin-bottom: 10px; /* Spazio sotto il titolo. */
+    white-space: normal; /* Permette al testo di andare a capo. */
+    width: 100%; /* Larghezza piena. */
 }
 
 .book-authors {
-    font-size: 0.9em;
-    color: #555;
-    line-height: 1.4;
-    max-height: 3.2em;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
+    font-size: 0.9em; /* Dimensione del font per gli autori. */
+    color: #555; /* Colore del testo. */
+    line-height: 1.4; /* Altezza della riga. */
+    max-height: 3.2em; /* Limita a circa 2 righe. */
+    overflow: hidden; /* Nasconde il testo in eccesso. */
+    text-overflow: ellipsis; /* Aggiunge "..." se il testo è troncato. */
+    display: -webkit-box; /* Per il troncamento multi-linea. */
+    -webkit-line-clamp: 2; /* Trunca il testo dopo 2 righe. */
+    -webkit-box-orient: vertical; /* Orientamento verticale per il troncamento. */
 }
 
 
 /* ------------------------------------------- */
-/* Stili Specifici per le Card di Autori (authors.html) */
+/* 7. Stili Specifici per le Card di Autori (authors.html) */
+/* Definizione dell'aspetto delle singole card autore nel catalogo. */
 /* ------------------------------------------- */
 .author-card-item {
-    background-color: #fff;
-    border-radius: 10px;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-    text-align: center;
-    padding: 20px;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    display: flex;
+    background-color: #fff; /* Sfondo bianco. */
+    border-radius: 10px; /* Bordi arrotondati. */
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1); /* Ombra leggera. */
+    text-align: center; /* Centra il testo. */
+    padding: 20px; /* Padding interno. */
+    transition: transform 0.3s ease, box-shadow 0.3s ease; /* Effetti hover. */
+    display: flex; /* Contenuto in colonna e centrato. */
     flex-direction: column;
     align-items: center;
-    height: auto;
-    min-height: 300px;
+    height: auto; /* Altezza automatica. */
+    min-height: 300px; /* Altezza minima. */
 }
 
+/* Effetto hover per le card autore */
 .author-card-item:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+    transform: translateY(-5px); /* La card si solleva. */
+    box-shadow: 0 8px 25px rgba(0,0,0,0.15); /* Ombra più pronunciata. */
 }
 
 .author-photo {
-    width: 150px;
-    height: 150px;
-    object-fit: cover;
-    border-radius: 50%;
-    margin-bottom: 15px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+    width: 150px; /* Larghezza fissa. */
+    height: 150px; /* Altezza fissa. */
+    object-fit: cover; /* Scala l'immagine per coprire l'area. */
+    border-radius: 50%; /* Rende l'immagine circolare. */
+    margin-bottom: 15px; /* Spazio sotto la foto. */
+    box-shadow: 0 2px 8px rgba(0,0,0,0.2); /* Ombra per la foto. */
 }
 
 .author-card-item h3 {
-    font-size: 1.4em;
-    color: #1E3A4D;
-    margin-bottom: 5px;
-    white-space: normal;
-    width: 100%;
+    font-size: 1.4em; /* Dimensione del font per il nome dell'autore. */
+    color: #1E3A4D; /* Colore del titolo. */
+    margin-bottom: 5px; /* Spazio sotto il nome. */
+    white-space: normal; /* Permette al testo di andare a capo. */
+    width: 100%; /* Larghezza piena. */
 }
 
 .author-nationality {
-    font-size: 0.9em;
-    color: #555;
-    line-height: 1.4;
-    margin-bottom: 10px;
+    font-size: 0.9em; /* Dimensione del font per la nazionalità. */
+    color: #555; /* Colore del testo. */
+    line-height: 1.4; /* Altezza della riga. */
+    margin-bottom: 10px; /* Spazio tra nazionalità e pulsante Dettagli. */
 }
 
-/* Pulsante "Dettagli" (comune a libri e autori) */
+/* Pulsante "Dettagli" (comune a libri e autori nelle card di catalogo, e in altre sezioni). */
 .details-button {
-    background-color: #4DCDE1;
-    color: #fff;
-    padding: 8px 15px;
-    border-radius: 5px;
-    font-weight: bold;
-    margin-top: 15px;
-    transition: background-color 0.3s ease, transform 0.2s ease;
+    background-color: #4DCDE1; /* Colore accento. */
+    color: #fff; /* Colore testo. */
+    padding: 8px 15px; /* Padding interno. */
+    border-radius: 5px; /* Bordi arrotondati. */
+    font-weight: bold; /* Testo in grassetto. */
+    margin-top: 15px; /* Spazio superiore. */
+    transition: background-color 0.3s ease, transform 0.2s ease; /* Effetti hover. */
 }
 
 .details-button:hover {
-    background-color: #006080;
-    transform: translateY(-2px);
+    background-color: #006080; /* Cambia colore all'hover. */
+    transform: translateY(-2px); /* Effetto leggero di sollevamento. */
 }
 
-/* Messaggio "Nessun elemento trovato" */
+/* Messaggio mostrato quando nessun elemento è trovato in una griglia. */
 .no-items-found {
-    grid-column: 1 / -1;
-    text-align: center;
-    color: #666;
-    font-size: 1.2em;
-    padding: 50px 0;
+    grid-column: 1 / -1; /* Occupa tutte le colonne della griglia. */
+    text-align: center; /* Centra il testo. */
+    color: #666; /* Colore del testo. */
+    font-size: 1.2em; /* Dimensione del font. */
+    padding: 50px 0; /* Padding verticale. */
 }
 
 
 /* ------------------------------------------- */
-/* Stili Specifici per la Pagina Dettagli Libro (book_details.html) */
+/* 8. Stili Specifici per la Pagina Dettagli Libro (book_details.html) */
+/* Layout e aspetto per la visualizzazione dettagliata di un singolo libro. */
 /* ------------------------------------------- */
 .book-details-section {
-    padding-bottom: 60px;
+    padding-bottom: 60px; /* Padding extra in fondo alla sezione. */
 }
 
 .book-details-container {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 40px;
-    max-width: 1000px;
-    margin: 0 auto;
-    background-color: #fff;
-    border-radius: 10px;
-    box-shadow: 0 4px 20px rgba(0,0,0,0.1);
-    padding: 30px;
-    align-items: flex-start;
+    display: flex; /* Immagine e info affiancate. */
+    flex-wrap: wrap; /* Permette di andare a capo su schermi piccoli. */
+    gap: 40px; /* Spazio tra gli elementi. */
+    max-width: 1000px; /* Larghezza massima del contenitore. */
+    margin: 0 auto; /* Centrato. */
+    background-color: #fff; /* Sfondo bianco. */
+    border-radius: 10px; /* Bordi arrotondati. */
+    box-shadow: 0 4px 20px rgba(0,0,0,0.1); /* Ombra pronunciata. */
+    padding: 30px; /* Padding interno. */
+    align-items: flex-start; /* Allinea gli elementi in alto. */
 }
 
 .book-image-area {
-    flex: 0 0 300px;
-    max-width: 100%;
-    text-align: center;
+    flex: 0 0 300px; /* Larghezza fissa per l'immagine di copertina. */
+    max-width: 100%; /* Larghezza massima al 100%. */
+    text-align: center; /* Centra l'immagine. */
 }
 
 .book-detail-cover {
-    width: 100%;
-    max-width: 300px;
-    height: auto;
-    object-fit: contain;
-    border-radius: 8px;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+    width: 100%; /* L'immagine occupa la larghezza della sua area. */
+    max-width: 300px; /* Larghezza massima per evitare immagini troppo grandi. */
+    height: auto; /* Altezza automatica per mantenere le proporzioni. */
+    object-fit: contain; /* Contiene l'immagine all'interno dell'area. */
+    border-radius: 8px; /* Bordi arrotondati. */
+    box-shadow: 0 4px 10px rgba(0,0,0,0.15); /* Ombra per l'immagine. */
 }
 
 .book-info-area {
-    flex: 1;
-    min-width: 300px;
+    flex: 1; /* Occupa lo spazio rimanente. */
+    min-width: 300px; /* Larghezza minima. */
 }
 
 .book-info-area h2 {
-    color: #1E3A4D;
-    font-size: 2em;
-    margin-top: 0;
-    margin-bottom: 20px;
-    border-bottom: 2px solid #e0e0e0;
-    padding-bottom: 10px;
+    color: #1E3A4D; /* Colore del titolo della sezione dettagli. */
+    font-size: 2em; /* Dimensione del font. */
+    margin-top: 0; /* Rimuove margine superiore. */
+    margin-bottom: 20px; /* Spazio sotto il titolo. */
+    border-bottom: 2px solid #e0e0e0; /* Linea separatrice. */
+    padding-bottom: 10px; /* Padding sotto il titolo. */
 }
 
 .book-info-area p {
-    font-size: 1.1em;
-    line-height: 1.6;
-    margin-bottom: 15px;
+    font-size: 1.1em; /* Dimensione del font. */
+    line-height: 1.6; /* Altezza della riga. */
+    margin-bottom: 15px; /* Spazio sotto il paragrafo. */
 }
 
 .book-authors-section {
-    margin-top: 20px;
-    padding-top: 15px;
-    border-top: 1px dashed #e0e0e0;
+    margin-top: 20px; /* Spazio sopra la sezione autori. */
+    padding-top: 15px; /* Padding interno. */
+    border-top: 1px dashed #e0e0e0; /* Linea separatrice. */
 }
 
 .book-authors-section strong {
-    font-size: 1.1em;
-    color: #006080;
-    display: block;
-    margin-bottom: 10px;
+    font-size: 1.1em; /* Dimensione del font. */
+    color: #006080; /* Colore del testo. */
+    display: block; /* Fa andare a capo. */
+    margin-bottom: 10px; /* Spazio sotto il testo. */
 }
 
 .book-authors-list li {
-    display: inline;
-    font-size: 1.05em;
+    display: inline; /* Autori sulla stessa riga. */
+    font-size: 1.05em; /* Dimensione del font. */
 }
 
 .book-authors-list li a {
-    color: #4DCDE1;
-    font-weight: bold;
+    color: #4DCDE1; /* Colore link. */
+    font-weight: bold; /* Testo in grassetto. */
 }
 
 .book-authors-list li a:hover {
-    text-decoration: underline;
+    text-decoration: underline; /* Sottolineatura all'hover. */
 }
 
 .book-authors-list li + li::before {
-    content: ", ";
+    content: ", "; /* Virgola tra gli autori. */
 }
 
-/* Sezione per la galleria di immagini aggiuntive */
+/* Sezione per la galleria di immagini aggiuntive del libro. */
 .book-gallery {
-    max-width: 1000px;
-    margin: 40px auto 20px auto;
-    padding: 0 30px;
+    max-width: 1000px; /* Larghezza massima. */
+    margin: 40px auto 20px auto; /* Centrata con margini. */
+    padding: 0 30px; /* Padding laterale. */
 }
 
 .book-gallery h3 {
-    color: #1E3A4D;
-    font-size: 1.8em;
-    margin-bottom: 20px;
-    border-bottom: 2px solid #e0e0e0;
-    padding-bottom: 8px;
+    color: #1E3A4D; /* Colore del titolo. */
+    font-size: 1.8em; /* Dimensione del font. */
+    margin-bottom: 20px; /* Spazio sotto il titolo. */
+    border-bottom: 2px solid #e0e0e0; /* Linea separatrice. */
+    padding-bottom: 8px; /* Padding sotto il titolo. */
 }
 
+/* Griglia per le miniature della galleria. */
 .gallery-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-    gap: 15px;
+    display: grid; /* Griglia per le miniature. */
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); /* Colonne adattive. */
+    gap: 15px; /* Spazio tra le miniature. */
 }
 
 .gallery-thumb {
-    width: 100%;
-    height: 180px;
-    object-fit: cover;
-    border-radius: 8px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    width: 100%; /* Larghezza piena. */
+    height: 180px; /* Altezza fissa. */
+    object-fit: cover; /* Scala l'immagine per coprire l'area. */
+    border-radius: 8px; /* Bordi arrotondati. */
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1); /* Ombra leggera. */
+    transition: transform 0.2s ease, box-shadow 0.2s ease; /* Effetti hover. */
 }
 
 .gallery-thumb:hover {
-    transform: scale(1.05);
-    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    transform: scale(1.05); /* Effetto zoom all'hover. */
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2); /* Ombra più pronunciata. */
 }
 
+
 /* ------------------------------------------- */
-/* Stili per le Recensioni */
+/* 9. Stili per le Recensioni (book_details.html) */
+/* Stili specifici per la visualizzazione delle recensioni sulla pagina di dettaglio del libro. */
 /* ------------------------------------------- */
 .book-reviews-section {
-    max-width: 1000px;
-    margin: 40px auto 20px auto;
-    padding: 0 30px;
+    max-width: 1000px; /* Larghezza massima della sezione recensioni. */
+    margin: 40px auto 20px auto; /* Centrata con margini verticali. */
+    padding: 0 30px; /* Padding laterale. */
 }
 
 .book-reviews-section h3 {
-    color: #1E3A4D;
-    font-size: 1.8em;
-    margin-bottom: 20px;
-    border-bottom: 2px solid #e0e0e0;
-    padding-bottom: 8px;
+    color: #1E3A4D; /* Colore del titolo della sezione recensioni. */
+    font-size: 1.8em; /* Dimensione del font. */
+    margin-bottom: 20px; /* Spazio sotto il titolo. */
+    border-bottom: 2px solid #e0e0e0; /* Linea separatrice. */
+    padding-bottom: 8px; /* Padding sotto il titolo. */
 }
 
 .no-reviews-found {
-    text-align: center;
-    color: #666;
-    font-style: italic;
-    padding: 20px 0;
+    text-align: center; /* Centra il testo. */
+    color: #666; /* Colore del testo. */
+    font-style: italic; /* Testo in corsivo. */
+    padding: 20px 0; /* Padding verticale. */
 }
 
 .reviews-list {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 25px;
+    display: grid; /* Layout a griglia per le card di recensione. */
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* Colonne adattive. */
+    gap: 25px; /* Spazio tra le card di recensione. */
 }
 
 .review-card {
-    background-color: #fff;
-    border-radius: 8px;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.08);
-    padding: 20px;
-    display: flex;
+    background-color: #fff; /* Sfondo bianco per la card di recensione. */
+    border-radius: 8px; /* Bordi arrotondati. */
+    box-shadow: 0 2px 10px rgba(0,0,0,0.08); /* Ombra leggera. */
+    padding: 20px; /* Padding interno. */
+    display: flex; /* Contenuto in colonna. */
     flex-direction: column;
 }
 
 .review-card h4 {
-    color: #006080;
-    font-size: 1.2em;
-    margin-top: 0;
-    margin-bottom: 10px;
+    color: #006080; /* Colore del titolo della recensione. */
+    font-size: 1.2em; /* Dimensione del font. */
+    margin-top: 0; /* Rimuove margine superiore. */
+    margin-bottom: 10px; /* Spazio sotto il titolo. */
 }
 
 .review-rating {
-    margin-bottom: 10px;
+    margin-bottom: 10px; /* Spazio sotto le stelle. */
 }
 
 .review-rating .star {
-    font-size: 1.4em;
-    color: #FFD700;
+    font-size: 1.4em; /* Dimensione delle stelle. */
+    color: #FFD700; /* Colore oro per le stelle piene. */
 }
 
 .review-rating .star.empty {
-    color: #ccc;
+    color: #ccc; /* Colore grigio chiaro per le stelle vuote. */
 }
 
 .review-text {
-    font-size: 0.95em;
-    color: #444;
-    line-height: 1.5;
-    flex-grow: 1;
-    margin-bottom: 15px;
+    font-size: 0.95em; /* Dimensione del font per il testo della recensione. */
+    color: #444; /* Colore del testo. */
+    line-height: 1.5; /* Altezza della riga. */
+    flex-grow: 1; /* Permette al testo di occupare lo spazio disponibile. */
+    margin-bottom: 15px; /* Spazio sotto il testo. */
 }
 
 .review-date {
-    font-size: 0.8em;
-    color: #777;
-    text-align: right;
-    margin-top: auto;
+    font-size: 0.8em; /* Dimensione del font per la data. */
+    color: #777; /* Colore del testo. */
+    text-align: right; /* Allinea la data a destra. */
+    margin-top: auto; /* Spinge la data in fondo alla card. */
 }
 
 .no-images-found {
-    grid-column: 1 / -1;
-    text-align: center;
-    color: #666;
-    font-style: italic;
-    padding: 20px 0;
+    grid-column: 1 / -1; /* Occupa tutte le colonne. */
+    text-align: center; /* Centra il testo. */
+    color: #666; /* Colore del testo. */
+    font-style: italic; /* Testo in corsivo. */
+    padding: 20px 0; /* Padding verticale. */
 }
 
 
 /* ------------------------------------------- */
-/* Stili Specifici per la Pagina Dettagli Autore (author_details.html) */
+/* 10. Stili Specifici per la Pagina Dettagli Autore (author_details.html) */
+/* Layout e aspetto per la visualizzazione dettagliata di un singolo autore. */
 /* ------------------------------------------- */
 .author-details-section {
-    padding-bottom: 60px;
+    padding-bottom: 60px; /* Padding extra in fondo alla sezione. */
 }
 
 .author-details-container {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 40px;
-    max-width: 1000px;
-    margin: 0 auto;
-    background-color: #fff;
-    border-radius: 10px;
-    box-shadow: 0 4px 20px rgba(0,0,0,0.1);
-    padding: 30px;
-    align-items: flex-start;
+    display: flex; /* Foto e info autore affiancate. */
+    flex-wrap: wrap; /* Permette di andare a capo su schermi piccoli. */
+    gap: 40px; /* Spazio tra gli elementi. */
+    max-width: 1000px; /* Larghezza massima del contenitore. */
+    margin: 0 auto; /* Centrato. */
+    background-color: #fff; /* Sfondo bianco. */
+    border-radius: 10px; /* Bordi arrotondati. */
+    box-shadow: 0 4px 20px rgba(0,0,0,0.1); /* Ombra pronunciata. */
+    padding: 30px; /* Padding interno. */
+    align-items: flex-start; /* Allinea gli elementi in alto. */
 }
 
 .author-profile-image-area {
-    flex: 0 0 250px;
-    max-width: 100%;
-    text-align: center;
+    flex: 0 0 250px; /* Larghezza fissa per l'immagine del profilo. */
+    max-width: 100%; /* Larghezza massima al 100%. */
+    text-align: center; /* Centra l'immagine. */
 }
 
 .author-detail-photo {
-    width: 100%;
-    max-width: 250px;
-    height: auto;
-    object-fit: cover;
-    border-radius: 50%;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+    width: 100%; /* L'immagine occupa la larghezza della sua area. */
+    max-width: 250px; /* Larghezza massima. */
+    height: auto; /* Altezza automatica. */
+    object-fit: cover; /* Scala l'immagine per coprire l'area. */
+    border-radius: 50%; /* Rende l'immagine circolare. */
+    box-shadow: 0 4px 10px rgba(0,0,0,0.15); /* Ombra per la foto. */
 }
 
 .author-info-area {
-    flex: 1;
-    min-width: 300px;
+    flex: 1; /* Occupa lo spazio rimanente. */
+    min-width: 300px; /* Larghezza minima. */
 }
 
 .author-info-area h2 {
-    color: #1E3A4D;
-    font-size: 2em;
-    margin-top: 0;
-    margin-bottom: 20px;
-    border-bottom: 2px solid #e0e0e0;
-    padding-bottom: 10px;
+    color: #1E3A4D; /* Colore del titolo della sezione dettagli. */
+    font-size: 2em; /* Dimensione del font. */
+    margin-top: 0; /* Rimuove margine superiore. */
+    margin-bottom: 20px; /* Spazio sotto il titolo. */
+    border-bottom: 2px solid #e0e0e0; /* Linea separatrice. */
+    padding-bottom: 10px; /* Padding sotto il titolo. */
 }
 
 .author-info-area p {
-    font-size: 1.1em;
-    line-height: 1.6;
-    margin-bottom: 15px;
+    font-size: 1.1em; /* Dimensione del font. */
+    line-height: 1.6; /* Altezza della riga. */
+    margin-bottom: 15px; /* Spazio sotto il paragrafo. */
 }
 
-/* Sezione per i libri scritti dall'autore */
+/* Sezione per i libri scritti dall'autore. */
 .author-books-section {
-    max-width: 1000px;
-    margin: 40px auto 20px auto;
-    padding: 0 30px;
+    max-width: 1000px; /* Larghezza massima. */
+    margin: 40px auto 20px auto; /* Centrata con margini. */
+    padding: 0 30px; /* Padding laterale. */
 }
 
 .author-books-section h3 {
-    color: #1E3A4D;
-    font-size: 1.8em;
-    margin-bottom: 20px;
-    border-bottom: 2px solid #e0e0e0;
-    padding-bottom: 8px;
+    color: #1E3A4D; /* Colore del titolo della sezione libri. */
+    font-size: 1.8em; /* Dimensione del font. */
+    margin-bottom: 20px; /* Spazio sotto il titolo. */
+    border-bottom: 2px solid #e0e0e0; /* Linea separatrice. */
+    padding-bottom: 8px; /* Padding sotto il titolo. */
 }
 
-/* Stili per la lista dei libri dell'autore in formato riga (simil-tabella) */
+/* Stili per la lista dei libri dell'autore in formato riga (simil-tabella). */
 .books-table-list {
-    display: flex;
+    display: flex; /* Disposizione in colonna. */
     flex-direction: column;
-    border: 1px solid #e0e0e0;
-    border-radius: 8px;
-    overflow: hidden;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    border: 1px solid #e0e0e0; /* Bordo esterno. */
+    border-radius: 8px; /* Bordi arrotondati. */
+    overflow: hidden; /* Nasconde overflow. */
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05); /* Ombra leggera. */
 }
 
 .book-list-header, .author-book-row {
-    display: grid;
-    grid-template-columns: 2fr 2fr 1fr; /* Mantiene 3 colonne */
+    display: grid; /* Griglia per le colonne. */
+    grid-template-columns: 2fr 2fr 1fr; /* Mantiene 3 colonne (Titolo, Autori, Azioni). */
     align-items: center;
     padding: 12px 20px;
-    border-bottom: 1px solid #eee;
+    border-bottom: 1px solid #eee; /* Bordo inferiore per le righe. */
 }
 
 .book-list-header {
-    background-color: #f5f5f5;
-    font-weight: bold;
-    color: #1E3A4D;
-    border-bottom: 2px solid #e0e0e0;
+    background-color: #f5f5f5; /* Sfondo per l'intestazione della tabella. */
+    font-weight: bold; /* Testo in grassetto. */
+    color: #1E3A4D; /* Colore del testo. */
+    border-bottom: 2px solid #e0e0e0; /* Bordo inferiore più spesso. */
 }
 
 .author-book-row {
-    background-color: #fff;
+    background-color: #fff; /* Sfondo bianco per le righe. */
 }
 
 .author-book-row:nth-child(even) {
-    background-color: #fdfdfd;
+    background-color: #fdfdfd; /* Sfondo leggermente diverso per le righe pari (effetto zebra). */
 }
 
 .author-book-row:hover {
-    background-color: #f0f8ff;
+    background-color: #f0f8ff; /* Cambia sfondo all'hover. */
 }
 
 .book-row-title {
-    font-weight: bold;
-    color: #333;
+    font-weight: bold; /* Testo in grassetto. */
+    color: #333; /* Colore del testo. */
 }
 
 .book-row-authors {
-    font-size: 0.9em;
-    color: #555;
+    font-size: 0.9em; /* Dimensione del font. */
+    color: #555; /* Colore del testo. */
 }
 
 .book-row-authors span + span::before {
-    content: ", ";
+    content: ", "; /* Virgola tra gli autori. */
 }
 
 .book-row-actions {
-    text-align: right;
+    text-align: right; /* Allinea le azioni a destra. */
 }
 
+/* Pulsante "Dettagli" all'interno delle liste libri dell'autore. */
 .author-books-section .details-button {
-    margin-top: 0;
-    padding: 6px 12px;
-    font-size: 0.9em;
+    margin-top: 0; /* Rimuove margine superiore se presente. */
+    padding: 6px 12px; /* Riduci il padding. */
+    font-size: 0.9em; /* Riduci la dimensione del font. */
 }
 
-/* Messaggio se nessun libro trovato nella lista dell'autore */
+/* Messaggio se nessun libro è trovato nella lista dell'autore. */
 .no-books-found {
-    text-align: center;
-    color: #666;
-    font-style: italic;
-    padding: 20px 0;
+    text-align: center; /* Centra il testo. */
+    color: #666; /* Colore del testo. */
+    font-style: italic; /* Testo in corsivo. */
+    padding: 20px 0; /* Padding verticale. */
 }
 
 
 /* ------------------------------------------- */
-/* Media Queries per la Responsività */
+/* 11. Stili per Form (Login e Registrazione) */
+/* Stili per contenitori di form generici. */
+/* ------------------------------------------- */
+.form-container {
+    max-width: 500px; /* Larghezza massima del contenitore del form. */
+    margin: 40px auto; /* Centra il contenitore e aggiunge spazio. */
+    padding: 30px; /* Padding interno. */
+    background-color: #fff; /* Sfondo bianco. */
+    border-radius: 10px; /* Bordi arrotondati. */
+    box-shadow: 0 4px 20px rgba(0,0,0,0.1); /* Ombra leggera. */
+    text-align: center; /* Centra il testo. */
+}
+
+.form-container h1, .form-container h3 {
+    color: #1E3A4D; /* Colore del titolo. */
+    margin-bottom: 25px; /* Spazio sotto il titolo. */
+}
+
+/* Form di autenticazione (login/registrazione) */
+.auth-form {
+    display: flex; /* Disposizione in colonna. */
+    flex-direction: column;
+    gap: 15px; /* Spazio tra i campi del form. */
+}
+
+/* Gruppo di form (etichetta + input) */
+.form-group {
+    text-align: left; /* Allinea etichette e input a sinistra. */
+}
+
+.form-group label {
+    display: block; /* Ogni etichetta su una nuova riga. */
+    margin-bottom: 8px; /* Spazio sotto l'etichetta. */
+    font-weight: bold;
+    color: #555;
+}
+
+.form-group input[type="text"],
+.form-group input[type="password"],
+.form-group input[type="email"],
+.form-group input[type="date"],
+.form-group input[type="tel"] {
+    width: 100%; /* Larghezza piena dell'input. */
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 1em;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease; /* Transizioni per focus. */
+}
+
+/* Effetto focus sugli input del form */
+.form-group input:focus {
+    border-color: #4DCDE1; /* Bordo blu all'attivazione. */
+    box-shadow: 0 0 0 3px rgba(77, 205, 225, 0.2); /* Ombra per focus. */
+    outline: none; /* Rimuove l'outline predefinito del browser. */
+}
+
+/* Pulsante di invio del form */
+.submit-button {
+    background-color: #006080; /* Colore del pulsante di invio. */
+    color: #fff;
+    padding: 12px 25px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1.1em;
+    font-weight: bold;
+    margin-top: 20px; /* Spazio sopra il pulsante. */
+    transition: background-color 0.3s ease, transform 0.2s ease; /* Effetti hover. */
+}
+
+.submit-button:hover {
+    background-color: #1E3A4D; /* Colore più scuro all'hover. */
+    transform: translateY(-2px); /* Effetto leggero di sollevamento. */
+}
+
+/* Link di navigazione sotto il form (es. "Hai già un account? Accedi qui"). */
+.form-link {
+    margin-top: 25px; /* Spazio sopra il link. */
+    font-size: 0.9em;
+    color: #666;
+}
+
+.form-link a {
+    color: #4DCDE1; /* Colore del link. */
+    font-weight: bold;
+    text-decoration: underline;
+}
+
+.form-link a:hover {
+    color: #006080; /* Cambia colore all'hover. */
+}
+
+/* Messaggi di errore per i form. */
+.error-message {
+    color: #e74c3c; /* Rosso per gli errori. */
+    font-size: 0.85em;
+    margin-top: 5px;
+    text-align: left;
+    display: block; /* Assicurati che occupi la sua riga. */
+}
+
+/* Messaggi di successo per i form. */
+.success-message {
+    color: #27ae60; /* Verde per il successo. */
+    font-size: 0.9em;
+    margin-bottom: 15px;
+    text-align: center;
+}
+
+
+/* ------------------------------------------- */
+/* 12. Media Queries per la Responsività */
+/* Queste regole adattano il layout a diverse dimensioni dello schermo (desktop, tablet, smartphone). */
 /* ------------------------------------------- */
 
-/* Per schermi fino a 992px di larghezza (es. tablet orizzontale) */
+/* Per schermi fino a 992px di larghezza (es. tablet in orizzontale, laptop piccoli) */
 @media (max-width: 992px) {
     .main-header { padding: 10px 20px; }
     .main-nav ul { gap: 15px; }
-    .hero-content-centered h1 { font-size: 2.8em; }
+    .hero-content-centered h1,
+    .hero-content-centered h2 { font-size: 2.8em; } /* Aggiornato anche per h2. */
     .card { width: 220px; height: 180px; }
     .page-header-content h1 { font-size: 2em; }
     .back-to-home { padding: 8px 15px; font-size: 0.9em; }
@@ -832,7 +1017,7 @@ ul {
     .author-card-item { min-height: 260px; }
     /* Dettagli Libro */
     .book-details-container {
-        flex-direction: column;
+        flex-direction: column; /* Impila elementi. */
         align-items: center;
         gap: 25px;
         padding: 20px;
@@ -841,17 +1026,17 @@ ul {
     .book-info-area { min-width: unset; text-align: center; }
     .book-info-area h2 { font-size: 1.8em; }
     .book-info-area p { font-size: 1em; }
-    .book-authors-list li { display: block; }
-    .book-authors-list li + li::before { content: ""; }
+    .book-authors-list li { display: block; } /* Ogni autore su nuova riga. */
+    .book-authors-list li + li::before { content: ""; } /* Rimuove virgola. */
     .book-gallery { padding: 0 20px; }
     .book-gallery h3 { font-size: 1.6em; }
     .gallery-grid { grid-template-columns: repeat(auto-fit, minmax(100px, 1fr)); gap: 10px; }
     .gallery-thumb { height: 150px; }
     /* Recensioni */
-    .book-reviews-section { padding: 0 20px; }
-    .book-reviews-section h3 { font-size: 1.6em; }
-    .reviews-list { grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; }
-    .review-card { padding: 15px; }
+    .book-reviews-section { padding: 0 20px; } /* Riduci padding. */
+    .book-reviews-section h3 { font-size: 1.6em; } /* Riduci dimensione titolo. */
+    .reviews-list { grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; } /* Adatta colonne. */
+    .review-card { padding: 15px; } /* Riduci padding card recensione. */
     /* Dettagli Autore */
     .author-details-container {
         flex-direction: column;
@@ -868,6 +1053,15 @@ ul {
     .books-table-list { border-radius: 5px; }
     .book-list-header, .author-book-row { padding: 10px 15px; }
     .author-books-section .details-button { padding: 5px 10px; font-size: 0.8em; }
+    /* Stili per Form */
+    .form-container {
+        margin: 20px auto;
+        padding: 20px;
+    }
+    .submit-button {
+        padding: 10px 20px;
+        font-size: 1em;
+    }
 }
 
 /* Per schermi fino a 768px di larghezza (es. tablet verticale, smartphone grandi) */
@@ -875,35 +1069,35 @@ ul {
     .header-content { flex-direction: column; gap: 10px; }
     .main-nav ul { flex-wrap: wrap; justify-content: center; gap: 10px; }
     .main-nav a { font-size: 0.9em; }
-    .hero-content-centered h1 { font-size: 2.2em; }
-    .card-container { flex-direction: column; gap: 20px; }
+    .hero-content-centered h1,
+    .hero-content-centered h2 { font-size: 2.2em; } /* Aggiornato anche per h2. */
     .card { width: 80%; height: auto; min-height: 160px; }
     .content-page-section { padding: 20px 10px; }
 
-    /* MODIFICATO: Forza titolo e bottone sulla stessa riga, sposta search-bar sotto */
+    /* Forza titolo e bottone sulla stessa riga, sposta search-bar sotto */
     .page-header-content {
-        flex-direction: row; /* Mantieni in riga gli elementi principali */
+        flex-direction: row; /* Mantieni in riga gli elementi principali. */
         align-items: center;
         justify-content: space-between;
-        flex-wrap: wrap; /* Consenti il wrapping solo se strettamente necessario (per search-bar) */
+        flex-wrap: wrap; /* Consenti il wrapping solo se strettamente necessario (per search-bar). */
     }
     .page-header-content h1 {
-        font-size: 1.6em; /* Riduci il font per il titolo */
-        max-width: 60%; /* Lascia spazio al pulsante */
-        flex-basis: auto; /* Adatta la base flessibile */
-        order: 0; /* Ordine normale */
+        font-size: 1.6em; /* Riduci il font per il titolo. */
+        max-width: 60%; /* Lascia spazio al pulsante. */
+        flex-basis: auto; /* Adatta la base flessibile. */
+        order: 0; /* Ordine normale. */
     }
     .back-to-home {
-        padding: 6px 12px; /* Riduci padding del pulsante */
-        font-size: 0.8em; /* Riduci font del pulsante */
-        order: 1; /* Posiziona il pulsante dopo il titolo ma prima della search-bar se wrappa */
+        padding: 6px 12px; /* Riduci padding del pulsante. */
+        font-size: 0.8em; /* Riduci font del pulsante. */
+        order: 1; /* Posiziona il pulsante dopo il titolo ma prima della search-bar se wrappa. */
     }
     .search-bar {
-        width: 100%; /* La search bar va sempre su una nuova riga */
-        margin-top: 20px; /* Aumenta lo spazio sopra la search bar */
-        order: 2; /* Forza la search bar ad andare per ultima */
+        width: 100%; /* La search bar va sempre su una nuova riga. */
+        margin-top: 20px; /* Aumenta lo spazio sopra la search bar. */
+        order: 2; /* Forza la search bar ad andare per ultima. */
     }
-    .search-bar form { flex-direction: row; align-items: center; justify-content: center; } /* Mantieni riga per search bar */
+    .search-bar form { flex-direction: row; align-items: center; justify-content: center; } /* Mantieni riga per search bar. */
     .search-bar input[type="text"] { width: 70%; margin-bottom: 0; }
     .search-bar button[type="submit"] { width: auto; }
 
@@ -930,19 +1124,29 @@ ul {
     .gallery-thumb { height: 120px; }
     /* Recensioni */
     .book-reviews-section h3 { font-size: 1.4em; }
-    .reviews-list { grid-template-columns: 1fr; }
+    .reviews-list { grid-template-columns: 1fr; } /* Singola colonna su mobile. */
     .review-card { padding: 12px; }
     /* Dettagli Autore */
     .author-profile-image-area { max-width: 150px; }
     .author-info-area h2 { font-size: 1.6em; }
     .author-info-area p { font-size: 1em; }
     .author-books-section h3 { font-size: 1.4em; }
-    .book-list-header, .author-book-row {
-        grid-template-columns: 2fr 2fr 0.8fr;
+    .books-table-list {
+        grid-template-columns: 2fr 2fr 0.8fr; /* Regola le proporzioni delle colonne. */
         padding: 8px 10px;
         font-size: 0.9em;
     }
     .author-books-section .details-button { padding: 5px 8px; font-size: 0.75em; }
+    /* Stili per Form */
+    .form-container {
+        margin: 20px auto;
+        padding: 20px;
+        width: 90%; /* Occupa più larghezza. */
+    }
+    .submit-button {
+        padding: 10px 20px;
+        font-size: 1em;
+    }
 }
 
 /* Per schermi fino a 480px di larghezza (es. smartphone) */
@@ -950,27 +1154,29 @@ ul {
     .main-header { padding: 10px 15px; }
     .logo { font-size: 1.2em; }
     .tagline { display: none; }
-    .hero-content-centered h1 { font-size: 1.8em; margin-bottom: 20px; }
+    .hero-content-centered h1,
+    .hero-content-centered h2 { font-size: 1.8em; margin-bottom: 20px; } /* Aggiornato anche per h2. */
     .card-container { gap: 15px; }
     .card { width: 90%; min-height: 140px; }
-    .card h2 { font-size: 1.5em; }
+    .card h2,
+    .card h3 { font-size: 1.5em; } /* Aggiornato anche per h3. */
     .card p { font-size: 0.9em; }
 
-    /* MODIFICATO: Ulteriori adattamenti per schermi molto stretti */
+    /* Ulteriori adattamenti per schermi molto stretti */
     .page-header-content h1 {
-        font-size: 1.2em; /* Ulteriore riduzione del font per il titolo */
-        max-width: 55%; /* Limita ancora di più la larghezza del titolo */
+        font-size: 1.2em; /* Ulteriore riduzione del font per il titolo. */
+        max-width: 55%; /* Limita ancora di più la larghezza del titolo. */
     }
     .back-to-home {
-        padding: 4px 8px; /* Riduci ulteriormente padding del pulsante */
-        font-size: 0.7em; /* Riduci ulteriormente font del pulsante */
+        padding: 4px 8px; /* Riduci ulteriormente padding del pulsante. */
+        font-size: 0.7em; /* Riduci ulteriormente font del pulsante. */
     }
-    .search-bar form { flex-direction: column; align-items: center; } /* Impila input e pulsante di ricerca */
+    .search-bar form { flex-direction: column; align-items: center; } /* Impila input e pulsante di ricerca. */
     .search-bar input[type="text"] { width: 90%; margin-bottom: 10px; }
     .search-bar button[type="submit"] { width: 50%; }
 
     .item-grid, .book-grid {
-        grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+        grid-template-columns: 1fr; /* Una colonna singola per elementi in griglia. */
         gap: 10px;
     }
     /* Libri */
@@ -996,30 +1202,30 @@ ul {
     .review-card { padding: 10px; }
     .review-text { font-size: 0.9em; }
     .review-date { font-size: 0.75em; }
-    /* Dettagli Autore - Righe come "card" verticali */
+    /* Dettagli Autore - Le righe della "tabella" diventano "card" verticali. */
     .author-profile-image-area { max-width: 120px; }
     .author-info-area h2 { font-size: 1.4em; }
     .author-info-area p { font-size: 0.9em; }
     .author-books-section h3 { font-size: 1.2em; }
     .books-table-list {
-        border: none;
-        box-shadow: none;
+        border: none; /* Rimuovi bordo esterno. */
+        box-shadow: none; /* Rimuovi ombra esterna. */
     }
     .book-list-header {
-        display: none;
+        display: none; /* Nascondi l'intestazione della tabella. */
     }
     .author-book-row {
-        display: flex;
+        display: flex; /* Disposizione flessibile in colonna. */
         flex-direction: column;
         align-items: flex-start;
         padding: 10px 15px;
-        border: 1px solid #eee;
+        border: 1px solid #eee; /* Aggiungi bordo per singola "card". */
         border-radius: 8px;
         margin-bottom: 10px;
-        box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        box-shadow: 0 2px 5px rgba(0,0,0,0.05); /* Ombra leggera. */
     }
     .author-book-row:last-child {
-        border-bottom: 1px solid #eee;
+        border-bottom: 1px solid #eee; /* Assicurati un bordo inferiore. */
     }
     .book-row-title {
         width: 100%;
@@ -1042,18 +1248,28 @@ ul {
         display: inline-block;
         margin-top: 0;
     }
+    /* Stili per Form */
+    .form-container {
+        padding: 15px;
+    }
+    .form-group input {
+        padding: 10px;
+    }
+    .submit-button {
+        padding: 10px 15px;
+    }
 }
 
-/* Regolazione per schermi con altezza limitata (pagine di catalogo e dettagli) */
+/* Regolazione per schermi con altezza limitata (es. smartphone in orizzontale) */
 @media (max-height: 700px) {
     .content-page-section { padding: 20px 10px; }
     .page-header-content { margin-bottom: 20px; }
     .item-grid, .book-grid { gap: 15px; }
     /* Libri */
     .book-cover { width: 100px; height: 150px; }
-    .book-card-item { min-height: 250px; }
     .book-card-item h3 { font-size: 1.2em; }
     .book-authors { font-size: 0.8em; }
+    .book-card-item { min-height: 250px; }
     /* Autori */
     .author-photo { width: 100px; height: 100px; }
     .author-card-item h3 { font-size: 1.2em; }
@@ -1077,4 +1293,9 @@ ul {
     .books-table-list { border-radius: 5px; }
     .book-list-header, .author-book-row { padding: 10px 15px; }
     .author-books-section .details-button { padding: 5px 10px; font-size: 0.8em; }
+    /* Stili per Form */
+    .form-container {
+        margin: 20px auto;
+        padding: 20px;
+    }
 }

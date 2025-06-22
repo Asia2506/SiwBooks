@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.Objects;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -27,7 +28,7 @@ public class Autore {
 	
 	/*--------ASSOCIAZIONI--------*/
 	//fotografia
-	@OneToOne
+	@OneToOne(cascade = CascadeType.ALL)
 	Immagine fotografia;
 	//libri scritti
 	@ManyToMany

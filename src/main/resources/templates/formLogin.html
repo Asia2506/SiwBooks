@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+    <head>
+        <title>SiwBooks - Login</title>
+        <!-- Link al file CSS principale per mantenere la coerenza dello stile -->
+        <link rel="stylesheet" href="/css/stile4.css?version=2"/>
+    </head>
+    <body>
+        <!-- Header Principale (stessa struttura della Home) -->
+        <header class="main-header">
+            <div class="header-content">
+                <div class="logo">
+                    <span class="logo-icon">&#128218;</span> SIWBOOKS
+                    <span class="tagline">BOOK REVIEWS</span>
+                </div>
+                <!--<nav class="main-nav">
+                    <ul>
+                         Non mostriamo Login/Registrazione qui, dato che siamo già sulla pagina di login 
+                        <li><a th:href="@{/}">Home</a></li>
+                    </ul>
+                </nav>-->
+            </div>
+        </header>
+
+        <!-- Sezione Principale della Pagina di Login -->
+        <main class="content-page-section">
+            <div class="page-header-content">
+                <h1>Login</h1>
+                <a th:href="@{/}" class="back-to-home">Torna alla Home</a>
+            </div>
+            <!-- Contenitore del Form di Login -->
+            <div class="form-container">
+                <!-- Messaggio di errore se il login fallisce -->
+                <div th:if="${param.error}" class="error-message">
+                    Nome utente o password non validi.
+                </div>
+                <!-- Messaggio di successo dopo la registrazione -->
+                <div th:if="${param.logout}" class="success-message">
+                    Logout effettuato con successo.
+                </div>
+
+                <form th:action="@{/login}" method="post" class="auth-form">
+                    <div class="form-group">
+                        <label for="username">Username:</label>
+                        <input type="text" id="username" name="username" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Password:</label>
+                        <input type="password" id="password" name="password" required>
+                    </div>
+                    <button type="submit" class="submit-button">Accedi</button>
+                </form>
+                
+                <p class="form-link">Non hai un account? <a th:href="@{/register}">Registrati qui</a></p>
+            </div>
+        </main>
+
+        <!-- Footer Principale (stessa struttura della Home) -->
+        <footer class="main-footer">
+            <p>&copy; 2025 SIWBOOKS. </p>
+        </footer>
+    </body>
+</html>

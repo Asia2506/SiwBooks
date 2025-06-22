@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 	<head>
 	    <title>SiwBooks - Autori</title>
-	    <link rel="stylesheet" href="/css/stile4.css?versione=4"/>
+	    <link rel="stylesheet" href="/css/stile4.css?versione=2"/>
 	</head>
 	<body>
 	    <!-- Header Principale (struttura simile alla Home) -->
@@ -30,7 +30,7 @@
 	
 	        <!-- Barra di Ricerca per Cognome -->
 	        <div class="search-bar">
-	            <form th:action="@{/findAutorByNameAndSurname}" method="GET"> <!-- L'azione punta allo stesso endpoint /books -->
+	            <form th:action="@{/authors}" method="GET"> <!-- L'azione punta allo stesso endpoint /books -->
 	                <input type="text" name="surname" placeholder="Cerca un autore per cognome..." >
 	                <button type="submit">Cerca</button>
 	            </form>
@@ -40,7 +40,7 @@
 	        <div class="item-grid">
 	            <!-- Itera sulla lista di libri fornita dal controller -->
 	            <div th:each="author : ${authors}" class="author-card-item">
-	                <img th:src="${author.fotografia != null ? author.fotografia : 'https://placehold.co/150x220/808080/FFFFFF?text=Fotografia'}"
+	                <img th:src="${author.fotografia != null ? author.fotografia.path : 'https://placehold.co/150x220/808080/FFFFFF?text=Fotografia'}"
 	                     alt="Fotografia autore" class="book-cover">
 	                <h3 th:text="${author.nome+' '+author.cognome}">Nome e Cognome autore</h3>
 	                <!-- Potresti aggiungere un link per i dettagli del libro qui -->
