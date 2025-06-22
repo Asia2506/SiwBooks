@@ -1,113 +1,134 @@
+/*
+ * File: style.css
+ * Descrizione: Foglio di stile principale per l'applicazione SiwBooks.
+ * Include stili per la Home Page, i cataloghi (Libri e Autori) e le pagine di dettaglio.
+ */
+
+/* ------------------------------------------- */
 /* Stili Generali e Reset */
+/* Queste regole assicurano una base pulita per il layout su tutti i browser. */
+/* ------------------------------------------- */
 html, body {
-    height: 100%; /* Assicura che html e body occupino l'intera altezza del viewport */
-    margin: 0;
-    padding: 0;
-    overflow: hidden; /* Impedisce lo scorrimento del body */
+    height: 100%; /* Fa sì che l'elemento HTML e il Body occupino l'intera altezza del viewport. */
+    margin: 0; /* Rimuove i margini predefiniti del browser. */
+    padding: 0; /* Rimuove il padding predefinito del browser. */
+    overflow-x: hidden; /* Impedisce lo scorrimento orizzontale del body. */
+    /* Nota: Rimosso overflow: hidden dal body per la pagina libri in favore di overflow-y: auto sulla main.content-page-section */
 }
+/* box-sizing: border-box assicura che padding e border siano inclusi nella dimensione dell'elemento, semplificando il layout. */
 *, *::before, *::after {
     box-sizing: border-box;
 }
 body {
-    font-family: Arial, sans-serif;
-    background-color: #f0f0f0; /* Sfondo generale chiaro */
-    color: #333;
-    display: flex; /* Permette a header, main, footer di dividere lo spazio */
-    flex-direction: column;
+    font-family: Arial, sans-serif; /* Imposta il font principale. */
+    background-color: #f0f0f0; /* Sfondo generale chiaro (usato se non c'è uno sfondo più specifico). */
+    color: #333; /* Colore del testo predefinito. */
+    display: flex; /* Utilizza Flexbox per allineare l'header, il main e il footer in colonna. */
+    flex-direction: column; /* Gli elementi Flexbox si dispongono in colonna. */
 }
 
+/* Stili per i link */
 a {
-    text-decoration: none;
-    color: inherit;
+    text-decoration: none; /* Rimuove la sottolineatura predefinita dei link. */
+    color: inherit; /* I link ereditano il colore del testo genitore. */
 }
 
+/* Stili per le liste */
 ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
+    list-style: none; /* Rimuove i pallini/numeri predefiniti delle liste. */
+    padding: 0; /* Rimuove il padding predefinito delle liste. */
+    margin: 0; /* Rimuove i margini predefiniti delle liste. */
 }
 
+
+/* ------------------------------------------- */
 /* Stili Header Principale */
+/* Header superiore con logo e navigazione, presente su tutte le pagine. */
+/* ------------------------------------------- */
 .main-header {
-    background-color: #1E3A4D; /* Blu scuro/grigio dal tema del mare/cielo */
-    color: #F8F8F8; /* Testo quasi bianco */
-    padding: 15px 40px;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-    width: 100%;
-    flex-shrink: 0;
+    background-color: #1E3A4D; /* Colore di sfondo scuro. */
+    color: #F8F8F8; /* Colore testo chiaro. */
+    padding: 15px 40px; /* Padding interno. */
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2); /* Leggera ombra sotto l'header. */
+    width: 100%; /* Larghezza piena. */
+    flex-shrink: 0; /* Impedisce che l'header si rimpicciolisca in altezza. */
 }
 
 .header-content {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    max-width: 1200px;
-    margin: 0 auto;
+    display: flex; /* Allinea logo e nav orizzontalmente. */
+    justify-content: space-between; /* Sposta il logo a sinistra e la nav a destra. */
+    align-items: center; /* Centra verticalmente gli elementi. */
+    max-width: 1200px; /* Larghezza massima. */
+    margin: 0 auto; /* Centra il contenuto dell'header. */
 }
 
 .logo {
-    font-size: 1.5em;
-    font-weight: bold;
-    display: flex;
-    align-items: center;
+    font-size: 1.5em; /* Dimensione del font per il logo testuale. */
+    font-weight: bold; /* Rende il testo del logo in grassetto. */
+    display: flex; /* Allinea l'icona e il testo del logo. */
+    align-items: center; /* Centra verticalmente l'icona e il testo. */
 }
 
 .logo-icon {
-    font-size: 1.2em;
-    margin-right: 5px;
+    font-size: 1.2em; /* Dimensione per l'icona del logo. */
+    margin-right: 5px; /* Spazio tra l'icona e il testo. */
 }
 
 .tagline {
-    font-size: 0.7em;
-    font-weight: normal;
-    margin-left: 10px;
-    opacity: 0.8;
+    font-size: 0.7em; /* Dimensione più piccola per lo slogan. */
+    font-weight: normal; /* Font normale. */
+    margin-left: 10px; /* Spazio tra il nome del sito e la tagline. */
+    opacity: 0.8; /* Rende la tagline leggermente trasparente. */
 }
 
+/* Navigazione principale */
 .main-nav ul {
-    display: flex;
-    gap: 25px;
+    display: flex; /* Voci di navigazione in riga. */
+    gap: 25px; /* Spazio tra le voci. */
 }
 
 .main-nav a {
-    color: #F8F8F8; /* Testo quasi bianco */
-    font-weight: 600;
-    padding: 5px 0;
-    position: relative;
-    transition: color 0.3s ease;
+    color: #F8F8F8; /* Colore del testo. */
+    font-weight: 600; /* Leggermente più grassetto. */
+    padding: 5px 0; /* Padding verticale. */
+    position: relative; /* Per posizionare la sottolineatura animata. */
+    transition: color 0.3s ease; /* Transizione fluida per il cambio colore. */
 }
 
 .main-nav a::after {
-    content: '';
+    content: ''; /* Elemento grafico per la sottolineatura. */
     position: absolute;
     width: 0;
     height: 2px;
-    background-color: #4DCDE1; /* Blu brillante dal cielo/mare */
-    bottom: -5px;
+    background-color: #4DCDE1; /* Colore accento per la linea. */
+    bottom: -5px; /* Posiziona la linea sotto il testo. */
     left: 0;
-    transition: width 0.3s ease;
+    transition: width 0.3s ease; /* Animazione di espansione della larghezza. */
 }
 
 .main-nav a:hover {
-    color: #4DCDE1; /* Blu brillante al passaggio del mouse */
+    color: #4DCDE1; /* Il testo diventa blu brillante al passaggio del mouse. */
 }
 
 .main-nav a:hover::after {
-    width: 100%;
+    width: 100%; /* La sottolineatura si espande. */
 }
 
 
-/* Stili Sezione Eroe (Hero Section) */
+/* ------------------------------------------- */
+/* Stili Sezione Eroe (Hero Section) - Solo per la Home Page */
+/* Banner principale con immagine di sfondo e testo centrato. */
+/* ------------------------------------------- */
 .hero-section {
-    position: relative;
-    width: 100%;
-    flex-grow: 1;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: #fff;
-    overflow: hidden;
-    text-align: center;
+    position: relative; /* Contenitore per lo sfondo assoluto. */
+    width: 100%; /* Larghezza piena. */
+    flex-grow: 1; /* Occupa tutto lo spazio verticale disponibile. */
+    display: flex; /* Centra il contenuto del testo e delle card. */
+    align-items: center; /* Centra verticalmente. */
+    justify-content: center; /* Centra orizzontalmente. */
+    color: #fff; /* Colore del testo. */
+    overflow: hidden; /* Nasconde l'overflow dello sfondo. */
+    text-align: center; /* Centra il testo all'interno. */
 }
 
 .hero-background {
@@ -116,205 +137,944 @@ ul {
     left: 0;
     width: 100%;
     height: 100%;
-    background-image: url('/images/sfondodali.png'); /* Immagine di sfondo Dalí caricata */
+    background-image: url('/images/sfondodali.png'); /* Immagine di sfondo. */
     background-size: cover;
-    background-position: center bottom; /* Allinea il bordo inferiore dell'immagine con il bordo inferiore del div */
+    background-position: center bottom;
     z-index: -2;
-    filter: blur(1px) brightness(0.5); /* Sfocatura leggera e scurimento per far risaltare il testo */
+    filter: blur(1px) brightness(0.5); /* Sfocatura e oscuramento dell'immagine. */
 }
 
 .hero-content-centered {
-    display: flex;
+    display: flex; /* Contenuto in colonna e centrato. */
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    max-width: 900px;
-    padding: 20px;
-    box-sizing: border-box;
-    z-index: 1;
+    max-width: 900px; /* Larghezza massima del contenuto. */
+    padding: 20px; /* Padding interno. */
+    box-sizing: border-box; /* Include padding nella dimensione. */
+    z-index: 1; /* Assicura che il contenuto sia sopra lo sfondo. */
 }
 
 .hero-content-centered h1 {
-    font-size: 3.5em;
-    margin-bottom: 30px;
-    line-height: 1.1;
-    color: #F8F8F8; /* Testo quasi bianco */
-    text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+    font-size: 3.5em; /* Grande dimensione del font per il titolo. */
+    margin-bottom: 30px; /* Spazio sotto il titolo. */
+    line-height: 1.1; /* Altezza della riga. */
+    color: #F8F8F8; /* Colore del testo. */
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.5); /* Ombra per il testo per leggibilità. */
 }
 
-/* Stili per il Contenitore delle Card (Libri, Autori) */
+/* Contenitore per le "Flashcard" (Libri, Autori) nella Home Page */
 .card-container {
-    display: flex;
-    flex-direction: row;
-    gap: 30px;
-    justify-content: center;
-    align-items: center;
-    flex-wrap: wrap;
-    margin-top: 20px;
-    width: 100%;
+    display: flex; /* Card allineate orizzontalmente. */
+    flex-direction: row; /* Disposizione in riga. */
+    gap: 30px; /* Spazio tra le card. */
+    justify-content: center; /* Centra le card orizzontalmente. */
+    align-items: center; /* Centra le card verticalmente. */
+    flex-wrap: wrap; /* Permette alle card di andare a capo. */
+    margin-top: 20px; /* Spazio sopra il contenitore. */
+    width: 100%; /* Larghezza piena. */
 }
 
-/* Stili per le Singole Card */
+/* Stili per le Singole Card nella Home Page */
 .card {
-    background-color: rgba(255, 255, 255, 0.9); /* Sfondo semi-trasparente bianco */
-    color: #333;
-    padding: 25px;
-    border-radius: 10px;
-    box-shadow: 0 8px 16px rgba(0,0,0,0.3);
-    text-align: center;
-    width: 250px;
-    height: 200px;
-    display: flex;
+    background-color: rgba(255, 255, 255, 0.9); /* Sfondo semi-trasparente. */
+    color: #333; /* Colore del testo. */
+    padding: 25px; /* Padding interno. */
+    border-radius: 10px; /* Bordi arrotondati. */
+    box-shadow: 0 8px 16px rgba(0,0,0,0.3); /* Ombra per effetto "fluttuante". */
+    text-align: center; /* Centra il testo. */
+    width: 250px; /* Larghezza fissa. */
+    height: 200px; /* Altezza fissa. */
+    display: flex; /* Contenuto centrato verticalmente. */
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    text-decoration: none;
-    flex-shrink: 0;
+    transition: transform 0.3s ease, box-shadow 0.3s ease; /* Effetti hover. */
+    text-decoration: none; /* Rimuove sottolineatura dai link. */
+    flex-shrink: 0; /* Impedisce alle card di restringersi. */
 }
 
 .card:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 12px 24px rgba(0,0,0,0.4);
+    transform: translateY(-10px); /* Le card si sollevano leggermente. */
+    box-shadow: 0 12px 24px rgba(0,0,0,0.4); /* Ombra più intensa. */
 }
 
 .card h2 {
-    margin-top: 0;
-    margin-bottom: 15px;
-    font-size: 1.8em;
-    color: #006080; /* Blu scuro/verde dal mare, per i titoli delle card */
+    margin-top: 0; /* Rimuove margine superiore. */
+    margin-bottom: 15px; /* Spazio sotto il titolo. */
+    font-size: 1.8em; /* Dimensione del font. */
+    color: #006080; /* Colore accento. */
 }
 
 .card p {
-    font-size: 1em;
-    color: #555;
-    line-height: 1.5;
+    font-size: 1em; /* Dimensione del font. */
+    color: #555; /* Colore del testo. */
+    line-height: 1.5; /* Altezza della riga. */
 }
 
-/* Stili Footer */
+
+/* ------------------------------------------- */
+/* Stili Footer Principale */
+/* Piè di pagina presente su tutte le pagine. */
+/* ------------------------------------------- */
 .main-footer {
-    background-color: #1E3A4D; /* Blu scuro/grigio dal tema del mare/cielo */
-    color: #F8F8F8; /* Testo quasi bianco */
-    text-align: center;
-    padding: 20px 0;
-    font-size: 0.9em;
+    background-color: #1E3A4D; /* Stesso colore dell'header. */
+    color: #F8F8F8; /* Colore testo chiaro. */
+    text-align: center; /* Centra il testo. */
+    padding: 20px 0; /* Padding verticale. */
+    font-size: 0.9em; /* Dimensione del font. */
+    flex-shrink: 0; /* Impedisce che il footer si restringa. */
+}
+
+
+/* ------------------------------------------- */
+/* Stili Generici per Pagine di Contenuto (books.html, authors.html, book_details.html, author_details.html) */
+/* Classi riutilizzabili per layout e elementi comuni. */
+/* ------------------------------------------- */
+.content-page-section {
+    flex-grow: 1; /* Occupa lo spazio verticale disponibile. */
+    padding: 40px 20px; /* Padding interno. */
+    background-color: #f8f8f8; /* Sfondo leggermente più chiaro. */
+    overflow-y: auto; /* Permette scorrimento verticale solo a questa sezione. */
+    -webkit-overflow-scrolling: touch; /* Migliora lo scorrimento su iOS. */
+}
+
+/* MODIFICATO: Layout per Titolo, Bottone "Torna alla Home" e Barra di Ricerca */
+.page-header-content {
+    display: flex;
+    flex-wrap: wrap; /* Consente agli elementi di andare a capo se non c'è spazio. */
+    justify-content: space-between; /* Spinge titolo/pulsante ai lati */
+    align-items: center; /* Centra verticalmente gli elementi */
+    margin-bottom: 0; /* Rimosso margine inferiore diretto per maggiore controllo */
+    max-width: 1200px; /* Larghezza massima */
+    margin-left: auto;
+    margin-right: auto;
+    gap: 15px; /* Spazio tra gli elementi sulla stessa riga */
+}
+
+.page-header-content h1 {
+    color: #1E3A4D; /* Colore del titolo. */
+    font-size: 2.5em; /* Dimensione del font. */
+    margin: 0; /* Rimuove margini predefiniti. */
+    text-shadow: none; /* Rimuove ombra. */
+    white-space: nowrap; /* Impedisce al titolo di andare a capo */
+    overflow: hidden; /* Nasconde l'overflow del testo */
+    text-overflow: ellipsis; /* Aggiunge i puntini di sospensione se il testo è troppo lungo */
+    flex-grow: 1; /* Permette al titolo di espandersi */
+    flex-shrink: 1; /* Permette al titolo di restringersi */
+    flex-basis: auto; /* Base flessibile automatica */
+    min-width: 0; /* Permette al titolo di restringersi al minimo assoluto prima di troncare */
+}
+
+.back-to-home {
+    background-color: #4DCDE1; /* Colore accento. */
+    color: #fff; /* Colore testo. */
+    padding: 10px 20px; /* Padding interno. */
+    border-radius: 5px; /* Bordi arrotondati. */
+    font-weight: bold; /* Testo in grassetto. */
+    transition: background-color 0.3s ease, transform 0.2s ease; /* Effetti hover. */
+    white-space: nowrap; /* Impedisce che il testo del pulsante vada a capo */
+    flex-shrink: 0; /* Impedisce al pulsante di restringersi */
+}
+
+.back-to-home:hover {
+    background-color: #006080; /* Cambia colore all'hover. */
+    transform: translateY(-2px); /* Effetto leggero di sollevamento. */
+}
+
+.search-bar {
+    width: 100%; /* La search bar occupa sempre la larghezza completa quando va a capo */
+    order: 2; /* Forza la search bar ad andare per ultima nell'ordine flex */
+    margin-top: 25px; /* Spazio superiore significativo per separarla da titolo/bottone */
+    margin-bottom: 30px; /* Spazio sotto la barra di ricerca */
+    text-align: center; /* Centra il contenuto. */
+}
+
+/* Modifica il form della search bar per la flessibilità interna */
+.search-bar form {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.search-bar input[type="text"] {
+    flex-grow: 1;
+    padding: 12px 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1em;
+    box-shadow: inset 0 1px 3px rgba(0,0,0,0.1);
+}
+
+.search-bar button[type="submit"] {
+    background-color: #006080;
+    color: #fff;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1em;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
     flex-shrink: 0;
 }
 
-/* Media Queries per la Responsività */
-@media (max-width: 992px) {
-    .main-header {
-        padding: 10px 20px;
-    }
-    .main-nav ul {
-        gap: 15px;
-    }
-    .hero-content-centered h1 {
-        font-size: 2.8em;
-    }
-    .card {
-        width: 220px;
-        height: 180px;
-    }
+.search-bar button[type="submit"]:hover {
+    background-color: #1E3A4D;
 }
 
-@media (max-width: 768px) {
-    .header-content {
-        flex-direction: column;
-        gap: 10px;
-    }
-    .main-nav ul {
-        flex-wrap: wrap;
-        justify-content: center;
-        gap: 10px;
-    }
-    .main-nav a {
-        font-size: 0.9em;
-    }
-    .hero-content-centered h1 {
-        font-size: 2.2em;
-    }
-    .card-container {
-        flex-direction: column;
+/* Griglia per gli elementi (es. libri, autori) */
+.item-grid, .book-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 30px;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding-bottom: 40px;
+}
+
+
+/* ------------------------------------------- */
+/* Stili Specifici per le Card di Libri (books.html) */
+/* ------------------------------------------- */
+.book-card-item {
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    text-align: center;
+    padding: 20px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: auto;
+}
+
+.book-card-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+}
+
+.book-cover {
+    width: 150px;
+    height: 220px;
+    object-fit: cover;
+    border-radius: 5px;
+    margin-bottom: 15px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+}
+
+.book-card-item h3 {
+    font-size: 1.3em;
+    color: #1E3A4D;
+    margin-bottom: 10px;
+    white-space: normal;
+    width: 100%;
+}
+
+.book-authors {
+    font-size: 0.9em;
+    color: #555;
+    line-height: 1.4;
+    max-height: 3.2em;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+}
+
+
+/* ------------------------------------------- */
+/* Stili Specifici per le Card di Autori (authors.html) */
+/* ------------------------------------------- */
+.author-card-item {
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    text-align: center;
+    padding: 20px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: auto;
+    min-height: 300px;
+}
+
+.author-card-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+}
+
+.author-photo {
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 50%;
+    margin-bottom: 15px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+}
+
+.author-card-item h3 {
+    font-size: 1.4em;
+    color: #1E3A4D;
+    margin-bottom: 5px;
+    white-space: normal;
+    width: 100%;
+}
+
+.author-nationality {
+    font-size: 0.9em;
+    color: #555;
+    line-height: 1.4;
+    margin-bottom: 10px;
+}
+
+/* Pulsante "Dettagli" (comune a libri e autori) */
+.details-button {
+    background-color: #4DCDE1;
+    color: #fff;
+    padding: 8px 15px;
+    border-radius: 5px;
+    font-weight: bold;
+    margin-top: 15px;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.details-button:hover {
+    background-color: #006080;
+    transform: translateY(-2px);
+}
+
+/* Messaggio "Nessun elemento trovato" */
+.no-items-found {
+    grid-column: 1 / -1;
+    text-align: center;
+    color: #666;
+    font-size: 1.2em;
+    padding: 50px 0;
+}
+
+
+/* ------------------------------------------- */
+/* Stili Specifici per la Pagina Dettagli Libro (book_details.html) */
+/* ------------------------------------------- */
+.book-details-section {
+    padding-bottom: 60px;
+}
+
+.book-details-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 40px;
+    max-width: 1000px;
+    margin: 0 auto;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+    padding: 30px;
+    align-items: flex-start;
+}
+
+.book-image-area {
+    flex: 0 0 300px;
+    max-width: 100%;
+    text-align: center;
+}
+
+.book-detail-cover {
+    width: 100%;
+    max-width: 300px;
+    height: auto;
+    object-fit: contain;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+}
+
+.book-info-area {
+    flex: 1;
+    min-width: 300px;
+}
+
+.book-info-area h2 {
+    color: #1E3A4D;
+    font-size: 2em;
+    margin-top: 0;
+    margin-bottom: 20px;
+    border-bottom: 2px solid #e0e0e0;
+    padding-bottom: 10px;
+}
+
+.book-info-area p {
+    font-size: 1.1em;
+    line-height: 1.6;
+    margin-bottom: 15px;
+}
+
+.book-authors-section {
+    margin-top: 20px;
+    padding-top: 15px;
+    border-top: 1px dashed #e0e0e0;
+}
+
+.book-authors-section strong {
+    font-size: 1.1em;
+    color: #006080;
+    display: block;
+    margin-bottom: 10px;
+}
+
+.book-authors-list li {
+    display: inline;
+    font-size: 1.05em;
+}
+
+.book-authors-list li a {
+    color: #4DCDE1;
+    font-weight: bold;
+}
+
+.book-authors-list li a:hover {
+    text-decoration: underline;
+}
+
+.book-authors-list li + li::before {
+    content: ", ";
+}
+
+/* Sezione per la galleria di immagini aggiuntive */
+.book-gallery {
+    max-width: 1000px;
+    margin: 40px auto 20px auto;
+    padding: 0 30px;
+}
+
+.book-gallery h3 {
+    color: #1E3A4D;
+    font-size: 1.8em;
+    margin-bottom: 20px;
+    border-bottom: 2px solid #e0e0e0;
+    padding-bottom: 8px;
+}
+
+.gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    gap: 15px;
+}
+
+.gallery-thumb {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.gallery-thumb:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+}
+
+/* ------------------------------------------- */
+/* Stili per le Recensioni */
+/* ------------------------------------------- */
+.book-reviews-section {
+    max-width: 1000px;
+    margin: 40px auto 20px auto;
+    padding: 0 30px;
+}
+
+.book-reviews-section h3 {
+    color: #1E3A4D;
+    font-size: 1.8em;
+    margin-bottom: 20px;
+    border-bottom: 2px solid #e0e0e0;
+    padding-bottom: 8px;
+}
+
+.no-reviews-found {
+    text-align: center;
+    color: #666;
+    font-style: italic;
+    padding: 20px 0;
+}
+
+.reviews-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 25px;
+}
+
+.review-card {
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+.review-card h4 {
+    color: #006080;
+    font-size: 1.2em;
+    margin-top: 0;
+    margin-bottom: 10px;
+}
+
+.review-rating {
+    margin-bottom: 10px;
+}
+
+.review-rating .star {
+    font-size: 1.4em;
+    color: #FFD700;
+}
+
+.review-rating .star.empty {
+    color: #ccc;
+}
+
+.review-text {
+    font-size: 0.95em;
+    color: #444;
+    line-height: 1.5;
+    flex-grow: 1;
+    margin-bottom: 15px;
+}
+
+.review-date {
+    font-size: 0.8em;
+    color: #777;
+    text-align: right;
+    margin-top: auto;
+}
+
+.no-images-found {
+    grid-column: 1 / -1;
+    text-align: center;
+    color: #666;
+    font-style: italic;
+    padding: 20px 0;
+}
+
+
+/* ------------------------------------------- */
+/* Stili Specifici per la Pagina Dettagli Autore (author_details.html) */
+/* ------------------------------------------- */
+.author-details-section {
+    padding-bottom: 60px;
+}
+
+.author-details-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 40px;
+    max-width: 1000px;
+    margin: 0 auto;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+    padding: 30px;
+    align-items: flex-start;
+}
+
+.author-profile-image-area {
+    flex: 0 0 250px;
+    max-width: 100%;
+    text-align: center;
+}
+
+.author-detail-photo {
+    width: 100%;
+    max-width: 250px;
+    height: auto;
+    object-fit: cover;
+    border-radius: 50%;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+}
+
+.author-info-area {
+    flex: 1;
+    min-width: 300px;
+}
+
+.author-info-area h2 {
+    color: #1E3A4D;
+    font-size: 2em;
+    margin-top: 0;
+    margin-bottom: 20px;
+    border-bottom: 2px solid #e0e0e0;
+    padding-bottom: 10px;
+}
+
+.author-info-area p {
+    font-size: 1.1em;
+    line-height: 1.6;
+    margin-bottom: 15px;
+}
+
+/* Sezione per i libri scritti dall'autore */
+.author-books-section {
+    max-width: 1000px;
+    margin: 40px auto 20px auto;
+    padding: 0 30px;
+}
+
+.author-books-section h3 {
+    color: #1E3A4D;
+    font-size: 1.8em;
+    margin-bottom: 20px;
+    border-bottom: 2px solid #e0e0e0;
+    padding-bottom: 8px;
+}
+
+/* Stili per la lista dei libri dell'autore in formato riga (simil-tabella) */
+.books-table-list {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+}
+
+.book-list-header, .author-book-row {
+    display: grid;
+    grid-template-columns: 2fr 2fr 1fr; /* Mantiene 3 colonne */
+    align-items: center;
+    padding: 12px 20px;
+    border-bottom: 1px solid #eee;
+}
+
+.book-list-header {
+    background-color: #f5f5f5;
+    font-weight: bold;
+    color: #1E3A4D;
+    border-bottom: 2px solid #e0e0e0;
+}
+
+.author-book-row {
+    background-color: #fff;
+}
+
+.author-book-row:nth-child(even) {
+    background-color: #fdfdfd;
+}
+
+.author-book-row:hover {
+    background-color: #f0f8ff;
+}
+
+.book-row-title {
+    font-weight: bold;
+    color: #333;
+}
+
+.book-row-authors {
+    font-size: 0.9em;
+    color: #555;
+}
+
+.book-row-authors span + span::before {
+    content: ", ";
+}
+
+.book-row-actions {
+    text-align: right;
+}
+
+.author-books-section .details-button {
+    margin-top: 0;
+    padding: 6px 12px;
+    font-size: 0.9em;
+}
+
+/* Messaggio se nessun libro trovato nella lista dell'autore */
+.no-books-found {
+    text-align: center;
+    color: #666;
+    font-style: italic;
+    padding: 20px 0;
+}
+
+
+/* ------------------------------------------- */
+/* Media Queries per la Responsività */
+/* ------------------------------------------- */
+
+/* Per schermi fino a 992px di larghezza (es. tablet orizzontale) */
+@media (max-width: 992px) {
+    .main-header { padding: 10px 20px; }
+    .main-nav ul { gap: 15px; }
+    .hero-content-centered h1 { font-size: 2.8em; }
+    .card { width: 220px; height: 180px; }
+    .page-header-content h1 { font-size: 2em; }
+    .back-to-home { padding: 8px 15px; font-size: 0.9em; }
+    .search-bar input[type="text"], .search-bar button[type="submit"] { padding: 10px 12px; font-size: 0.9em; }
+    .item-grid, .book-grid {
+        grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
         gap: 20px;
     }
-    .card {
-        width: 80%;
-        height: auto;
-        min-height: 160px;
+    /* Libri */
+    .book-cover { width: 120px; height: 180px; }
+    .book-card-item { min-height: 280px; }
+    .book-card-item h3 { font-size: 1.1em; }
+    .book-authors { font-size: 0.8em; }
+    /* Autori */
+    .author-photo { width: 120px; height: 120px; }
+    .author-card-item h3 { font-size: 1.2em; }
+    .author-nationality { font-size: 0.8em; }
+    .author-card-item { min-height: 260px; }
+    /* Dettagli Libro */
+    .book-details-container {
+        flex-direction: column;
+        align-items: center;
+        gap: 25px;
+        padding: 20px;
     }
+    .book-image-area { flex: none; width: 80%; max-width: 250px; }
+    .book-info-area { min-width: unset; text-align: center; }
+    .book-info-area h2 { font-size: 1.8em; }
+    .book-info-area p { font-size: 1em; }
+    .book-authors-list li { display: block; }
+    .book-authors-list li + li::before { content: ""; }
+    .book-gallery { padding: 0 20px; }
+    .book-gallery h3 { font-size: 1.6em; }
+    .gallery-grid { grid-template-columns: repeat(auto-fit, minmax(100px, 1fr)); gap: 10px; }
+    .gallery-thumb { height: 150px; }
+    /* Recensioni */
+    .book-reviews-section { padding: 0 20px; }
+    .book-reviews-section h3 { font-size: 1.6em; }
+    .reviews-list { grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; }
+    .review-card { padding: 15px; }
+    /* Dettagli Autore */
+    .author-details-container {
+        flex-direction: column;
+        align-items: center;
+        gap: 25px;
+        padding: 20px;
+    }
+    .author-profile-image-area { flex: none; width: 80%; max-width: 200px; }
+    .author-info-area { min-width: unset; text-align: center; }
+    .author-info-area h2 { font-size: 1.8em; }
+    .author-info-area p { font-size: 1em; }
+    .author-books-section { padding: 0 20px; }
+    .author-books-section h3 { font-size: 1.6em; }
+    .books-table-list { border-radius: 5px; }
+    .book-list-header, .author-book-row { padding: 10px 15px; }
+    .author-books-section .details-button { padding: 5px 10px; font-size: 0.8em; }
 }
 
-@media (max-width: 480px) {
-    .main-header {
-        padding: 10px 15px;
+/* Per schermi fino a 768px di larghezza (es. tablet verticale, smartphone grandi) */
+@media (max-width: 768px) {
+    .header-content { flex-direction: column; gap: 10px; }
+    .main-nav ul { flex-wrap: wrap; justify-content: center; gap: 10px; }
+    .main-nav a { font-size: 0.9em; }
+    .hero-content-centered h1 { font-size: 2.2em; }
+    .card-container { flex-direction: column; gap: 20px; }
+    .card { width: 80%; height: auto; min-height: 160px; }
+    .content-page-section { padding: 20px 10px; }
+
+    /* MODIFICATO: Forza titolo e bottone sulla stessa riga, sposta search-bar sotto */
+    .page-header-content {
+        flex-direction: row; /* Mantieni in riga gli elementi principali */
+        align-items: center;
+        justify-content: space-between;
+        flex-wrap: wrap; /* Consenti il wrapping solo se strettamente necessario (per search-bar) */
     }
-    .logo {
-        font-size: 1.2em;
+    .page-header-content h1 {
+        font-size: 1.6em; /* Riduci il font per il titolo */
+        max-width: 60%; /* Lascia spazio al pulsante */
+        flex-basis: auto; /* Adatta la base flessibile */
+        order: 0; /* Ordine normale */
     }
-    .tagline {
-        display: none;
+    .back-to-home {
+        padding: 6px 12px; /* Riduci padding del pulsante */
+        font-size: 0.8em; /* Riduci font del pulsante */
+        order: 1; /* Posiziona il pulsante dopo il titolo ma prima della search-bar se wrappa */
     }
-    .hero-content-centered h1 {
-        font-size: 1.8em;
-        margin-bottom: 20px;
+    .search-bar {
+        width: 100%; /* La search bar va sempre su una nuova riga */
+        margin-top: 20px; /* Aumenta lo spazio sopra la search bar */
+        order: 2; /* Forza la search bar ad andare per ultima */
     }
-    .card-container {
+    .search-bar form { flex-direction: row; align-items: center; justify-content: center; } /* Mantieni riga per search bar */
+    .search-bar input[type="text"] { width: 70%; margin-bottom: 0; }
+    .search-bar button[type="submit"] { width: auto; }
+
+    .item-grid, .book-grid {
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
         gap: 15px;
     }
-    .card {
-        width: 90%;
-        min-height: 140px;
-    }
-    .card h2 {
-        font-size: 1.5em;
-    }
-    .card p {
+    /* Libri */
+    .book-cover { width: 100px; height: 150px; }
+    .book-card-item { min-height: 250px; }
+    .book-card-item h3 { font-size: 1em; }
+    .book-authors { font-size: 0.75em; }
+    /* Autori */
+    .author-photo { width: 100px; height: 100px; }
+    .author-card-item h3 { font-size: 1.1em; }
+    .author-nationality { font-size: 0.75em; }
+    .author-card-item { min-height: 230px; }
+    /* Dettagli Libro */
+    .book-detail-cover { max-width: 200px; }
+    .book-info-area h2 { font-size: 1.6em; }
+    .book-info-area p { font-size: 1em; }
+    .book-gallery h3 { font-size: 1.4em; }
+    .gallery-grid { grid-template-columns: repeat(auto-fit, minmax(80px, 1fr)); gap: 8px; }
+    .gallery-thumb { height: 120px; }
+    /* Recensioni */
+    .book-reviews-section h3 { font-size: 1.4em; }
+    .reviews-list { grid-template-columns: 1fr; }
+    .review-card { padding: 12px; }
+    /* Dettagli Autore */
+    .author-profile-image-area { max-width: 150px; }
+    .author-info-area h2 { font-size: 1.6em; }
+    .author-info-area p { font-size: 1em; }
+    .author-books-section h3 { font-size: 1.4em; }
+    .book-list-header, .author-book-row {
+        grid-template-columns: 2fr 2fr 0.8fr;
+        padding: 8px 10px;
         font-size: 0.9em;
     }
+    .author-books-section .details-button { padding: 5px 8px; font-size: 0.75em; }
 }
 
-/* Regolazione per schermi con altezza limitata */
-@media (max-height: 700px) {
-    .hero-content-centered h1 {
-        font-size: 2.5em;
-        margin-bottom: 15px;
+/* Per schermi fino a 480px di larghezza (es. smartphone) */
+@media (max-width: 480px) {
+    .main-header { padding: 10px 15px; }
+    .logo { font-size: 1.2em; }
+    .tagline { display: none; }
+    .hero-content-centered h1 { font-size: 1.8em; margin-bottom: 20px; }
+    .card-container { gap: 15px; }
+    .card { width: 90%; min-height: 140px; }
+    .card h2 { font-size: 1.5em; }
+    .card p { font-size: 0.9em; }
+
+    /* MODIFICATO: Ulteriori adattamenti per schermi molto stretti */
+    .page-header-content h1 {
+        font-size: 1.2em; /* Ulteriore riduzione del font per il titolo */
+        max-width: 55%; /* Limita ancora di più la larghezza del titolo */
     }
-    .card-container {
-        gap: 15px;
-        margin-top: 10px;
+    .back-to-home {
+        padding: 4px 8px; /* Riduci ulteriormente padding del pulsante */
+        font-size: 0.7em; /* Riduci ulteriormente font del pulsante */
     }
-    .card {
-        width: 200px;
-        height: 140px;
-        padding: 15px;
+    .search-bar form { flex-direction: column; align-items: center; } /* Impila input e pulsante di ricerca */
+    .search-bar input[type="text"] { width: 90%; margin-bottom: 10px; }
+    .search-bar button[type="submit"] { width: 50%; }
+
+    .item-grid, .book-grid {
+        grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+        gap: 10px;
     }
-    .card h2 {
-        font-size: 1.4em;
+    /* Libri */
+    .book-cover { width: 100px; height: 150px; }
+    .book-card-item { min-height: 220px; }
+    .book-card-item h3 { font-size: 1em; }
+    .book-authors { font-size: 0.7em; }
+    /* Autori */
+    .author-photo { width: 80px; height: 80px; }
+    .author-card-item h3 { font-size: 1em; }
+    .author-nationality { font-size: 0.7em; }
+    .author-card-item { min-height: 200px; }
+    /* Dettagli Libro */
+    .book-details-container { padding: 15px; gap: 20px; }
+    .book-image-area { max-width: 180px; }
+    .book-info-area h2 { font-size: 1.4em; }
+    .book-info-area p { font-size: 0.9em; }
+    .book-gallery h3 { font-size: 1.2em; }
+    .gallery-grid { grid-template-columns: repeat(auto-fit, minmax(60px, 1fr)); gap: 6px; }
+    .gallery-thumb { height: 100px; }
+    /* Recensioni */
+    .book-reviews-section h3 { font-size: 1.2em; }
+    .review-card { padding: 10px; }
+    .review-text { font-size: 0.9em; }
+    .review-date { font-size: 0.75em; }
+    /* Dettagli Autore - Righe come "card" verticali */
+    .author-profile-image-area { max-width: 120px; }
+    .author-info-area h2 { font-size: 1.4em; }
+    .author-info-area p { font-size: 0.9em; }
+    .author-books-section h3 { font-size: 1.2em; }
+    .books-table-list {
+        border: none;
+        box-shadow: none;
     }
-    .card p {
+    .book-list-header {
+        display: none;
+    }
+    .author-book-row {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 10px 15px;
+        border: 1px solid #eee;
+        border-radius: 8px;
+        margin-bottom: 10px;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    }
+    .author-book-row:last-child {
+        border-bottom: 1px solid #eee;
+    }
+    .book-row-title {
+        width: 100%;
+        text-align: left;
+        font-size: 1.1em;
+        margin-bottom: 5px;
+    }
+    .book-row-authors {
+        width: 100%;
+        text-align: left;
         font-size: 0.85em;
-    }
-}
-
-@media (max-height: 550px) {
-    .hero-content-centered h1 {
-        font-size: 2em;
         margin-bottom: 10px;
     }
-    .card-container {
-        gap: 10px;
-        margin-top: 5px;
+    .book-row-actions {
+        width: 100%;
+        text-align: left;
     }
-    .card {
-        width: 180px;
-        height: 120px;
-        padding: 10px;
+    .author-books-section .details-button {
+        width: auto;
+        display: inline-block;
+        margin-top: 0;
     }
-    .card h2 {
-        font-size: 1.2em;
-    }
-    .card p {
-        font-size: 0.8em;
-    }
+}
+
+/* Regolazione per schermi con altezza limitata (pagine di catalogo e dettagli) */
+@media (max-height: 700px) {
+    .content-page-section { padding: 20px 10px; }
+    .page-header-content { margin-bottom: 20px; }
+    .item-grid, .book-grid { gap: 15px; }
+    /* Libri */
+    .book-cover { width: 100px; height: 150px; }
+    .book-card-item { min-height: 250px; }
+    .book-card-item h3 { font-size: 1.2em; }
+    .book-authors { font-size: 0.8em; }
+    /* Autori */
+    .author-photo { width: 100px; height: 100px; }
+    .author-card-item h3 { font-size: 1.2em; }
+    .author-nationality { font-size: 0.8em; }
+    .author-card-item { min-height: 220px; }
+    /* Dettagli Libro */
+    .book-details-container { padding: 20px; gap: 30px; }
+    .book-detail-cover { max-width: 250px; }
+    .book-info-area h2 { font-size: 1.8em; }
+    .book-gallery h3 { font-size: 1.6em; }
+    .gallery-grid { gap: 10px; }
+    .gallery-thumb { height: 130px; }
+    /* Recensioni */
+    .book-reviews-section h3 { font-size: 1.6em; }
+    .reviews-list { gap: 15px; }
+    .review-card { padding: 15px; }
+    /* Dettagli Autore */
+    .author-profile-image-area { max-width: 200px; }
+    .author-info-area h2 { font-size: 1.8em; }
+    .author-books-section h3 { font-size: 1.6em; }
+    .books-table-list { border-radius: 5px; }
+    .book-list-header, .author-book-row { padding: 10px 15px; }
+    .author-books-section .details-button { padding: 5px 10px; font-size: 0.8em; }
 }

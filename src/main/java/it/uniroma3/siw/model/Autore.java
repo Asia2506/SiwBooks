@@ -22,13 +22,13 @@ public class Autore {
 	private String cognome;
 	private LocalDate dataNascita;
 	private LocalDate dataMorte;
-	private String nazionalità;
+	private String nazionalita;
 	
 	
 	/*--------ASSOCIAZIONI--------*/
 	//fotografia
 	@OneToOne
-	Immagine forografia;
+	Immagine fotografia;
 	//libri scritti
 	@ManyToMany
 	List<Libro> libri;
@@ -39,7 +39,7 @@ public class Autore {
 	/*--------EQUALS AND HASHCODE--------*/
 	@Override
 	public int hashCode() {
-		return Objects.hash(cognome, dataNascita, nazionalità, nome);
+		return Objects.hash(cognome, dataNascita, nazionalita, nome);
 	}
 	@Override
 	public boolean equals(Object obj) {
@@ -51,7 +51,7 @@ public class Autore {
 			return false;
 		Autore other = (Autore) obj;
 		return Objects.equals(cognome, other.cognome) && Objects.equals(dataNascita, other.dataNascita)
-				&& Objects.equals(nazionalità, other.nazionalità) && Objects.equals(nome, other.nome);
+				&& Objects.equals(nazionalita, other.nazionalita) && Objects.equals(nome, other.nome);
 	}
 	
 	
@@ -93,18 +93,18 @@ public class Autore {
 		this.dataMorte = dataMorte;
 	}
 	
-	public String getNazionalità() {
-		return nazionalità;
+	public String getNazionalita() {
+		return nazionalita;
 	}
-	public void setNazionalità(String nazionalità) {
-		this.nazionalità = nazionalità;
+	public void setNazionalita(String nazionalita) {
+		this.nazionalita = nazionalita;
 	}
 	
-	public Immagine getForografia() {
-		return forografia;
+	public Immagine getFotografia() {
+		return fotografia;
 	}
-	public void setForografia(Immagine forografia) {
-		this.forografia = forografia;
+	public void setFotografia(Immagine forografia) {
+		this.fotografia = forografia;
 	}
 	
 	public List<Libro> getLibri() {

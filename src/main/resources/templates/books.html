@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+	<head>
+	    <title>SiwBooks - Libri</title>
+	    <link rel="stylesheet" href="/css/stile4.css?versione=4"/>
+	</head>
+	<body>
+	    <!-- Header Principale (struttura simile alla Home) -->
+	    <header class="main-header">
+	        <div class="header-content">
+	            <div class="logo">
+	                <span class="logo-icon">&#128218;</span> SIWBOOKS
+	                <span class="tagline">BOOK REVIEWS</span>
+	            </div>
+	            <nav class="main-nav">
+	                <ul>
+	                    <!-- Puoi aggiungere altri link di navigazione se necessario -->
+	                    <li><a th:href="@{/login}">Login</a></li>
+	                    <li><a th:href="@{/register}">Registrazione</a></li>
+	                </ul>
+	            </nav>
+	        </div>
+	    </header>
+	
+	    <!-- Sezione Principale della Pagina Libri -->
+	    <main class="content-page-section">
+	        <div class="page-header-content">
+	            <h1>Catalogo Libri</h1>
+	            <a th:href="@{/}" class="back-to-home">Torna alla Home</a>
+	        </div>
+	
+	        <!-- Barra di Ricerca per Titolo -->
+	        <div class="search-bar">
+	            <form th:action="@{/books}" method="GET"> <!-- L'azione punta allo stesso endpoint /books -->
+	                <input type="text" name="title" placeholder="Cerca un libro per titolo..." >
+	                <button type="submit">Cerca</button>
+	            </form>
+	        </div>
+	
+	        <!-- Griglia di Libri -->
+	        <div class="item-grid">
+	            <!-- Itera sulla lista di libri fornita dal controller -->
+	            <div th:each="book : ${books}" class="book-card-item">
+	                <img th:src="${book.immagini != null ? book.immagini[0].path : 'https://placehold.co/150x220/808080/FFFFFF?text=Copertina'}"
+	                     alt="Copertina del libro" class="book-cover">
+	                <h3 th:text="${book.titolo}">Titolo del Libro</h3>
+	                <p class="book-authors">
+	                    <span th:each="autore, stat : ${book.autori}">
+	                        <span th:text="${autore.nome + ' ' + autore.cognome}">Nome Cognome</span><span th:if="${!stat.last}">, </span>
+	                    </span>
+	                </p>
+	                <!-- Potresti aggiungere un link per i dettagli del libro qui -->
+	                <a th:href="@{'/books/'+${book.id}}" class="details-button">Dettagli</a>
+	            </div>
+	            <!-- Messaggio se non ci sono libri -->
+	            <div th:if="${books.isEmpty()}" class="no-items-found">
+	                Nessun libro trovato.
+	            </div>
+	        </div>
+	    </main>
+	
+	    <!-- Footer Principale (struttura simile alla Home) -->
+	    <footer class="main-footer">
+	        <p>&copy; 2025 SIWBOOKS. </p>
+	    </footer>
+	</body>
+</html>

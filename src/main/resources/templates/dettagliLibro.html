@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+    <head>
+        <title>SiwBooks - Dettagli Libro</title>
+        <link rel="stylesheet" href="/css/stile4.css?versione=4"/>
+    </head>
+    <body>
+        <!-- Header Principale -->
+        <header class="main-header">
+            <div class="header-content">
+                <div class="logo">
+                    <span class="logo-icon">&#128218;</span> SIWBOOKS
+                    <span class="tagline">BOOK SUBSCRIPTION SERVICE</span>
+                </div>
+                <nav class="main-nav">
+                    <ul>
+						<li><a th:href="@{/login}">Login</a></li>
+						<li><a th:href="@{/register}">Registrazione</a></li>
+                        <!-- Puoi aggiungere altri link di navigazione se necessario -->
+                    </ul>
+                </nav>
+            </div>
+        </header>
+
+        <!-- Sezione Principale della Pagina Dettagli Libro -->
+        <main class="content-page-section book-details-section">
+            <div class="page-header-content">
+                <h1 th:text="${book.titolo}">Titolo del Libro</h1>
+                <a th:href="@{/books}" class="back-to-home">Torna al Catalogo</a>
+            </div>
+
+            <div class="book-details-container">
+                <div class="book-image-area">
+                    <!-- Mostra la copertina filtrata o un placeholder -->
+                    <img th:src="${!#lists.isEmpty(book.immagini) ? book.immagini[0].path : 'https://placehold.co/300x440/808080/FFFFFF?text=Nessuna+Copertina'}"
+                        alt="Copertina del libro" class="book-detail-cover">
+                </div>
+
+                <div class="book-info-area">
+                    <h2>Dettagli:</h2>
+                    <p><strong>Anno di Pubblicazione:</strong> <span th:text="${book.annoPubblicazione}"></span></p>
+
+                    <div class="book-authors-section">
+                        <strong>Autore/i:</strong>
+                        <ul class="book-authors-list">
+                            <li th:each="autore, stat : ${book.autori}">
+                                <a th:href="@{/authors/{id}(id=${autore.id})}" th:text="${autore.nome + ' ' + autore.cognome}">Nome Cognome</a><span th:if="${!stat.last}">,</span>
+                            </li>
+                            <li th:if="${#lists.isEmpty(book.autori)}">Nessun autore specificato</li>
+                        </ul>
+                    </div>
+                    
+                    <!-- Puoi aggiungere qui altri dettagli come recensioni, descrizione, ecc. -->
+                    <!-- <div class="book-description">
+                        <h3>Descrizione:</h3>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. ...</p>
+                    </div> -->
+                </div>
+            </div>
+			<div class="book-reviews-section">
+	            <h3>Recensioni:</h3>
+	            <div th:if="${book.recenzioni.isEmpty()}" class="no-reviews-found">
+	                <p>Ancora nessuna recensione per questo libro.</p>
+	            </div>
+	            <div th:unless="${book.recenzioni.isEmpty()}" class="reviews-list">
+	                <div th:each="recensione : ${book.recenzioni}" class="review-card">
+	                    <h4 th:text="${recensione.titolo}">Titolo Recensione</h4>
+	                    <div class="review-rating">
+	                        <!-- Genera stelle piene in base alla valutazione -->
+	                        <span th:each="i : ${#numbers.sequence(1, recensione.valutazione)}" class="star filled">&#9733;</span>
+	                        <!-- Genera stelle vuote per completare fino a 5 -->
+	                        <span th:each="i : ${#numbers.sequence(recensione.valutazione + 1, 5)}" class="star empty">&#9733;</span>
+	                    </div>
+	                    <p class="review-text" th:text="${recensione.testo}">Testo della recensione...</p>
+	                    <p class="review-date">Recensito il: <span th:text="${#temporals.format(recensione.dataCreazione, 'dd/MM/yyyy')}">GG/MM/AAAA</span></p>
+	                </div>
+	            </div>
+	        </div>
+            <!-- Se ci fossero più immagini, potresti aggiungere una galleria qui -->
+            <div class="book-gallery">
+                <h3>Altre Immagini:</h3>
+                <div class="gallery-grid">
+                    <img th:each="img : ${book.immagini}" th:if="${img.descrizione != null and !img.descrizione.toLowerCase().contains('copertina')}"
+                        th:src="${img.path}" alt="Immagine aggiuntiva" class="gallery-thumb">
+                </div>
+            </div>
+
+        </main>
+
+        <!-- Footer Principale -->
+        <footer class="main-footer">
+            <p>&copy; 2025 SIWBOOKS. Tutti i diritti riservati.</p>
+        </footer>
+    </body>
+</html>
