@@ -7,6 +7,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import it.uniroma3.siw.model.Autore;
+import it.uniroma3.siw.model.Libro;
 import it.uniroma3.siw.service.AutoreService;
 
 @Controller
@@ -26,6 +28,31 @@ public class AutoreController {
 		
 		return "authors.html";
 	}
+	
+	
+	@GetMapping("/admin/manageAuthors")
+	public String showAutorsForAdmin(@RequestParam(value="surname",required=false) String cognome,Model model) {
+		
+		if(cognome!=null && !cognome.isEmpty()) 
+			model.addAttribute("authors",this.autoreService.getAllAuthorsBySurname(cognome));
+		else	
+			model.addAttribute("authors",this.autoreService.getAllAuthors());
+		
+		return "/admin/manageAuthors.html";
+	}
+	
+	
+	
+	@GetMapping("/admin/authors/delete/{idAutore}")
+	public String deleteBook(@PathVariable("idAutore") Long id,Model model) {
+		Autore autore=this.autoreService.getAuthorById(id);
+		for(Libro libro:autore.getLibri()) {
+			libro.getAutori().remove(libro.getAutori().indexOf(autore));
+		}
+		this.autoreService.deleteAuthor(autore);
+		return "redirect:/admin/manageAuthors";
+	}
+	
 	
 	
 	@GetMapping("/authors/{idAutore}")

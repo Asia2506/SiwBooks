@@ -28,4 +28,9 @@ public class AutoreService {
 	public Iterable<Autore> getAllAuthorsBySurname(String cognome){
 		return this.autoreRepository.findByCognomeContainingIgnoreCase(cognome);
 	}
+	
+	
+	public void deleteAuthor(Autore autore) {
+		this.autoreRepository.delete(autore);
+	}
 }

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+	<html lang="it" xmlns:th="http://www.thymeleaf.org">
+	<head>
+	    <title>SIWBOOKS</title>
+	    <link rel="stylesheet" href="/css/stile4.css?versione=2"/>
+	 </head>
+	<body>
+	    <header class="main-header">
+	        <div class="header-content">
+	            <div class="logo">
+	                <!-- Puoi aggiungere un logo immagine qui, o mantenere il testo -->
+	                <span class="logo-icon">&#128218;</span> SIWBOOKS
+	                <span class="tagline">BOOK REVIEWS</span>
+	            </div>
+	            <nav class="main-nav">
+    				<ul>					
+						<li sec:authorize="isAuthenticated()">
+	                        <form th:action="@{/logout}" method="post" style="display:inline;">
+	                            <button type="submit" style="background:none; border:none; color:inherit; font:inherit; cursor:pointer; padding:0;">
+	                                Logout
+	                            </button>
+	                        </form>
+	                    </li>
+					</ul>
+	            </nav>
+	        </div>
+	    </header>
+	
+	    <main class="hero-section">
+	        <div class="hero-background"></div> <!-- Sfondo per l'effetto sfocato/artistico -->
+	        <div class="hero-text-content-centered">
+	            <h1>Benvenuto in <br>SiwBooks!</h1>
+				<div class="card-container">
+	                <a th:href="@{/user/books}" class="card">
+	                    <h2>Libri</h2>
+	                    <p>Esplora il nostro vasto catalogo e scrivi recensioni.</p>
+	                </a>
+	                <a th:href="@{/user/authors}" class="card">
+	                    <h2>Autori</h2>
+	                    <p>Conosci gli scrittori.</p>
+	                </a>
+	            </div>
+	            <!--<p></p>-->
+	        </div>
+	        
+	    </main>
+	
+	    <footer class="main-footer">
+	        <!-- Puoi aggiungere più contenuto qui per il footer -->
+	        <p>&copy; 2025 SIWBOOK. </p>
+	    </footer>
+	</body>
+</html>

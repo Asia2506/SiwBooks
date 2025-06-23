@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+    <head>
+        <title>SiwBooks - Gestione Autori</title>
+        <!-- Link al file CSS esterno per lo stile dell'applicazione. Assicurati che il percorso sia corretto. -->
+        <link rel="stylesheet" href="/css/stile4.css"/>
+    </head>
+    <body>
+        <!-- Header Principale (struttura simile alla Home e alla gestione libri) -->
+        <header class="main-header">
+            <div class="header-content">
+                <div class="logo">
+                    <span class="logo-icon">&#128218;</span> SIWBOOKS
+                    <span class="tagline">BOOK REVIEWS (Admin)</span>
+                </div>
+                <nav class="main-nav">
+                    <ul>
+                        <!-- Logout visibile solo agli utenti autenticati -->
+                        <li sec:authorize="isAuthenticated()">
+                            <form th:action="@{/logout}" method="post" style="display:inline;">
+                                <button type="submit" style="background:none; border:none; color:inherit; font:inherit; cursor:pointer; padding:0;">
+                                    Logout
+                                </button>
+                            </form>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </header>
+
+        <!-- Sezione Principale della Pagina di Gestione Autori -->
+        <main class="content-page-section">
+            <div class="page-header-content">
+                <h1>Gestione Autori</h1>
+                <a th:href="@{/}" class="back-to-home">Torna alla Home</a>
+            </div>
+
+            <!-- Barra di Ricerca per Nome/Cognome Autore -->
+            <div class="search-bar">
+                <form th:action="@{/admin/manageAuthors}" method="GET">
+                    <input type="text" name="surname" placeholder="Cerca un autore per cognome...">
+                    <button type="submit">Cerca</button>
+                </form>
+            </div>
+
+            <!-- Sezione Azioni Amministratore per gli autori -->
+            <div class="admin-actions-container">
+                <a th:href="@{/admin/addAuthorForm}" class="details-button">Aggiungi Nuovo Autore</a>
+                <!-- Potresti aggiungere qui altri pulsanti relativi alla gestione degli autori, se necessario -->
+            </div>
+
+            <!-- Griglia di Autori (simil-catalogo ma con opzioni admin) -->
+            <div class="item-grid author-grid">
+                <!-- Loop attraverso la lista di autori fornita dal backend Thymeleaf -->
+                <!-- 'authors' dovrebbe essere il nome dell'attributo nel modello Spring Boot -->
+                <div th:each="author : ${authors}" class="author-card-item">
+                    <!-- Mostra la fotografia dell'autore, con un placeholder se non disponibile -->
+                    <img th:src="${author.fotografia != null ? author.fotografia.path : 'https://placehold.co/150x150/808080/FFFFFF?text=Autore'}"
+                        alt="Fotografia dell'autore" class="author-photo">
+                    <!-- Nome e cognome dell'autore -->
+                    <h3 th:text="${author.nome + ' ' + author.cognome}">Nome Cognome Autore di Esempio</h3>
+                    <!-- Nazionalità dell'autore -->
+                    <p class="author-nationality" th:text="${author.nazionalita}"></p>
+
+                    <div class="card-admin-actions">
+                        <!-- Pulsante Modifica -->
+                        <a th:href="@{'/admin/authors/edit/' + ${author.id}}" class="details-button edit-button">Modifica</a>
+                        <!-- Pulsante Elimina con conferma JavaScript (N.B.: per un'applicazione Spring reale, gestire l'eliminazione con POST/DELETE e CSRF token è più sicuro) -->
+                        <a th:href="@{'/admin/authors/delete/' + ${author.id}}" class="details-button delete-button"
+                        onclick="return confirm('Sei sicuro di voler eliminare questo autore? Tutti i libri associati a questo autore rimarranno, ma l autore sarà rimosso.')">Elimina</a>
+                    </div>
+                </div>
+
+                <!-- Messaggio se non ci sono autori da visualizzare -->
+                <div th:if="${authors == null || authors.isEmpty()}" class="no-items-found">
+                    Nessun autore trovato.
+                </div>
+            </div>
+        </main>
+
+        <!-- Footer Principale (stessa struttura della Home) -->
+        <footer class="main-footer">
+            <p>&copy; 2025 SIWBOOKS. </p>
+        </footer>
+    </body>
+</html>

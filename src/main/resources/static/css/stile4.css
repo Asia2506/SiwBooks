@@ -195,7 +195,7 @@ ul {
 
 /* Stili per le singole card generiche (usate in home, admin home). */
 .card {
-    background-color: rgba(255, 255, 255, 0.9); /* Sfondo semi-trasparente per le card. */
+    background-color: rgba(255, 255, 255, 0.8); /* Sfondo semi-trasparente per le card. */
     color: #333; /* Colore del testo. */
     padding: 25px; /* Padding interno. */
     border-radius: 10px; /* Bordi arrotondati. */
@@ -233,6 +233,9 @@ ul {
     color: #555; /* Colore del testo. */
     line-height: 1.5; /* Altezza della riga. */
 }
+
+
+
 
 
 /* ------------------------------------------- */
@@ -368,20 +371,20 @@ ul {
 }
 
 /* Stili per il pulsante "Modifica" (nelle card admin). */
-.edit-button {
+.details-button.edit-button {
     background-color: #007bff; /* Esempio di colore per Modifica (blu). */
 }
 
-.edit-button:hover {
+.details-button.edit-button:hover {
     background-color: #0056b3; /* Colore più scuro all'hover. */
 }
 
 /* Stili per il pulsante "Elimina" (nelle card admin). */
-.delete-button {
+.details-button.delete-button {
     background-color: #dc3545; /* Esempio di colore per Elimina (rosso). */
 }
 
-.delete-button:hover {
+.details-button.delete-button:hover {
     background-color: #c82333; /* Colore più scuro all'hover. */
 }
 
@@ -874,11 +877,13 @@ ul {
 }
 
 
+
 /* ------------------------------------------- */
 /* 11. Stili per Form (Login e Registrazione) */
 /* Stili per contenitori di form generici. */
 /* ------------------------------------------- */
 .form-container {
+	background-color: #fff;
     max-width: 500px; /* Larghezza massima del contenitore del form. */
     margin: 40px auto; /* Centra il contenitore e aggiunge spazio. */
     padding: 30px; /* Padding interno. */

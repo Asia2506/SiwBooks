@@ -13,9 +13,13 @@
                 </div>
                 <nav class="main-nav">
                     <ul>
-						<li><a th:href="@{/login}">Login</a></li>
-						<li><a th:href="@{/register}">Registrazione</a></li>
-                        <!-- Puoi aggiungere altri link di navigazione se necessario -->
+						<li sec:authorize="isAuthenticated()">
+	                        <form th:action="@{/logout}" method="post" style="display:inline;">
+	                            <button type="submit" style="background:none; border:none; color:inherit; font:inherit; cursor:pointer; padding:0;">
+	                                Logout
+	                            </button>
+	                        </form>
+	                    </li>
                     </ul>
                 </nav>
             </div>
@@ -25,7 +29,7 @@
         <main class="content-page-section book-details-section">
             <div class="page-header-content">
                 <h1 th:text="${book.titolo}">Titolo del Libro</h1>
-                <a th:href="@{/books}" class="back-to-home">Torna al Catalogo</a>
+                <a th:href="@{/user/books}" class="back-to-home">Torna al Catalogo</a>
             </div>
 
             <div class="book-details-container">
@@ -43,40 +47,58 @@
                         <strong>Autore/i:</strong>
                         <ul class="book-authors-list">
                             <li th:each="autore, stat : ${book.autori}">
-                                <a th:href="@{/authors/{id}(id=${autore.id})}" th:text="${autore.nome + ' ' + autore.cognome}">Nome Cognome</a><span th:if="${!stat.last}">,</span>
+                                <a th:href="@{/user/authors/{id}(id=${autore.id})}" th:text="${autore.nome + ' ' + autore.cognome}">Nome Cognome</a><span th:if="${!stat.last}">,</span>
                             </li>
                             <li th:if="${#lists.isEmpty(book.autori)}">Nessun autore specificato</li>
                         </ul>
                     </div>
                     
-                    <!-- Puoi aggiungere qui altri dettagli come recensioni, descrizione, ecc. -->
-                    <!-- <div class="book-description">
-                        <h3>Descrizione:</h3>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. ...</p>
-                    </div> -->
                 </div>
             </div>
-			<div class="book-reviews-section">
-	            <h3>Recensioni:</h3>
-	            <div th:if="${book.recenzioni.isEmpty()}" class="no-reviews-found">
-	                <p>Ancora nessuna recensione per questo libro.</p>
+			<!-- Sezione della Tua Recensione (o pulsante per aggiungerla) -->
+	        <div class="book-reviews-section review-user-section">
+	            <h3 th:text="${recensioneUser!=null} ? 'La tua recensione:' : 'Scrivi una recensione:'"></h3>
+
+	            <div th:if="${recensioneUser!=null}" class="review-card user-review-card">
+	                <h4 th:text="${recensioneUser.titolo}">La tua Recensione</h4>
+	                <div class="review-rating">
+	                    <!-- Genera stelle piene in base alla valutazione -->
+	                    <span th:each="i : ${#numbers.sequence(1, recensione.voto)}" class="star filled">&#9733;</span>
+	                    <!-- Genera stelle vuote per completare fino a 5 -->
+	                    <span th:each="i : ${#numbers.sequence(recensione.voto + 1, 5)}" class="star empty">&#9733;</span>
+	                </div>
+	                <p class="review-text" th:text="${recensioneUser.testo}">Il testo della tua recensione...</p>
 	            </div>
-	            <div th:unless="${book.recenzioni.isEmpty()}" class="reviews-list">
-	                <div th:each="recensione : ${book.recenzioni}" class="review-card">
+
+	            <div th:unless="${ecensioneUser!=null}" class="no-reviews-found">
+	                <p>Non hai ancora scritto una recensione per questo libro.</p>
+	                <a th:href="@{'/user/books/' + ${book.id} + '/reviewForm'}" class="details-button">Aggiungi la tua recensione</a>
+	            </div>
+	        </div>
+
+	        <!-- Sezione Tutte le Altre Recensioni -->
+	        <div class="book-reviews-section other-reviews-section">
+	            <h3>Altre recensioni:</h3>
+	            <div th:if="${altreRecensioni.isEmpty()}" class="no-reviews-found">
+	                <p>Nessun'altra recensione per questo libro.</p>
+	            </div>
+	            <div th:unless="${altreRecensioni.isEmpty()}" class="reviews-list">
+	                <div th:each="recensione : ${altreRecensioni}" class="review-card">
 	                    <h4 th:text="${recensione.titolo}">Titolo Recensione</h4>
 	                    <div class="review-rating">
 	                        <!-- Genera stelle piene in base alla valutazione -->
-	                        <span th:each="i : ${#numbers.sequence(1, recensione.valutazione)}" class="star filled">&#9733;</span>
+	                        <span th:each="i : ${#numbers.sequence(1, recensione.voto)}" class="star filled">&#9733;</span>
 	                        <!-- Genera stelle vuote per completare fino a 5 -->
-	                        <span th:each="i : ${#numbers.sequence(recensione.valutazione + 1, 5)}" class="star empty">&#9733;</span>
+	                        <span th:each="i : ${#numbers.sequence(recensione.voto + 1, 5)}" class="star empty">&#9733;</span>
 	                    </div>
 	                    <p class="review-text" th:text="${recensione.testo}">Testo della recensione...</p>
-						<p class="review-reviewer" th:if="${recensione.utente != null}">
-					       Recensito da: <strong><span th:text="${recensione.utente.username}"></span></strong>
-						</p>
-					</div>
+	                    <p class="review-reviewer" th:if="${recensione.utente != null}">
+	                       Recensito da: <strong><span th:text="${recensione.utente.username}"></span></strong>
+	                    </p>
+	                </div>
 	            </div>
 	        </div>
+
             <!-- Se ci fossero più immagini, potresti aggiungere una galleria qui -->
             <div class="book-gallery">
                 <h3>Altre Immagini:</h3>

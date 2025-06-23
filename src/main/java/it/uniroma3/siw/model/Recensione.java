@@ -16,7 +16,7 @@ public class Recensione {
     @GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 	private String titolo;
-	private String voto;		//tra0 e 5
+	private int voto;		//tra0 e 5
 	private String testo;
 	//utente che lo ha scritto
 	
@@ -24,7 +24,10 @@ public class Recensione {
 	/*--------ASSOCIAZIONI--------*/
 	//libro a cui si riferisce la recensione
 	@ManyToOne
-	Libro libro;
+	private Libro libro;
+	
+	@ManyToOne
+	private Credentials utente;
 
 
 	
@@ -67,10 +70,10 @@ public class Recensione {
 		this.titolo = titolo;
 	}
 	
-	public String getVoto() {
+	public int getVoto() {
 		return voto;
 	}
-	public void setVoto(String voto) {
+	public void setVoto(int voto) {
 		this.voto = voto;
 	}
 	
@@ -87,6 +90,14 @@ public class Recensione {
 	public void setLibro(Libro libro) {
 		this.libro = libro;
 	}
+	
+	public Credentials getUtente() {
+		return utente;
+	}
+	public void setUtente(Credentials utente) {
+		this.utente = utente;
+	}
+	
 	
 	
 }

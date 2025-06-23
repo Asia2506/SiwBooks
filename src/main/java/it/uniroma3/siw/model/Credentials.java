@@ -1,5 +1,6 @@
 package it.uniroma3.siw.model;
 
+import java.util.List;
 import java.util.Objects;
 
 import jakarta.persistence.CascadeType;
@@ -7,6 +8,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 
 @Entity
@@ -26,6 +28,9 @@ public class Credentials {
 	/*--------ASSOCIAZIONI--------*/
 	@OneToOne(cascade=CascadeType.ALL)
 	private User user;
+	
+	@OneToMany(mappedBy="utente")
+	private List<Recensione> recensioniScritte;
 
 	
 	
@@ -87,6 +92,16 @@ public class Credentials {
 	public void setUser(User user) {
 		this.user = user;
 	}
+
+	public List<Recensione> getRecensioniScritte() {
+		return recensioniScritte;
+	}
+
+	public void setRecensioniScritte(List<Recensione> recensioniScritte) {
+		this.recensioniScritte = recensioniScritte;
+	}
+	
+	
 	
 	
 }
