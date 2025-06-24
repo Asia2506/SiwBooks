@@ -66,7 +66,7 @@
 	                    <span th:each="i : ${#numbers.sequence(1, recensioneUser.voto)}" class="star filled">&#9733;</span>
 	                    <!-- Genera stelle vuote per completare fino a 5 -->
 						<span th:each="i : ${#numbers.sequence(1, 5)}"
-						          th:if="${i > recensione.voto}" class="star empty">&#9733;</span>
+						          th:if="${i > recensioneUser.voto}" class="star empty">&#9733;</span>
 					</div>
 	                <p class="review-text" th:text="${recensioneUser.testo}">Il testo della tua recensione...</p>
 	            </div>
