@@ -129,3 +129,9 @@ INSERT INTO credentials (id, username, password, role, user_id) VALUES (nextval(
 
 
 
+INSERT INTO recensione (id, titolo, testo, voto, libro_id, credentials_id) VALUES (nextval('recensione_seq'), 'Lettura Affascinante', 'Calvino è un maestro nel creare mondi con le parole. Le città invisibili non deludono mai.', 3, (SELECT id FROM libro WHERE titolo='Le città invisibili'), (SELECT id FROM credentials WHERE username='giada18')); -- Voto modificato a 3
+INSERT INTO recensione (id, titolo, testo, voto, libro_id, credentials_id) VALUES (nextval('recensione_seq'), 'Intrigo e Filosofia', 'Un giallo storico con profonde riflessioni filosofiche. Da leggere e rileggere.', 5, (SELECT id FROM libro WHERE titolo='Il nome della rosa'), (SELECT id FROM credentials WHERE username='giada18'));
+INSERT INTO recensione (id, titolo, testo, voto, libro_id, credentials_id) VALUES (nextval('recensione_seq'), 'Un classico intramontabile', 'La storia di Elizabeth e Darcy è sempre un piacere. Pieno di ironia e osservazioni acute.', 4, (SELECT id FROM libro WHERE titolo='Orgoglio e pregiudizio'), (SELECT id FROM credentials WHERE username='giada18'));
+INSERT INTO recensione (id, titolo, testo, voto, libro_id, credentials_id) VALUES (nextval('recensione_seq'), 'Romanzo epico', 'Un viaggio incredibile e complesso, ma estremamente gratificante. Essenziale per gli amanti del genere.', 5, (SELECT id FROM libro WHERE titolo='Moby Dick'), (SELECT id FROM credentials WHERE username='giada18'));
+
+

@@ -108,8 +108,9 @@
                             <h3 th:text="${recensione.titolo}">Titolo Recensione</h3>
                             <div class="star-rating">
                                 <span th:each="i : ${#numbers.sequence(1, recensione.voto)}" class="star filled">&#9733;</span>
-                                <span th:each="i : ${#numbers.sequence(recensione.voto + 1, 5)}" class="star empty">&#9733;</span>
-                            </div>
+								<span th:each="i : ${#numbers.sequence(1, 5)}"
+								          th:if="${i > recensione.voto}" class="star empty">&#9733;</span>
+							</div>
                         </div>
                         <p class="review-text" th:text="${recensione.testo}">Testo della recensione...</p>
                         <p class="review-reviewer" th:if="${recensione.credentials != null}">

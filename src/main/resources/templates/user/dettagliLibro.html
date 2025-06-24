@@ -65,8 +65,9 @@
 	                    <!-- Genera stelle piene in base alla valutazione -->
 	                    <span th:each="i : ${#numbers.sequence(1, recensioneUser.voto)}" class="star filled">&#9733;</span>
 	                    <!-- Genera stelle vuote per completare fino a 5 -->
-	                    <span th:each="i : ${#numbers.sequence(recensioneUser.voto + 1, 5)}" class="star empty">&#9733;</span>
-	                </div>
+						<span th:each="i : ${#numbers.sequence(1, 5)}"
+						          th:if="${i > recensione.voto}" class="star empty">&#9733;</span>
+					</div>
 	                <p class="review-text" th:text="${recensioneUser.testo}">Il testo della tua recensione...</p>
 	            </div>
 
@@ -89,8 +90,9 @@
 	                        <!-- Genera stelle piene in base alla valutazione -->
 	                        <span th:each="i : ${#numbers.sequence(1, recensione.voto)}" class="star filled">&#9733;</span>
 	                        <!-- Genera stelle vuote per completare fino a 5 -->
-	                        <span th:each="i : ${#numbers.sequence(recensione.voto + 1, 5)}" class="star empty">&#9733;</span>
-	                    </div>
+							<span th:each="i : ${#numbers.sequence(1, 5)}"
+							          th:if="${i > recensione.voto}" class="star empty">&#9733;</span>
+						</div>
 	                    <p class="review-text" th:text="${recensione.testo}">Testo della recensione...</p>
 	                    <p class="review-reviewer" th:if="${recensione.credentials != null}">
 	                       Recensito da: <strong><span th:text="${recensione.credentils.username}"></span></strong>
