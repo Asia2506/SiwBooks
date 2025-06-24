@@ -102,10 +102,14 @@
             <!-- Se ci fossero più immagini, potresti aggiungere una galleria qui -->
             <div class="book-gallery">
                 <h3>Altre Immagini:</h3>
-                <div class="gallery-grid">
-                    <img th:each="img : ${book.immagini}" th:if="${img.descrizione != null and !img.descrizione.toLowerCase().contains('copertina')}"
-                        th:src="${img.path}" alt="Immagine aggiuntiva" class="gallery-thumb">
-                </div>
+				<div class="image-gallery-preview">
+				    <!-- Ogni immagine deve essere avvolta da un div con classe gallery-item-wrapper -->
+				    <div th:each="img : ${book.immagini}"
+				         th:if="${img.descrizione != null and !img.descrizione.toLowerCase().contains('copertina')}"
+				         class="image-preview-item">
+				        <img th:src="${img.path}" alt="Immagine aggiuntiva" class="gallery-thumb">
+				    </div>
+				</div>
             </div>
 
         </main>

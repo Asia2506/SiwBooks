@@ -31,7 +31,7 @@
             <div class="book-details-container">
                 <div class="book-image-area">
                     <!-- Mostra la copertina filtrata o un placeholder -->
-                    <img th:src="${!#lists.isEmpty(book.immagini) ? book.immagini[0].path : 'https://placehold.co/300x440/808080/FFFFFF?text=Nessuna+Copertina'}"
+                    <img th:src="${!book.immagini.isEmpty() ? book.immagini[0].path : 'https://placehold.co/300x440/808080/FFFFFF?text=Nessuna+Copertina'}"
                         alt="Copertina del libro" class="book-detail-cover">
                 </div>
 
@@ -78,13 +78,17 @@
 	            </div>
 	        </div>
             <!-- Se ci fossero più immagini, potresti aggiungere una galleria qui -->
-            <div class="book-gallery">
-                <h3>Altre Immagini:</h3>
-                <div class="gallery-grid">
-                    <img th:each="img : ${book.immagini}" th:if="${img.descrizione != null and !img.descrizione.toLowerCase().contains('copertina')}"
-                        th:src="${img.path}" alt="Immagine aggiuntiva" class="gallery-thumb">
-                </div>
-            </div>
+			<div class="book-gallery">
+	            <h3>Altre Immagini:</h3>
+	            <div class="image-gallery-preview">
+	                <!-- Ogni immagine deve essere avvolta da un div con classe gallery-item-wrapper -->
+	                <div th:each="img : ${book.immagini}"
+	                     th:if="${img.descrizione != null and !img.descrizione.toLowerCase().contains('copertina')}"
+	                     class="image-preview-item">
+	                    <img th:src="${img.path}" alt="Immagine aggiuntiva" class="gallery-thumb">
+	                </div>
+	            </div>
+	        </div>
 
         </main>
 

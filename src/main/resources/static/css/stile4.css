@@ -1,8 +1,8 @@
 /*
- * File: stile.css
- * Descrizione: Foglio di stile principale per l'applicazione SiwBooks.
+ * File: stile4.css
+ * Descrizione: Foglio di stile principale consolidato per l'applicazione SiwBooks.
  * Questo file contiene gli stili generali, l'header, il footer,
- * gli stili per le sezioni principali (home, cataloghi, dettagli)
+ * gli stili per le sezioni principali (home, cataloghi, dettagli, form),
  * e le regole di responsività per adattarsi a diversi dispositivi.
  */
 
@@ -233,7 +233,6 @@ ul {
     color: #555; /* Colore del testo. */
     line-height: 1.5; /* Altezza della riga. */
 }
-
 
 
 
@@ -974,8 +973,8 @@ ul {
 
 
 /* ------------------------------------------- */
-/* 11. Stili per Form (Login e Registrazione) */
-/* Stili per contenitori di form generici. */
+/* 11. Stili per Form (Login, Registrazione, Aggiunta/Modifica Libro) */
+/* Stili per contenitori di form generici e specifici. */
 /* ------------------------------------------- */
 .form-container {
     max-width: 500px; /* Larghezza massima del contenitore del form. */
@@ -987,7 +986,23 @@ ul {
     text-align: center; /* Centra il testo. */
 }
 
-.form-container h1, .form-container h3 {
+/* Contenitore specifico per le pagine di form di creazione/modifica (più larghe) */
+.form-page-section {
+    padding: 40px;
+    background-color: #f8f9fa;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    max-width: 800px;
+    margin: 30px auto; /* Centra il form e aggiunge spazio sopra/sotto */
+    animation: fadeIn 0.5s ease-out;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.form-container h1, .form-container h3, .form-page-section h1 { /* Stili per i titoli dei form */
     color: #1E3A4D; /* Colore del titolo. */
     margin-bottom: 25px; /* Spazio sotto il titolo. */
 }
@@ -1002,13 +1017,15 @@ ul {
 /* Gruppo di form (etichetta + input) */
 .form-group {
     text-align: left; /* Allinea etichette e input a sinistra. */
+    margin-bottom: 25px; /* Spazio sotto ogni gruppo di form */
 }
 
 .form-group label {
     display: block; /* Ogni etichetta su una nuova riga. */
-    margin-bottom: 8px; /* Spazio sotto l'etichetta. */
+    margin-bottom: 10px; /* Spazio sotto l'etichetta. */
     font-weight: bold;
-    color: #555;
+    color: #495057;
+    font-size: 1.1em;
 }
 
 .form-group input[type="text"],
@@ -1016,24 +1033,73 @@ ul {
 .form-group input[type="email"],
 .form-group input[type="date"],
 .form-group input[type="tel"],
-.form-group textarea { /* Aggiunto textarea */
+.form-group input[type="number"], /* Aggiunto number per coerenza */
+.form-group textarea,
+.form-group select { /* Aggiunto select */
     width: 100%; /* Larghezza piena dell'input. */
-    padding: 12px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
+    padding: 12px 15px;
+    border: 1px solid #ced4da;
+    border-radius: 6px;
     font-size: 1em;
+    color: #495057;
     transition: border-color 0.3s ease, box-shadow 0.3s ease; /* Transizioni per focus. */
+    /* Stili per select specifici, ora unificati */
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    background-color: #fff;
+    background-image: url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23007bff%22%20d%3D%22M287%2069.4L146.2%20209.2%205.4%2069.4c-1.8-1.8-4.7-1.8-6.5%200l-5.7%205.7c-1.8%201.8-1.8%204.7%200%206.5l142.1%20142.1c.9.9%202%201.3%203.2%201.3s2.3-.4%203.2-1.3L292.8%2081.6c1.8-1.8%201.8-4.7%200-6.5l-5.7-5.7c-1.8-1.8-4.8-1.8-6.6%200z%22%2F%3E%3C%2Fsvg%3E'); /* Freccia giù personalizzata */
+    background-repeat: no-repeat;
+    background-position: right 1em center;
+    background-size: 0.8em auto;
+    line-height: 1.5; /* Assicura un buon allineamento del testo */
 }
 
-/* Effetto focus sugli input e textarea del form */
+/* Stili specifici per la selezione multipla */
+.form-group select[multiple] {
+    background-image: none; /* Rimuove la freccia per le selezioni multiple */
+    padding: 10px; /* Un po' meno padding per una migliore visualizzazione delle opzioni */
+    min-height: 150px; /* Aumenta l'altezza visibile della lista */
+}
+
+.form-group select[multiple] option {
+    padding: 8px 10px; /* Padding per le singole opzioni */
+}
+
+
+/* Effetto focus sugli input, textarea e select del form */
 .form-group input:focus,
-.form-group textarea:focus { /* Aggiunto textarea:focus */
-    border-color: #4DCDE1; /* Bordo blu all'attivazione. */
-    box-shadow: 0 0 0 3px rgba(77, 205, 225, 0.2); /* Ombra per focus. */
-    outline: none; /* Rimuove l'outline predefinito del browser. */
+.form-group textarea:focus,
+.form-group select:focus { /* Aggiunto select:focus */
+    border-color: #007bff;
+    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+    outline: none;
 }
 
-/* Pulsante di invio del form */
+.form-group input[type="file"] {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ced4da;
+    border-radius: 6px;
+    background-color: #e9ecef;
+    cursor: pointer;
+}
+.form-group input[type="file"]:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+    outline: none;
+}
+
+
+.form-hint {
+    font-size: 0.9em;
+    color: #6c757d;
+    margin-top: 5px;
+    line-height: 1.4;
+}
+
+/* Pulsante di invio del form (generico) */
 .submit-button {
     background-color: #006080; /* Colore del pulsante di invio. */
     color: #fff;
@@ -1050,6 +1116,26 @@ ul {
 .submit-button:hover {
     background-color: #1E3A4D; /* Colore più scuro all'hover. */
     transform: translateY(-2px); /* Effetto leggero di sollevamento. */
+}
+
+/* Pulsante primario per i form (es. Salva, Aggiungi) */
+.primary-button {
+    background-color: #007bff;
+    color: white;
+    padding: 15px 30px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 1.2em;
+    font-weight: bold;
+    transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+    box-shadow: 0 4px 10px rgba(0, 123, 255, 0.2);
+}
+
+.primary-button:hover {
+    background-color: #0056b3;
+    transform: translateY(-3px);
+    box-shadow: 0 6px 15px rgba(0, 123, 255, 0.3);
 }
 
 /* Link di navigazione sotto il form (es. "Hai già un account? Accedi qui"). */
@@ -1071,11 +1157,12 @@ ul {
 
 /* Messaggi di errore per i form. */
 .error-message {
-    color: #e74c3c; /* Rosso per gli errori. */
+    color: #dc3545; /* Rosso per gli errori. */
     font-size: 0.85em;
     margin-top: 5px;
     text-align: left;
     display: block; /* Assicurati che occupi la sua riga. */
+    font-weight: 600; /* Rende il testo dell'errore più visibile */
 }
 
 /* Messaggi di successo per i form. */
@@ -1086,6 +1173,77 @@ ul {
     text-align: center;
 }
 
+/* Stili per le azioni del form (pulsanti) */
+.form-actions {
+    text-align: center;
+    margin-top: 30px;
+    padding-top: 20px;
+    border-top: 1px solid #e9ecef;
+}
+
+/* Stili per la galleria di immagini esistenti (usata in editLibro.html) */
+.image-gallery-preview {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    padding: 15px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+    min-height: 120px;
+    align-items: center;
+    justify-content: center;
+}
+
+.image-preview-item {
+    position: relative;
+    border: 1px solid #eee;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    transition: transform 0.2s ease;
+    display: flex; /* Permette all'immagine e alla checkbox di allinearsi verticalmente */
+    flex-direction: column; /* Impila immagine e checkbox */
+    align-items: center; /* Centra orizzontalmente il contenuto */
+    padding-bottom: 10px; /* Spazio per la checkbox */
+    background-color: #fff;
+}
+
+.image-preview-item:hover {
+    transform: translateY(-3px);
+}
+
+.image-preview-item .gallery-thumb {
+    width: 120px;
+    height: 180px;
+    object-fit: cover;
+    display: block;
+    border-radius: 8px 8px 0 0; /* Angoli arrotondati solo in alto */
+    margin-bottom: 5px; /* Spazio tra immagine e checkbox */
+}
+
+.remove-image-checkbox {
+    display: flex;
+    align-items: center;
+    gap: 5px; /* Spazio tra checkbox e etichetta */
+    font-size: 0.9em;
+    color: #333;
+    padding: 0 5px; /* Padding laterale per la checkbox */
+}
+
+.remove-image-checkbox input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+    cursor: pointer;
+    accent-color: #dc3545; /* Colore dell'accento per la checkbox */
+}
+
+.no-images-message {
+    color: #888;
+    font-style: italic;
+    text-align: center;
+    width: 100%;
+}
 
 /* ------------------------------------------- */
 /* 12. Media Queries per la Responsività */

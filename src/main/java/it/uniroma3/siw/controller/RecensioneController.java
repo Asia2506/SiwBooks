@@ -81,4 +81,22 @@ public class RecensioneController {
 		model.addAttribute("myReviews",this.recensioneService.getRecensioniByCredentials(credentials));
 		return "/user/recensioni.html";
 	}
+	
+	
+	@PostMapping("/admin/reviews/delete/{reviewId}/fromBook/{bookId}")
+    public String deleteReview(@PathVariable("reviewId") Long reviewId,
+                               @PathVariable("bookId") Long bookId,
+                               Model model) {
+        Recensione recensioneToDelete = recensioneService.getReviewById(reviewId);
+        if (recensioneToDelete != null) {
+            Libro libro = libroService.getBookById(bookId);
+            if (libro != null) {
+                // Remove the review from the book's list (if the relationship is bidirectional and managed from here)
+                libro.getRecenzioni().remove(recensioneToDelete);
+                libroService.save(libro); // Save the book to update the relationship
+            }
+            recensioneService.deleteReviewById(reviewId);
+        }
+        return "redirect:/admin/books/edit/" + bookId; // Redirect back to the book edit page
+    }
 }

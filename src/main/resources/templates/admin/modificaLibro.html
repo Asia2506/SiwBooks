@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+    <head>
+        <title>SiwBooks - Modifica Libro</title>
+        <!-- Link al file CSS esterno per lo stile dell'applicazione -->
+        <link rel="stylesheet" href="/css/stile4.css?version=2"/> <!-- Incrementa la versione per forzare il ricaricamento del CSS -->
+    </head>
+    <body>
+        <!-- Header Principale (struttura simile alla Home) -->
+        <header class="main-header">
+            <div class="header-content">
+                <div class="logo">
+                    <span class="logo-icon">&#128218;</span> SIWBOOKS
+                    <span class="tagline">BOOK REVIEWS (Admin)</span>
+                </div>
+                <nav class="main-nav">
+                    <ul>
+                        <!-- Link per il logout, visibile solo se autenticato -->
+                        <li sec:authorize="isAuthenticated()">
+                            <form th:action="@{/logout}" method="post" style="display:inline;">
+                                <button type="submit" style="background:none; border:none; color:inherit; font:inherit; cursor:pointer; padding:0;">
+                                    Logout
+                                </button>
+                            </form>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </header>
+
+        <!-- Sezione Principale della Pagina di Modifica Libro -->
+        <main class="content-page-section">
+            <div class="page-header-content">
+                <h1 th:text="'Modifica Libro: ' + ${libro.titolo}">Modifica Libro</h1>
+                <a th:href="@{/admin/manageBooks}" class="back-to-home">Torna alla Gestione Libri</a>
+            </div>
+
+            <div class="form-container form-page-section">
+                <!-- Form per la modifica delle informazioni del libro -->
+                <!-- Notare che titolo e anno non sono più campi input nel form e vengono visualizzati come testo semplice. -->
+                <form th:action="@{'/admin/books/edit/' + ${libro.id}}" method="post" th:object="${libro}" enctype="multipart/form-data" class="app-form">
+                    <input type="hidden" th:field="*{id}" />
+
+                    <div class="form-group">
+                        <label>Titolo:</label>
+                        <!-- Titolo visualizzato come testo semplice -->
+                        <p class="display-text-form" th:text="${libro.titolo}"></p>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Anno di Pubblicazione:</label>
+                        <!-- Anno di pubblicazione visualizzato come testo semplice -->
+                        <p class="display-text-form" th:text="${libro.annoPubblicazione}"></p>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="autori">Autori:</label>
+                        <select id="autori" th:field="*{autori}" multiple="multiple" size="5" required>
+                            <option th:each="autore : ${autori}"
+                                    th:value="${autore.id}"
+                                    th:text="${autore.nome + ' ' + autore.cognome}"
+                                    th:selected="${libro.autori != null and #lists.contains(libro.autori.![id], autore.id)}">
+                                Nome Cognome Autore
+                            </option>
+                        </select>
+                        <p class="form-hint">Tieni premuto CTRL (o Command su Mac) per selezionare più autori.</p>
+                        <span th:if="${#fields.hasErrors('autori')}" th:errors="*{autori}" class="error-message"></span>
+                    </div>
+
+                    <!-- Sezione per la gestione delle immagini esistenti -->
+                    <div class="form-group">
+                        <label>Immagini Attuali:</label>
+                        <div th:if="${libro.immagini == null || libro.immagini.isEmpty()}" class="no-images-message">
+                            Nessuna immagine associata a questo libro.
+                        </div>
+                        <div class="image-gallery-preview">
+                            <div th:each="img : ${libro.immagini}" class="image-preview-item">
+                                <img th:src="${img.path}" alt="Immagine libro" class="gallery-thumb"/>
+                                <label class="remove-image-checkbox">
+                                    <input type="checkbox" name="imagesToDelete" th:value="${img.id}"/> Rimuovi
+                                </label>
+                            </div>
+                        </div>
+                        <p class="form-hint">Seleziona le immagini da rimuovere. La prima immagine rimasta sarà la nuova copertina.</p>
+                    </div>
+
+                    <!-- Campo per caricare nuove immagini -->
+                    <div class="form-group">
+                        <label for="newFilesImmagini">Carica Nuove Immagini (opzionale):</label>
+                        <input type="file" id="newFilesImmagini" name="newFilesImmagini" accept="image/*" multiple="multiple"/>
+                        <p class="form-hint">Seleziona una o più nuove immagini da aggiungere al libro.</p>
+                        <span th:if="${fileError}" th:text="${fileError}" class="error-message"></span>
+                    </div>
+
+                    <!-- Pulsante di invio del form -->
+                    <button type="submit" class="submit-button">Salva Modifiche (Autori e Immagini)</button>
+                </form>
+            </div>
+
+            <!-- Sezione per la gestione delle recensioni -->
+            <section class="book-reviews-section">
+                <h2>Gestione Recensioni</h2>
+                <div th:if="${libro.recenzioni == null || libro.recenzioni.isEmpty()}" class="no-items-found">
+                    Nessuna recensione associata a questo libro.
+                </div>
+                <div class="review-list">
+                    <div class="review-card" th:each="recensione : ${libro.recenzioni}">
+                        <div class="review-header">
+                            <h3 th:text="${recensione.titolo}">Titolo Recensione</h3>
+                            <div class="star-rating">
+                                <span th:each="i : ${#numbers.sequence(1, recensione.voto)}" class="star filled">&#9733;</span>
+                                <span th:each="i : ${#numbers.sequence(recensione.voto + 1, 5)}" class="star empty">&#9733;</span>
+                            </div>
+                        </div>
+                        <p class="review-text" th:text="${recensione.testo}">Testo della recensione...</p>
+                        <p class="review-reviewer" th:if="${recensione.credentials != null}">
+                           Recensito da: <strong><span th:text="${recensione.credentials.username}"></span></strong>
+                        </p>
+                        <form th:action="@{'/admin/reviews/delete/' + ${recensione.id} + '/fromBook/' + ${libro.id}}" method="post" class="delete-review-form">
+                            <button type="submit" class="details-button delete-button" onclick="return confirm('Sei sicuro di voler eliminare questa recensione?');">Elimina Recensione</button>
+                        </form>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <!-- Footer Principale -->
+        <footer class="main-footer">
+            <p>&copy; 2025 SIWBOOKS. </p>
+        </footer>
+    </body>
+</html>

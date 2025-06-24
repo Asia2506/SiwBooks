@@ -32,4 +32,13 @@ public class RecensioneService {
 	public List<Recensione> getRecensioniByCredentials(Credentials credentials){
 		return this.recensioneRepository.findByCredentials(credentials);
 	}
+	
+	public void deleteReviewById(Long id) {
+		this.recensioneRepository.delete(this.recensioneRepository.findById(id).orElse(null));
+	}
+	
+	
+	public Recensione getReviewById(Long id) {
+		return this.recensioneRepository.findById(id).orElse(null);
+	}
 }

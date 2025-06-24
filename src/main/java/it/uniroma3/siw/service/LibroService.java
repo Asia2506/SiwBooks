@@ -39,4 +39,9 @@ public class LibroService {
 	public void save(Libro libro) {
 		this.libroRepository.save(libro);
 	}
+	
+	
+	public boolean existsByTitoloAndAnnoPubblicazione(String titolo, int annoPubblicazione) {
+		return libroRepository.findByTitoloAndAnnoPubblicazione(titolo, annoPubblicazione).isPresent();
+	}
 }

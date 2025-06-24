@@ -63,7 +63,9 @@
 
                     <div class="card-admin-actions">
                         <!-- Pulsante Modifica -->
-                        <a th:href="@{'/admin/authors/edit/' + ${author.id}}" class="details-button edit-button">Modifica</a>
+                        <!--
+							<a th:href="@{'/admin/authors/edit/' + ${author.id}}" class="details-button edit-button">Modifica</a>
+						-->
                         <!-- Pulsante Elimina con conferma JavaScript (N.B.: per un'applicazione Spring reale, gestire l'eliminazione con POST/DELETE e CSRF token è più sicuro) -->
                         <a th:href="@{'/admin/authors/delete/' + ${author.id}}" class="details-button delete-button"
                         onclick="return confirm('Sei sicuro di voler eliminare questo autore? Tutti i libri associati a questo autore rimarranno, ma l autore sarà rimosso.')">Elimina</a>

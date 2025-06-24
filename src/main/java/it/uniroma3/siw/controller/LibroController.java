@@ -5,6 +5,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -207,11 +208,13 @@ public class LibroController {
 	
 	
 	@GetMapping("/admin/addBookForm")
-	public String showNewAutoreForm(Model model) {
+	public String showNewBookForm(Model model) {
         model.addAttribute("libro", new Libro()); // Inizializza un nuovo oggetto Autore per il form
         model.addAttribute("autori", autoreService.getAllAuthors());
         return "/admin/formNewLibro.html";
     }
+	
+	
 	
 	
 	@PostMapping("/admin/addBook")
@@ -221,18 +224,13 @@ public class LibroController {
                                @RequestParam(value = "autori", required = false) List<Long> selectedAutoriIds,
                                Model model) {
 		
-		// Imposta gli autori sul libro prima della validazione
-        List<Autore> autoriPerLibro = new ArrayList<>();
-        if (selectedAutoriIds != null && !selectedAutoriIds.isEmpty()) {
-            autoriPerLibro = autoreService.findAllById(selectedAutoriIds);
-        }
-        libro.setAutori(autoriPerLibro);
 		
 		libroValidator.validate(libro, bindingResult);
 
         // Verifica se ci sono errori di validazione
         if (bindingResult.hasErrors()) {
             // Se ci sono errori, torna al form e mostra i messaggi
+        	model.addAttribute("autori", autoreService.getAllAuthors());
             return "/admin/formNewLibro.html";
         }
 
@@ -240,7 +238,7 @@ public class LibroController {
         if (!fileImmagineCopertina.isEmpty()) {
             try {
                 // Genera un nome file unico per evitare sovrascritture
-                String fileName =fileImmagineCopertina.getOriginalFilename();
+                String fileName ="copertina"+fileImmagineCopertina.getOriginalFilename();
                 Path filePath = Paths.get(UPLOAD_DIRECTORY, fileName);
                 
                 // Assicurati che la directory esista
@@ -250,35 +248,154 @@ public class LibroController {
                 Files.copy(fileImmagineCopertina.getInputStream(), filePath);
 
                 // Crea un oggetto Immagine e salvalo nel database
-                Immagine fotografia = new Immagine();
-                fotografia.setPath("/images/copertine/" + fileName); // Path relativo per il browser
-                String nomeImg="Fotografia di " + libro.getTitolo();
-                fotografia.setDescrizione(nomeImg);
-                immagineService.save(fotografia); // Salva l'immagine nel DB
+                Immagine copertina = new Immagine();
+                copertina.setPath("/images/copertine/" + fileName); // Path relativo per il browser
+                String nomeImg="Copertina di " + libro.getTitolo();
+                copertina.setDescrizione(nomeImg);
+                immagineService.save(copertina); // Salva l'immagine nel DB
 
                 // Associa l'immagine all'autore
-                libro.getImmagini().add(fotografia);
+                
+                List<Immagine> immagini=new ArrayList<Immagine>();
+                immagini.add(copertina);
+                libro.setImmagini(immagini);
 
             } catch (IOException e) {
                 // Gestione dell'errore di caricamento del file
                 model.addAttribute("fileError", "Errore nel caricamento della fotografia: " + e.getMessage());
+                model.addAttribute("autori", autoreService.getAllAuthors());
                 return "/admin/formNewLibro.html"; // Torna al form con l'errore
             }
-        } else {
-            // Se la fotografia è obbligatoria, aggiungi un errore qui
-            // model.addAttribute("fileError", "La fotografia dell'autore è obbligatoria.");
-            // return "formNewAutore.html";
-            // Oppure, se è opzionale, non fare nulla o imposta un'immagine di default
         }
-
-        // 4. Salva l'autore nel database
+        
+        //4. Salva il libro nel database
         libroService.save(libro);
+
+     // Gestisce l'associazione con gli autori dal lato proprietario (Autore)
+        if (selectedAutoriIds != null && !selectedAutoriIds.isEmpty()) {
+            List<Autore> autoriSelezionati = autoreService.findAllById(selectedAutoriIds);
+            
+            // Imposta la lista degli autori sul libro (lato inverso)
+            // Questo non persiste direttamente la relazione ManyToMany, ma è buono per la coerenza dell'oggetto in memoria.
+            if(libro.getAutori() == null) {
+                libro.setAutori(new ArrayList<>());
+            }
+            libro.getAutori().clear(); // Pulisci eventuali autori preesistenti se il libro fosse modificato
+            libro.getAutori().addAll(autoriSelezionati);
+
+
+            // AGGIORNAMENTO FONDAMENTALE: Aggiungi il libro alla lista di libri di ogni autore e salvali
+            for (Autore autore : autoriSelezionati) {
+                if (autore.getLibri() == null) {
+                    autore.setLibri(new ArrayList<>());
+                }
+                // Controlla se il libro è già presente per evitare duplicati logici
+                if (!autore.getLibri().contains(libro)) {
+                    autore.getLibri().add(libro);
+                }
+                autoreService.save(autore); // Salva l'autore per persistere la relazione
+            }
+        } else {
+            // Se nessun autore è selezionato, assicurati che la lista di autori del libro sia vuota
+            libro.setAutori(new ArrayList<>());
+        }
+        
 
         return "redirect:/admin/manageBooks"; // Reindirizza alla pagina di gestione autori
 		
 	}
 	
 	
+	
+	@GetMapping("/admin/books/edit/{id}")
+    public String showFormModificaLibro(@PathVariable("id") Long id, Model model) {
+        Libro libro = libroService.getBookById(id);
+        if (libro == null) {
+            return "redirect:/error";
+        }
+        model.addAttribute("libro", libro);
+        model.addAttribute("autori", autoreService.getAllAuthors());
+        return "admin/modificaLibro.html";
+    }
+
+	 @PostMapping("/admin/books/edit/{id}")
+	    public String updateBook(@PathVariable("id") Long id,
+	                             @ModelAttribute("libro") Libro libroForm, // Conterrà solo gli autori selezionati
+	                             BindingResult bindingResult, // Utilizzato per validazione di autori, se necessaria
+	                             @RequestParam(value = "newFilesImmagini", required = false) List<MultipartFile> newFilesImmagini, // Nuove immagini da aggiungere
+	                             @RequestParam(value = "imagesToDelete", required = false) List<Long> imagesToDelete, // ID delle immagini da eliminare
+	                             Model model) {
+
+	        Libro existingLibro = libroService.getBookById(id);
+	        if (existingLibro == null) {
+	            return "redirect:/error"; // O una pagina di errore 404
+	        }
+
+	        // Il validator del libro potrebbe validare anche campi non presenti nel form,
+	        // quindi potremmo aver bisogno di un validator specifico o di un controllo manuale qui.
+	        // Per ora, validiamo solo gli autori se la validazione di default li include.
+	        // libroValidator.validate(libroForm, bindingResult); // Disabilitato, in quanto il form non ha tutti i campi per il validator completo
+
+	        // Aggiorna solo gli autori, che sono modificabili
+	        existingLibro.setAutori(libroForm.getAutori());
+
+	        // 1. Gestione delle immagini da eliminare
+	        if (imagesToDelete != null && !imagesToDelete.isEmpty()) {
+	            Iterator<Immagine> iterator = existingLibro.getImmagini().iterator();
+	            while (iterator.hasNext()) {
+	                Immagine img = iterator.next();
+	                if (imagesToDelete.contains(img.getId())) {
+	                    try {
+	                        Path filePath = Paths.get("src/main/resources/static" + img.getPath());
+	                        Files.deleteIfExists(filePath); // Elimina il file dal filesystem
+	                        immagineService.delete(img); // Elimina l'immagine dal DB
+	                        iterator.remove(); // Rimuovi l'immagine dalla lista del libro
+	                    } catch (IOException e) {
+	                        System.err.println("Errore durante l'eliminazione del file immagine: " + img.getPath() + " - " + e.getMessage());
+	                        // Considera di aggiungere un errore al modello o di loggare l'eccezione
+	                    }
+	                }
+	            }
+	        }
+
+	        // 2. Gestione delle nuove immagini caricate
+	        if (newFilesImmagini != null && !newFilesImmagini.isEmpty()) {
+	            for (MultipartFile file : newFilesImmagini) {
+	                if (!file.isEmpty()) {
+	                    try {
+	                        String fileName = System.currentTimeMillis() + "_" + file.getOriginalFilename();
+	                        Path uploadPath = Paths.get("src/main/resources/static/images/altre/"); // Cartella per tutte le immagini dei libri
+	                        if (!Files.exists(uploadPath)) {
+	                            Files.createDirectories(uploadPath);
+	                        }
+	                        Path filePath = uploadPath.resolve(fileName);
+	                        Files.copy(file.getInputStream(), filePath);
+
+	                        Immagine nuovaImmagine = new Immagine();
+	                        nuovaImmagine.setPath("/images/altre/" + fileName);
+	                        nuovaImmagine.setDescrizione("Immagine aggiuntiva di " + existingLibro.getTitolo()); // Puoi raffinare la descrizione
+	                        immagineService.save(nuovaImmagine);
+	                        
+	                        // Inizializza la lista di immagini se è null
+	                        if (existingLibro.getImmagini() == null) {
+	                            existingLibro.setImmagini(new ArrayList<>());
+	                        }
+	                        existingLibro.getImmagini().add(nuovaImmagine);
+
+	                    } catch (IOException e) {
+	                        model.addAttribute("fileError", "Errore nel caricamento di una nuova immagine: " + e.getMessage());
+	                        model.addAttribute("autori", autoreService.getAllAuthors());
+	                        model.addAttribute("libro", existingLibro); // Passa il libro esistente per ripopolare il form
+	                        return "/admin/modficaLibro.html"; // Torna alla stessa pagina per mostrare l'errore
+	                    }
+	                }
+	            }
+	        }
+
+	        libroService.save(existingLibro); // Salva il libro con le modifiche alle immagini e autori
+
+	        return "redirect:/admin/books/edit/" + id; // Reindirizza alla pagina di dettaglio del libro
+	    }
 	
 	
 }

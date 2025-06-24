@@ -16,4 +16,9 @@ public class ImmagineService {
 	public void save(Immagine immagine) {
 		this.immagineRepository.save(immagine);
 	}
+	
+	
+	public void delete(Immagine immegine) {
+		this.immagineRepository.delete(immegine);
+	}
 }

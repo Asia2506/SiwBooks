@@ -14,4 +14,6 @@ public interface RecensioneRepository extends CrudRepository<Recensione,Long>{
 	Optional<Recensione> findByLibroIdAndCredentialsUsername(Long libroId, String username);
 	
 	List<Recensione> findByCredentials(Credentials utente);
+	
+	Optional<Recensione> findById(Long id);
 }

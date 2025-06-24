@@ -1,5 +1,6 @@
 package it.uniroma3.siw.service;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,4 +43,10 @@ public class AutoreService {
 	public void save(Autore autore) {
 		this.autoreRepository.save(autore);
 	}
+	
+	
+	public boolean existsByNomeAndCognomeAndDataNascita(String nome, String cognome, LocalDate dataNascita) {
+        return autoreRepository.findByNomeAndCognomeAndDataNascita(nome, cognome, dataNascita).isPresent();
+    }
 }
+
