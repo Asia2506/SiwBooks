@@ -30,6 +30,18 @@ public class AutoreController {
 	}
 	
 	
+	@GetMapping("/user/authors")
+	public String showAutorsForUser(@RequestParam(value="surname",required=false) String cognome,Model model) {
+		
+		if(cognome!=null && !cognome.isEmpty()) 
+			model.addAttribute("authors",this.autoreService.getAllAuthorsBySurname(cognome));
+		else	
+			model.addAttribute("authors",this.autoreService.getAllAuthors());
+		
+		return "/user/authors.html";
+	}
+	
+	
 	@GetMapping("/admin/manageAuthors")
 	public String showAutorsForAdmin(@RequestParam(value="surname",required=false) String cognome,Model model) {
 		
@@ -61,4 +73,10 @@ public class AutoreController {
 		return "dettagliAutore.html";
 	}
 	
+	
+	@GetMapping("/user/authors/{idAutore}")
+	public String getAutoreForUser(@PathVariable("idAutore") Long idAutore,Model model) {
+		model.addAttribute("author",this.autoreService.getAuthorById(idAutore));
+		return "/user/dettagliAutore.html";
+	}
 }

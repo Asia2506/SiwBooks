@@ -29,7 +29,7 @@ public class Credentials {
 	@OneToOne(cascade=CascadeType.ALL)
 	private User user;
 	
-	@OneToMany(mappedBy="utente")
+	@OneToMany(mappedBy="credentials",cascade=CascadeType.ALL)
 	private List<Recensione> recensioniScritte;
 
 	

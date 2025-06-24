@@ -43,7 +43,7 @@
                         <strong>Autore/i:</strong>
                         <ul class="book-authors-list">
                             <li th:each="autore, stat : ${book.autori}">
-                                <a th:href="@{/authors/{id}(id=${autore.id})}" th:text="${autore.nome + ' ' + autore.cognome}">Nome Cognome</a><span th:if="${!stat.last}">,</span>
+                                <a th:href="@{'/user/authors/'+${autore.id}}" th:text="${autore.nome + ' ' + autore.cognome}">Nome Cognome</a><span th:if="${!stat.last}">,</span>
                             </li>
                             <li th:if="${#lists.isEmpty(book.autori)}">Nessun autore specificato</li>
                         </ul>
@@ -66,13 +66,13 @@
 	                    <h4 th:text="${recensione.titolo}">Titolo Recensione</h4>
 	                    <div class="review-rating">
 	                        <!-- Genera stelle piene in base alla valutazione -->
-	                        <span th:each="i : ${#numbers.sequence(1, recensione.valutazione)}" class="star filled">&#9733;</span>
+	                        <span th:each="i : ${#numbers.sequence(1, recensione.voto)}" class="star filled">&#9733;</span>
 	                        <!-- Genera stelle vuote per completare fino a 5 -->
-	                        <span th:each="i : ${#numbers.sequence(recensione.valutazione + 1, 5)}" class="star empty">&#9733;</span>
+	                        <span th:each="i : ${#numbers.sequence(recensione.voto + 1, 5)}" class="star empty">&#9733;</span>
 	                    </div>
 	                    <p class="review-text" th:text="${recensione.testo}">Testo della recensione...</p>
-						<p class="review-reviewer" th:if="${recensione.utente != null}">
-					       Recensito da: <strong><span th:text="${recensione.utente.username}"></span></strong>
+						<p class="review-reviewer" th:if="${recensione.credentials != null}">
+					       Recensito da: <strong><span th:text="${recensione.credentials.username}"></span></strong>
 						</p>
 					</div>
 	            </div>

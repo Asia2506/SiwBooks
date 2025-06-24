@@ -1,5 +1,5 @@
 /*
- * File: style.css
+ * File: stile.css
  * Descrizione: Foglio di stile principale per l'applicazione SiwBooks.
  * Questo file contiene gli stili generali, l'header, il footer,
  * gli stili per le sezioni principali (home, cataloghi, dettagli)
@@ -719,6 +719,18 @@ ul {
     margin-bottom: 15px; /* Spazio sotto il testo. */
 }
 
+.review-reviewer {
+    font-size: 0.9em;
+    color: #006080;
+    margin-top: 5px;
+    text-align: left;
+}
+
+.review-reviewer strong {
+    font-weight: bold;
+    color: #006080;
+}
+
 .review-date {
     font-size: 0.8em; /* Dimensione del font per la data. */
     color: #777; /* Colore del testo. */
@@ -732,6 +744,89 @@ ul {
     color: #666; /* Colore del testo. */
     font-style: italic; /* Testo in corsivo. */
     padding: 20px 0; /* Padding verticale. */
+}
+
+/* NUOVI STILI PER LA SEZIONE RECENSIONE DELL'UTENTE */
+.review-user-section {
+    /* Questa sezione è un clone di book-reviews-section ma specifica per l'utente */
+    max-width: 1000px;
+    margin: 40px auto 20px auto;
+    padding: 0 30px;
+    border-top: 2px dashed #e0e0e0; /* Una linea per separare le sezioni recensioni */
+    padding-top: 40px; /* Spazio sopra la linea */
+}
+
+.review-user-section h3 {
+    color: #1E3A4D;
+    font-size: 1.8em;
+    margin-bottom: 20px;
+    border-bottom: 2px solid #e0e0e0;
+    padding-bottom: 8px;
+    text-align: left; /* Allinea il titolo a sinistra */
+}
+
+.user-review-card {
+    /* Stili per la card della recensione dell'utente, molto simili a .review-card */
+    background-color: #e0f7fa; /* Un colore leggermente diverso per farla risaltare */
+    border: 1px solid #4DCDE1; /* Bordo colorato */
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px; /* Spazio sotto la card della recensione dell'utente */
+}
+
+.user-review-actions {
+    display: flex;
+    gap: 10px; /* Spazio tra i pulsanti */
+    margin-top: 15px;
+    justify-content: flex-start; /* Allinea i pulsanti a sinistra */
+}
+
+/* Stili per i pulsanti di modifica/eliminazione nella recensione dell'utente */
+.user-review-actions .details-button {
+    padding: 8px 15px; /* Padding standard per i bottoni */
+    font-size: 0.9em;
+    font-weight: bold;
+    border-radius: 5px;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.user-review-actions .edit-button {
+    background-color: #007bff; /* Blu per Modifica */
+    color: #fff;
+}
+
+.user-review-actions .edit-button:hover {
+    background-color: #0056b3;
+    transform: translateY(-2px);
+}
+
+.user-review-actions .delete-button {
+    background-color: #dc3545; /* Rosso per Elimina */
+    color: #fff;
+}
+
+.user-review-actions .delete-button:hover {
+    background-color: #c82333;
+    transform: translateY(-2px);
+}
+
+/* Sezione per le "altre" recensioni */
+.other-reviews-section {
+    max-width: 1000px;
+    margin: 20px auto 20px auto; /* Meno margine superiore perché separato dalla linea */
+    padding: 0 30px;
+}
+
+.other-reviews-section h3 {
+    color: #1E3A4D;
+    font-size: 1.8em;
+    margin-bottom: 20px;
+    border-bottom: 2px solid #e0e0e0;
+    padding-bottom: 8px;
+    text-align: left;
 }
 
 
@@ -883,7 +978,6 @@ ul {
 /* Stili per contenitori di form generici. */
 /* ------------------------------------------- */
 .form-container {
-	background-color: #fff;
     max-width: 500px; /* Larghezza massima del contenitore del form. */
     margin: 40px auto; /* Centra il contenitore e aggiunge spazio. */
     padding: 30px; /* Padding interno. */
@@ -921,7 +1015,8 @@ ul {
 .form-group input[type="password"],
 .form-group input[type="email"],
 .form-group input[type="date"],
-.form-group input[type="tel"] {
+.form-group input[type="tel"],
+.form-group textarea { /* Aggiunto textarea */
     width: 100%; /* Larghezza piena dell'input. */
     padding: 12px;
     border: 1px solid #ddd;
@@ -930,8 +1025,9 @@ ul {
     transition: border-color 0.3s ease, box-shadow 0.3s ease; /* Transizioni per focus. */
 }
 
-/* Effetto focus sugli input del form */
-.form-group input:focus {
+/* Effetto focus sugli input e textarea del form */
+.form-group input:focus,
+.form-group textarea:focus { /* Aggiunto textarea:focus */
     border-color: #4DCDE1; /* Bordo blu all'attivazione. */
     box-shadow: 0 0 0 3px rgba(77, 205, 225, 0.2); /* Ombra per focus. */
     outline: none; /* Rimuove l'outline predefinito del browser. */
@@ -1001,7 +1097,7 @@ ul {
     .main-header { padding: 10px 20px; }
     .main-nav ul { gap: 15px; }
     .hero-content-centered h1,
-    .hero-content-centered h2 { font-size: 2.8em; } /* Aggiornato anche per h2. */
+    .hero-content-centered h2 { font-size: 2.8em; }
     .card { width: 220px; height: 180px; }
     .page-header-content h1 { font-size: 2em; }
     .back-to-home { padding: 8px 15px; font-size: 0.9em; }
@@ -1022,7 +1118,7 @@ ul {
     .author-card-item { min-height: 260px; }
     /* Dettagli Libro */
     .book-details-container {
-        flex-direction: column; /* Impila elementi. */
+        flex-direction: column;
         align-items: center;
         gap: 25px;
         padding: 20px;
@@ -1031,17 +1127,17 @@ ul {
     .book-info-area { min-width: unset; text-align: center; }
     .book-info-area h2 { font-size: 1.8em; }
     .book-info-area p { font-size: 1em; }
-    .book-authors-list li { display: block; } /* Ogni autore su nuova riga. */
-    .book-authors-list li + li::before { content: ""; } /* Rimuove virgola. */
+    .book-authors-list li { display: block; }
+    .book-authors-list li + li::before { content: ""; }
     .book-gallery { padding: 0 20px; }
     .book-gallery h3 { font-size: 1.6em; }
     .gallery-grid { grid-template-columns: repeat(auto-fit, minmax(100px, 1fr)); gap: 10px; }
     .gallery-thumb { height: 150px; }
     /* Recensioni */
-    .book-reviews-section { padding: 0 20px; } /* Riduci padding. */
-    .book-reviews-section h3 { font-size: 1.6em; } /* Riduci dimensione titolo. */
-    .reviews-list { grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; } /* Adatta colonne. */
-    .review-card { padding: 15px; } /* Riduci padding card recensione. */
+    .book-reviews-section { padding: 0 20px; }
+    .book-reviews-section h3 { font-size: 1.6em; }
+    .reviews-list { grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; }
+    .review-card { padding: 15px; }
     /* Dettagli Autore */
     .author-details-container {
         flex-direction: column;
@@ -1075,34 +1171,34 @@ ul {
     .main-nav ul { flex-wrap: wrap; justify-content: center; gap: 10px; }
     .main-nav a { font-size: 0.9em; }
     .hero-content-centered h1,
-    .hero-content-centered h2 { font-size: 2.2em; } /* Aggiornato anche per h2. */
+    .hero-content-centered h2 { font-size: 2.2em; }
     .card { width: 80%; height: auto; min-height: 160px; }
     .content-page-section { padding: 20px 10px; }
 
     /* Forza titolo e bottone sulla stessa riga, sposta search-bar sotto */
     .page-header-content {
-        flex-direction: row; /* Mantieni in riga gli elementi principali. */
+        flex-direction: row;
         align-items: center;
         justify-content: space-between;
-        flex-wrap: wrap; /* Consenti il wrapping solo se strettamente necessario (per search-bar). */
+        flex-wrap: wrap;
     }
     .page-header-content h1 {
-        font-size: 1.6em; /* Riduci il font per il titolo. */
-        max-width: 60%; /* Lascia spazio al pulsante. */
-        flex-basis: auto; /* Adatta la base flessibile. */
-        order: 0; /* Ordine normale. */
+        font-size: 1.6em;
+        max-width: 60%;
+        flex-basis: auto;
+        order: 0;
     }
     .back-to-home {
-        padding: 6px 12px; /* Riduci padding del pulsante. */
-        font-size: 0.8em; /* Riduci font del pulsante. */
-        order: 1; /* Posiziona il pulsante dopo il titolo ma prima della search-bar se wrappa. */
+        padding: 6px 12px;
+        font-size: 0.8em;
+        order: 1;
     }
     .search-bar {
-        width: 100%; /* La search bar va sempre su una nuova riga. */
-        margin-top: 20px; /* Aumenta lo spazio sopra la search bar. */
-        order: 2; /* Forza la search bar ad andare per ultima. */
+        width: 100%;
+        margin-top: 20px;
+        order: 2;
     }
-    .search-bar form { flex-direction: row; align-items: center; justify-content: center; } /* Mantieni riga per search bar. */
+    .search-bar form { flex-direction: row; align-items: center; justify-content: center; }
     .search-bar input[type="text"] { width: 70%; margin-bottom: 0; }
     .search-bar button[type="submit"] { width: auto; }
 
@@ -1129,7 +1225,7 @@ ul {
     .gallery-thumb { height: 120px; }
     /* Recensioni */
     .book-reviews-section h3 { font-size: 1.4em; }
-    .reviews-list { grid-template-columns: 1fr; } /* Singola colonna su mobile. */
+    .reviews-list { grid-template-columns: 1fr; }
     .review-card { padding: 12px; }
     /* Dettagli Autore */
     .author-profile-image-area { max-width: 150px; }
@@ -1137,7 +1233,7 @@ ul {
     .author-info-area p { font-size: 1em; }
     .author-books-section h3 { font-size: 1.4em; }
     .books-table-list {
-        grid-template-columns: 2fr 2fr 0.8fr; /* Regola le proporzioni delle colonne. */
+        grid-template-columns: 2fr 2fr 0.8fr;
         padding: 8px 10px;
         font-size: 0.9em;
     }
@@ -1146,7 +1242,7 @@ ul {
     .form-container {
         margin: 20px auto;
         padding: 20px;
-        width: 90%; /* Occupa più larghezza. */
+        width: 90%;
     }
     .submit-button {
         padding: 10px 20px;
@@ -1160,28 +1256,28 @@ ul {
     .logo { font-size: 1.2em; }
     .tagline { display: none; }
     .hero-content-centered h1,
-    .hero-content-centered h2 { font-size: 1.8em; margin-bottom: 20px; } /* Aggiornato anche per h2. */
+    .hero-content-centered h2 { font-size: 1.8em; margin-bottom: 20px; }
     .card-container { gap: 15px; }
     .card { width: 90%; min-height: 140px; }
     .card h2,
-    .card h3 { font-size: 1.5em; } /* Aggiornato anche per h3. */
+    .card h3 { font-size: 1.5em; }
     .card p { font-size: 0.9em; }
 
     /* Ulteriori adattamenti per schermi molto stretti */
     .page-header-content h1 {
-        font-size: 1.2em; /* Ulteriore riduzione del font per il titolo. */
-        max-width: 55%; /* Limita ancora di più la larghezza del titolo. */
+        font-size: 1.2em;
+        max-width: 55%;
     }
     .back-to-home {
-        padding: 4px 8px; /* Riduci ulteriormente padding del pulsante. */
-        font-size: 0.7em; /* Riduci ulteriormente font del pulsante. */
+        padding: 4px 8px;
+        font-size: 0.7em;
     }
-    .search-bar form { flex-direction: column; align-items: center; } /* Impila input e pulsante di ricerca. */
+    .search-bar form { flex-direction: column; align-items: center; }
     .search-bar input[type="text"] { width: 90%; margin-bottom: 10px; }
     .search-bar button[type="submit"] { width: 50%; }
 
     .item-grid, .book-grid {
-        grid-template-columns: 1fr; /* Una colonna singola per elementi in griglia. */
+        grid-template-columns: 1fr;
         gap: 10px;
     }
     /* Libri */
@@ -1213,24 +1309,24 @@ ul {
     .author-info-area p { font-size: 0.9em; }
     .author-books-section h3 { font-size: 1.2em; }
     .books-table-list {
-        border: none; /* Rimuovi bordo esterno. */
-        box-shadow: none; /* Rimuovi ombra esterna. */
+        border: none;
+        box-shadow: none;
     }
     .book-list-header {
-        display: none; /* Nascondi l'intestazione della tabella. */
+        display: none;
     }
     .author-book-row {
-        display: flex; /* Disposizione flessibile in colonna. */
+        display: flex;
         flex-direction: column;
         align-items: flex-start;
         padding: 10px 15px;
-        border: 1px solid #eee; /* Aggiungi bordo per singola "card". */
+        border: 1px solid #eee;
         border-radius: 8px;
         margin-bottom: 10px;
-        box-shadow: 0 2px 5px rgba(0,0,0,0.05); /* Ombra leggera. */
+        box-shadow: 0 2px 5px rgba(0,0,0,0.05);
     }
     .author-book-row:last-child {
-        border-bottom: 1px solid #eee; /* Assicurati un bordo inferiore. */
+        border-bottom: 1px solid #eee;
     }
     .book-row-title {
         width: 100%;

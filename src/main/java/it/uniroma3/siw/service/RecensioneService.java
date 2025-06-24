@@ -22,7 +22,7 @@ public class RecensioneService {
 	
 	
 	
-	public Optional<Recensione> getRecensioneByUtenteEIdLibro(Long idLibro,String username){
-		return this.recensioneRepository.findByLibroIdAndUtenteUsername(idLibro, username);
+	public Optional<Recensione> getRecensioneByUsernameEIdLibro(Long idLibro,String username){
+		return this.recensioneRepository.findByLibroIdAndCredentialsUsername(idLibro, username);
 	}
 }

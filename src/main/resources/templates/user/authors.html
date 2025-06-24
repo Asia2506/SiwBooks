@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+	<head>
+	    <title>SiwBooks - Autori</title>
+	    <link rel="stylesheet" href="/css/stile4.css?versione=2"/>
+	</head>
+	<body>
+	    <!-- Header Principale (struttura simile alla Home) -->
+	    <header class="main-header">
+	        <div class="header-content">
+	            <div class="logo">
+	                <span class="logo-icon">&#128218;</span> SIWBOOKS
+	                <span class="tagline">BOOK REVIEWS</span>
+	            </div>
+	            <nav class="main-nav">
+	                <ul>
+						<li sec:authorize="isAuthenticated()">
+	                        <form th:action="@{/logout}" method="post" style="display:inline;">
+	                            <button type="submit" style="background:none; border:none; color:inherit; font:inherit; cursor:pointer; padding:0;">
+	                                Logout
+	                            </button>
+	                        </form>
+	                    </li>
+	                </ul>
+	            </nav>
+	        </div>
+	    </header>
+	
+	    <!-- Sezione Principale della Pagina Libri -->
+	    <main class="content-page-section">
+	        <div class="page-header-content">
+	            <h1>Autori</h1>
+	            <a th:href="@{/}" class="back-to-home">Torna alla Home</a>
+	        </div>
+	
+	        <!-- Barra di Ricerca per Cognome -->
+	        <div class="search-bar">
+	            <form th:action="@{/user/authors}" method="GET"> <!-- L'azione punta allo stesso endpoint /books -->
+	                <input type="text" name="surname" placeholder="Cerca un autore per cognome..." >
+	                <button type="submit">Cerca</button>
+	            </form>
+	        </div>
+	
+	        <!-- Griglia di Autori -->
+	        <div class="item-grid">
+	            <!-- Itera sulla lista di libri fornita dal controller -->
+	            <div th:each="author : ${authors}" class="author-card-item">
+	                <img th:src="${author.fotografia != null ? author.fotografia.path : 'https://placehold.co/150x220/808080/FFFFFF?text=Fotografia'}"
+	                     alt="Fotografia autore" class="book-cover">
+	                <h3 th:text="${author.nome+' '+author.cognome}">Nome e Cognome autore</h3>
+	                <!-- Potresti aggiungere un link per i dettagli del libro qui -->
+	                <a th:href="@{'/user/authors/'+${author.id}}" class="details-button">Dettagli</a>
+	            </div>
+	            <!-- Messaggio se non ci sono libri -->
+	            <div th:if="${authors.isEmpty()}" class="no-items-found">
+	                Nessun autore trovato.
+	            </div>
+	        </div>
+	    </main>
+	
+	    <!-- Footer Principale (struttura simile alla Home) -->
+	    <footer class="main-footer">
+	        <p>&copy; 2025 SIWBOOKS. </p>
+	    </footer>
+	</body>
+</html>

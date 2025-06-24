@@ -122,7 +122,10 @@ INSERT INTO libro_immagini (immagini_id, libro_id) VALUES ((SELECT id FROM immag
 INSERT INTO users (id, nome, cognome, data_nascita, luogo_nascita, email) VALUES (nextval('users_seq'), 'Asia', 'Fulvi', '25-06-2003', 'Roma', 'admin@gmail.com');
 INSERT INTO credentials (id, username, password, role, user_id) VALUES (nextval('credentials_seq'), 'asia25', '$2a$10$3xz1InFVQCU3kbTE625NYuInyA74bnRLc9ycPtcv9A/rHerSDk2Iq', 'ADMIN', (SELECT id FROM users WHERE nome='Asia' AND cognome='Fulvi' AND email='admin@gmail.com'));
 --$2a$10$3xz1InFVQCU3kbTE625NYuInyA74bnRLc9ycPtcv9A/rHerSDk2Iq
+INSERT INTO users (id, nome, cognome, data_nascita, luogo_nascita, email) VALUES (nextval('users_seq'), 'Giada', 'Fulvi', '18-08-2005', 'Roma', 'giada@gmail.com');
+INSERT INTO credentials (id, username, password, role, user_id) VALUES (nextval('credentials_seq'), 'giada18', '$2a$10$ArEYw3GeQ6frWeov2Gu88.jlflwpWUc/E.yzWY5DPS0r8tx5Ltr0m', 'USER', (SELECT id FROM users WHERE nome='Giada' AND cognome='Fulvi' AND email='giada@gmail.com'));
 
+--$2a$10$ArEYw3GeQ6frWeov2Gu88.jlflwpWUc/E.yzWY5DPS0r8tx5Ltr0m
 
 
 

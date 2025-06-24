@@ -46,7 +46,7 @@ public class LibroController {
 		String username=userDetails.getUsername();
 		
 		List<Recensione> altreRecensioni=libro.getRecenzioni();
-		Optional<Recensione> recensioneUser=this.recensioneService.getRecensioneByUtenteEIdLibro(idLibro, username);
+		Optional<Recensione> recensioneUser=this.recensioneService.getRecensioneByUsernameEIdLibro(idLibro, username);
 		if(recensioneUser.isPresent()) {
 			model.addAttribute("recensioneUser",recensioneUser.get());
 			altreRecensioni.remove(altreRecensioni.indexOf(recensioneUser.get()));
@@ -126,6 +126,9 @@ public class LibroController {
 		return "/admin/manageBooks.html";
 	}
 	
+	
+	
+	
 	@GetMapping("/user/books")
 	public String showBooksForUser(@RequestParam(value="title",required=false) String titoloLibro,Model model) {
 		
@@ -156,9 +159,6 @@ public class LibroController {
 	
 	
 	
-	
-	
-	
 	@GetMapping("/admin/books/delete/{idLibro}")
 	public String deleteBook(@PathVariable("idLibro") Long id,Model model) {
 		Libro libro=this.libroService.getBookById(id);
@@ -167,6 +167,18 @@ public class LibroController {
 		}
 		this.libroService.deleteBook(libro);
 		return "redirect:/admin/manageBooks";
+	}
+	
+	
+	
+	
+	
+	
+	@GetMapping("/user/books/{idLibro}/reviewForm")
+	public String writeNewReview(@PathVariable("idLibro") Long id,Model model) {
+		model.addAttribute("recensione",new Recensione());
+		model.addAttribute("libro",this.libroService.getBookById(id));
+		return "/user/formNewRecensione.html";
 	}
 	
 	

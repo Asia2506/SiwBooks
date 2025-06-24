@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+    <head>
+        <title>Scrivi Recensione - SiwBooks</title>
+        <!-- Link al file CSS esterno. Assicurati che il percorso sia corretto. -->
+        <link rel="stylesheet" href="/css/stile4.css?versione=2"/>
+    </head>
+    <body>
+        <!-- Header Principale -->
+        <header class="main-header">
+            <div class="header-content">
+                <div class="logo">
+                    <span class="logo-icon">&#128218;</span> SIWBOOKS
+                    <span class="tagline">BOOK SUBSCRIPTION SERVICE</span>
+                </div>
+                <nav class="main-nav">
+                    <ul>
+                        <li sec:authorize="isAuthenticated()">
+                            <form th:action="@{/logout}" method="post" style="display:inline;">
+                                <button type="submit" style="background:none; border:none; color:inherit; font:inherit; cursor:pointer; padding:0;">
+                                    Logout
+                                </button>
+                            </form>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </header>
+
+        <!-- Sezione Principale del Form di Recensione -->
+        <main class="content-page-section">
+            <div class="page-header-content">
+                <h1 th:text="'Scrivi una recensione per ' + ${libro.titolo}">Scrivi una recensione per Titolo del Libro</h1>
+                <a th:href="@{'/user/books/' + ${libro.id}}" class="back-to-home">Torna al Libro</a>
+            </div>
+
+            <div class="form-container">
+               
+                <!-- Messaggio di errore generale (se presente, ad esempio dal controller) -->
+                <div th:if="${errorMessage}" class="error-message">
+                    <p th:text="${errorMessage}"></p>
+                </div>
+
+                <!-- Form per la Recensione -->
+                <form th:action="@{'/user/books/' + ${libro.id} + '/addReview'}" method="post" th:object="${recensione}" class="auth-form">
+                    <div class="form-group">
+                        <label for="titolo">Titolo della recensione:</label>
+                        <input type="text" id="titolo" th:field="*{titolo}" required>
+                        <!-- Visualizzazione degli errori di validazione per il campo 'titolo' -->
+                        <span th:if="${#fields.hasErrors('titolo')}" th:errors="*{titolo}" class="error-message"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="testo">Testo della recensione:</label>
+                        <textarea id="testo" th:field="*{testo}" rows="5" required></textarea>
+                        <!-- Visualizzazione degli errori di validazione per il campo 'testo' -->
+                        <span th:if="${#fields.hasErrors('testo')}" th:errors="*{testo}" class="error-message"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="voto">Valutazione (da 1 a 5):</label>
+                        <input type="number" id="voto" th:field="*{voto}" min="1" max="5" required>
+                        <!-- Visualizzazione degli errori di validazione per il campo 'voto' -->
+                        <span th:if="${#fields.hasErrors('voto')}" th:errors="*{voto}" class="error-message"></span>
+                    </div>
+
+                    <button type="submit" class="submit-button">Invia Recensione</button>
+                </form>
+            </div>
+        </main>
+
+        <!-- Footer Principale -->
+        <footer class="main-footer">
+            <p>&copy; 2025 SIWBOOKS. Tutti i diritti riservati.</p>
+        </footer>
+    </body>
+</html>

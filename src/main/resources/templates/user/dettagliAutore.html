@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+    <head>
+        <title>SiwBooks - Dettagli Autore</title>
+        <!-- Link al file CSS esterno -->
+        <link rel="stylesheet" href="/css/stile4.css?versione=2"/>
+    </head>
+    <body>
+        <!-- Header Principale -->
+        <header class="main-header">
+            <div class="header-content">
+                <div class="logo">
+                    <span class="logo-icon">&#128218;</span> SIWBOOKS
+                    <span class="tagline">BOOK SUBSCRIPTION SERVICE</span>
+                </div>
+                <nav class="main-nav">
+                    <ul>
+						<li sec:authorize="isAuthenticated()">
+	                        <form th:action="@{/logout}" method="post" style="display:inline;">
+	                            <button type="submit" style="background:none; border:none; color:inherit; font:inherit; cursor:pointer; padding:0;">
+	                                Logout
+	                            </button>
+	                        </form>
+	                    </li>
+                    </ul>
+                </nav>
+            </div>
+        </header>
+
+        <!-- Sezione Principale della Pagina Dettagli Autore -->
+        <main class="content-page-section author-details-section">
+            <div class="page-header-content">
+                <h1 th:text="${author.nome + ' ' + author.cognome}">Nome Cognome Autore</h1>
+                <a th:href="@{/user/authors}" class="back-to-home">Torna al Catalogo Autori</a>
+            </div>
+
+            <div class="author-details-container">
+                <div class="author-profile-image-area">
+                    <!-- Mostra la foto dell'autore o un placeholder -->
+                    <img th:src="${author.fotografia != null ? author.fotografia.path : 'https://placehold.co/300x300/808080/FFFFFF?text=Foto+Autore'}"
+                        alt="Foto dell'autore" class="author-detail-photo">
+                </div>
+
+                <div class="author-info-area">
+                    <h2>Informazioni Biografiche:</h2>
+                    <p><strong>Nazionalità:</strong> <span th:text="${author.nazionalita}"></span></p>
+                    <p><strong>Data di Nascita:</strong> <span th:text="${#temporals.format(author.dataNascita, 'dd/MM/yyyy')}">GG/MM/AAAA</span></p>
+                    <p th:if="${author.dataMorte != null}"><strong>Data di Morte:</strong> <span th:text="${#temporals.format(author.dataMorte, 'dd/MM/yyyy')}">GG/MM/AAAA</span></p>
+                    
+                    <!-- Puoi aggiungere qui altri dettagli biografici -->
+                </div>
+            </div>
+
+            <!-- Sezione Libri scritti dall'Autore -->
+            <div class="author-books-section">
+                <h3>Libri scritti:</h3>
+                <div th:if="${#lists.isEmpty(author.libri)}" class="no-books-found">
+                    <p>Ancora nessun libro registrato per questo autore.</p>
+                </div>
+                <div th:unless="${#lists.isEmpty(author.libri)}" class="books-table-list">
+                    <div class="book-list-header">
+                        <span class="header-title">Titolo</span>
+                        <span class="header-authors">Autori del Libro</span>
+                        <span class="header-actions"></span> <!-- Spazio per il pulsante Dettagli -->
+                    </div>
+                    <div th:each="book : ${author.libri}" class="author-book-row">
+                        <span class="book-row-title" th:text="${book.titolo}">Titolo del Libro</span>
+                        <span class="book-row-authors">
+                            <span th:each="innerAutore : ${book.autori}">
+                                <span th:text="${innerAutore.nome + ' ' + innerAutore.cognome}">Nome Cognome</span><span th:if="${!innerAutoreStat.last}">, </span>
+                            </span>
+                        </span>
+                        <span class="book-row-actions">
+                            <a th:href="@{'/user/books/'+${book.id}}" class="details-button">Dettagli</a>
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+        </main>
+
+        <!-- Footer Principale -->
+        <footer class="main-footer">
+            <p>&copy; 2025 SIWBOOKS. Tutti i diritti riservati.</p>
+        </footer>
+    </body>
+</html>

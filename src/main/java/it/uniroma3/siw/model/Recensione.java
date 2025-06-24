@@ -7,6 +7,10 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
 @Entity
 public class Recensione {
@@ -15,10 +19,19 @@ public class Recensione {
 	@Id
     @GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
+	
+	@NotBlank
 	private String titolo;
+	
+	@NotNull
+	@Min(value = 1) // Voto minimo 1
+    @Max(value = 5) // Voto massimo 5
 	private int voto;		//tra0 e 5
+	
+	@NotBlank
 	private String testo;
 	//utente che lo ha scritto
+	
 	
 	
 	/*--------ASSOCIAZIONI--------*/
@@ -27,7 +40,7 @@ public class Recensione {
 	private Libro libro;
 	
 	@ManyToOne
-	private Credentials utente;
+	private Credentials credentials;
 
 
 	
@@ -91,11 +104,11 @@ public class Recensione {
 		this.libro = libro;
 	}
 	
-	public Credentials getUtente() {
-		return utente;
+	public Credentials getCredentials() {
+		return credentials;
 	}
-	public void setUtente(Credentials utente) {
-		this.utente = utente;
+	public void setCredentials(Credentials utente) {
+		this.credentials = utente;
 	}
 	
 	
