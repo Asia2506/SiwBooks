@@ -6,11 +6,11 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import it.uniroma3.siw.controller.validator.RecensioneValidator;
 import it.uniroma3.siw.model.Credentials;
 import it.uniroma3.siw.model.Libro;
 import it.uniroma3.siw.model.Recensione;
@@ -28,8 +28,6 @@ public class RecensioneController {
 	LibroService libroService;
 	@Autowired 
 	CredentialsService credentialsService;
-	@Autowired
-	RecensioneValidator recensioneValidator;
 	
 	
 	
@@ -43,13 +41,13 @@ public class RecensioneController {
 		Libro libro=this.libroService.getBookById(libroId);
 		
 		
-		recensioneValidator.validate(recensione, bindingResult);
+		//recensioneValidator.validate(recensione, bindingResult);
         // Controlla se ci sono errori di validazione
         if (bindingResult.hasErrors()) {
             // Se ci sono errori, torna al form mostrando i messaggi di errore
             model.addAttribute("libro",libro ); // Assicurati di ripassare il libro al template
             model.addAttribute("errorMessage", "Ci sono errori nel form. Controlla i campi."); // Messaggio generico
-            return "reviewForm.html"; // Torna allo stesso form
+            return "/user/formNewRecensione.html"; // Torna allo stesso form
         }
      // Se la validazione è superata:
         // Associa il libro alla recensione
@@ -72,4 +70,15 @@ public class RecensioneController {
        
         return "redirect:/user/books/" + libro.getId();
     }
+	
+	
+	
+	@GetMapping("/user/recensioni")
+	public String getMyReview(Model model) {
+		UserDetails userDetails = (UserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		Credentials credentials=this.credentialsService.getCredentials(userDetails.getUsername());
+
+		model.addAttribute("myReviews",this.recensioneService.getRecensioniByCredentials(credentials));
+		return "/user/recensioni.html";
+	}
 }

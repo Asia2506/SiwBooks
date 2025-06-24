@@ -44,21 +44,21 @@
                 <form th:action="@{'/user/books/' + ${libro.id} + '/addReview'}" method="post" th:object="${recensione}" class="auth-form">
                     <div class="form-group">
                         <label for="titolo">Titolo della recensione:</label>
-                        <input type="text" id="titolo" th:field="*{titolo}" required>
+                        <input type="text" id="titolo" th:field="*{titolo}">
                         <!-- Visualizzazione degli errori di validazione per il campo 'titolo' -->
                         <span th:if="${#fields.hasErrors('titolo')}" th:errors="*{titolo}" class="error-message"></span>
                     </div>
 
                     <div class="form-group">
                         <label for="testo">Testo della recensione:</label>
-                        <textarea id="testo" th:field="*{testo}" rows="5" required></textarea>
+                        <textarea id="testo" th:field="*{testo}"></textarea>
                         <!-- Visualizzazione degli errori di validazione per il campo 'testo' -->
                         <span th:if="${#fields.hasErrors('testo')}" th:errors="*{testo}" class="error-message"></span>
                     </div>
 
                     <div class="form-group">
                         <label for="voto">Valutazione (da 1 a 5):</label>
-                        <input type="number" id="voto" th:field="*{voto}" min="1" max="5" required>
+                        <input type="number" id="voto" th:field="*{voto}" >
                         <!-- Visualizzazione degli errori di validazione per il campo 'voto' -->
                         <span th:if="${#fields.hasErrors('voto')}" th:errors="*{voto}" class="error-message"></span>
                     </div>

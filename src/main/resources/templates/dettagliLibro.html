@@ -43,7 +43,7 @@
                         <strong>Autore/i:</strong>
                         <ul class="book-authors-list">
                             <li th:each="autore, stat : ${book.autori}">
-                                <a th:href="@{'/user/authors/'+${autore.id}}" th:text="${autore.nome + ' ' + autore.cognome}">Nome Cognome</a><span th:if="${!stat.last}">,</span>
+                                <a th:href="@{'/authors/'+${autore.id}}" th:text="${autore.nome + ' ' + autore.cognome}">Nome Cognome</a><span th:if="${!stat.last}">,</span>
                             </li>
                             <li th:if="${#lists.isEmpty(book.autori)}">Nessun autore specificato</li>
                         </ul>

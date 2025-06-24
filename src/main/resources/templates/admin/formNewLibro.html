@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+    <head>
+        <title>SiwBooks - Aggiungi Nuovo Libro</title>
+        <!-- Link al file CSS esterno per lo stile dell'applicazione -->
+        <link rel="stylesheet" href="/css/stile4.css?version=2"/>
+    </head>
+    <body>
+        <!-- Header Principale (struttura simile alla Home) -->
+        <header class="main-header">
+            <div class="header-content">
+                <div class="logo">
+                    <span class="logo-icon">&#128218;</span> SIWBOOKS
+                    <span class="tagline">BOOK REVIEWS (Admin)</span>
+                </div>
+                <nav class="main-nav">
+                    <ul>
+                        <!-- Link per il logout, visibile solo se autenticato -->
+                        <li sec:authorize="isAuthenticated()">
+                            <form th:action="@{/logout}" method="post" style="display:inline;">
+                                <button type="submit" style="background:none; border:none; color:inherit; font:inherit; cursor:pointer; padding:0;">
+                                    Logout
+                                </button>
+                            </form>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </header>
+
+        <!-- Sezione Principale della Pagina di Aggiunta Libro -->
+        <main class="content-page-section">
+            <div class="page-header-content">
+                <h1>Aggiungi Nuovo Libro</h1>
+                <!-- Pulsante per tornare alla home amministratore -->
+                <a th:href="@{/}" class="back-to-home">Torna alla Home Admin</a>
+            </div>
+
+            <!-- Contenitore principale del form, usa le classi generiche per i form -->
+            <div class="form-container">
+                <h3>Dettagli del Libro</h3>
+                <!-- Form per l'aggiunta di un nuovo libro.
+                    L'attributo th:object="${libro}" lega il form all'oggetto Libro nel backend.
+                    enctype="multipart/form-data" è necessario per l'upload di file (immagini). -->
+                <form th:action="@{/admin/addBook}" method="POST" th:object="${libro}" enctype="multipart/form-data" class="auth-form">
+
+                    <!-- Campo Titolo -->
+                    <div class="form-group">
+                        <label for="titolo">Titolo:</label>
+                        <input type="text" id="titolo" th:field="*{titolo}" />
+                        <!-- Visualizzazione messaggi di errore di validazione per il campo titolo -->
+                        <span th:if="${#fields.hasErrors('titolo')}" th:errors="*{titolo}" class="error-message"></span>
+                    </div>
+
+                    <!-- Campo Anno di Pubblicazione -->
+                    <div class="form-group">
+                        <label for="annoPubblicazione">Anno di Pubblicazione:</label>
+                        <input type="number" id="annoPubblicazione" th:field="*{annoPubblicazione}" />
+                        <!-- Visualizzazione messaggi di errore di validazione per l'anno di pubblicazione -->
+                        <span th:if="${#fields.hasErrors('annoPubblicazione')}" th:errors="*{annoPubblicazione}" class="error-message"></span>
+                    </div>
+					
+					<!-- Selezione Autori (multipla) -->
+	                <div class="form-group">
+	                    <label for="autoriSelect">Seleziona Autori:</label>
+	                    <!-- Campo select con opzione multipla -->
+	                    <select id="autoriSelect" name="autori" multiple size="5" class="multi-select-autori">
+	                        <option th:each="autore : ${autori}"
+	                                th:value="${autore.id}"
+	                                th:text="${autore.nome + ' ' + autore.cognome}"
+	                                th:selected="${libro.autori != null and #lists.contains(libro.autori.![id], autore.id)}">
+	                            Nome Cognome Autore
+	                        </option>
+	                    </select>
+	                    <p class="form-hint">Tieni premuto CTRL (o Command su Mac) per selezionare più autori.</p>
+	                    <span th:if="${#fields.hasErrors('autori')}" th:errors="*{autori}" class="error-message"></span>
+	                </div>
+
+                    <!-- Campo Immagine di Copertina (singola immagine per ora, ma si può estendere) -->
+                    <div class="form-group">
+                        <label for="fileImmagineCopertina">Immagine di Copertina:</label>
+                        <input type="file" id="fileImmagineCopertina" name="fileImmagineCopertina" accept="image/*"/>
+                        <!-- Se ci fosse un errore specifico per il file (es. dimensione/formato), apparirebbe qui -->
+                        <span th:if="${fileError}" th:text="${fileError}" class="error-message"></span>
+                    </div>
+
+                    
+                    <!-- Pulsante di invio del form -->
+                    <button type="submit" class="submit-button">Aggiungi Libro</button>
+                </form>
+            </div>
+        </main>
+
+        <!-- Footer Principale -->
+        <footer class="main-footer">
+            <p>&copy; 2025 SIWBOOKS. </p>
+        </footer>
+    </body>
+</html>

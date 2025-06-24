@@ -34,4 +34,9 @@ public class LibroService {
 	public void deleteBook(Libro libro) {
 		this.libroRepository.delete(libro);
 	}
+	
+	
+	public void save(Libro libro) {
+		this.libroRepository.save(libro);
+	}
 }

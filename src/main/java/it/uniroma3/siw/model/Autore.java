@@ -11,6 +11,9 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToOne;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.PastOrPresent;
 
 @Entity
 public class Autore {
@@ -19,10 +22,21 @@ public class Autore {
 	@Id
     @GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
+	
+	@NotBlank
 	private String nome;
+	
+	@NotBlank
 	private String cognome;
+	
+	@NotNull
+	@PastOrPresent
 	private LocalDate dataNascita;
+	
+	@PastOrPresent
 	private LocalDate dataMorte;
+	
+	@NotBlank
 	private String nazionalita;
 	
 	

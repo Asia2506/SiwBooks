@@ -10,6 +10,10 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToMany;
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
 @Entity
 public class Libro {
@@ -18,7 +22,10 @@ public class Libro {
 	@Id
     @GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
+	@NotNull
+	@Min(value=1)
 	private int annoPubblicazione;
+	@NotBlank
 	private String titolo;
 	
 	/*--------ASSOCIAZIONI--------*/

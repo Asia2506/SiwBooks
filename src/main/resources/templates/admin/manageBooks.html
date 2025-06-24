@@ -48,7 +48,7 @@
                 <!-- Esempio di un libro (da popolare dinamicamente con Thymeleaf se c'è un backend) -->
                 <!-- th:each="book : ${books}" sarà usato in un vero scenario -->
                 <div th:each="book : ${books}" class="book-card-item">
-                    <img th:src="${book.immagini != null ? book.immagini[0].path : 'https://placehold.co/150x220/808080/FFFFFF?text=Copertina'}"
+                    <img th:src="${!book.immagini.isEmpty() ? book.immagini[0].path : 'https://placehold.co/150x220/808080/FFFFFF?text=Copertina'}"
                         alt="Copertina del libro" class="book-cover">
                     <h3 th:text="${book.titolo}">Titolo del Libro di Esempio</h3>
                     <p class="book-authors">

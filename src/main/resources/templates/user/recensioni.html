@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+      <head>
+      <title>SiwBooks - Le Tue Recensioni</title>
+      <!-- Link al file CSS esterno per lo stile dell'applicazione -->
+      <link rel="stylesheet" href="/css/stile4.css?version=2"/>
+      </head>
+      <body>
+      <!-- Header Principale -->
+      <header class="main-header">
+            <div class="header-content">
+                  <div class="logo">
+                  <span class="logo-icon">&#128218;</span> SIWBOOKS
+                  <span class="tagline">BOOK SUBSCRIPTION SERVICE</span>
+                  </div>
+                  <nav class="main-nav">
+                  <ul>
+                        <!-- Link per il Logout, visibile solo se l'utente è autenticato -->
+                        <li sec:authorize="isAuthenticated()">
+                              <form th:action="@{/logout}" method="post" style="display:inline;">
+                              <button type="submit" style="background:none; border:none; color:inherit; font:inherit; cursor:pointer; padding:0;">
+                                    Logout
+                              </button>
+                              </form>
+                        </li>
+                  </ul>
+                  </nav>
+            </div>
+      </header>
+
+      <!-- Sezione Principale della Pagina "Le Tue Recensioni" -->
+      <main class="content-page-section">
+            <div class="page-header-content">
+                  <h1>Le Tue Recensioni</h1>
+                  <a th:href="@{/}" class="back-to-home">Torna alla Home </a>
+            </div>
+
+            <!-- Messaggio di errore o successo (se presenti) -->
+            <div th:if="${errorMessage}" class="error-message">
+                  <p th:text="${errorMessage}"></p>
+            </div>
+            <div th:if="${successMessage}" class="success-message">
+                  <p th:text="${successMessage}"></p>
+            </div>
+
+            <!-- Sezione per visualizzare le recensioni -->
+            <div class="book-reviews-section">
+                  <div th:if="${myReviews.isEmpty()}" class="no-reviews-found">
+                  <p>Non hai ancora scritto alcuna recensione.</p>
+                  <p>Visita il <a th:href="@{/user/books}">catalogo libri</a> per iniziare a recensire!</p>
+                  </div>
+                  <div th:unless="${myReviews.isEmpty()}" class="reviews-list">
+                  <div th:each="recensione : ${myReviews}" class="review-card">
+                        <!-- Titolo della recensione -->
+                        <h4 th:text="${recensione.titolo}">Titolo della Recensione</h4>
+                        
+                        <!-- Dettagli del libro a cui si riferisce la recensione -->
+                        <p class="review-book-info" th:if="${recensione.libro != null}">
+                              Libro: <a th:href="@{'/user/books/' + ${recensione.libro.id}}" th:text="${recensione.libro.titolo}">Titolo del Libro</a>
+                        </p>
+
+                        <!-- Voto con stelle -->
+                        <div class="review-rating">
+                              <!-- Genera stelle piene in base alla valutazione -->
+                              <span th:each="i : ${#numbers.sequence(1, recensione.voto)}" class="star filled">&#9733;</span>
+                              <!-- Genera stelle vuote per completare fino a 5 -->
+                              <span th:each="i : ${#numbers.sequence(recensione.voto + 1, 5)}" class="star empty">&#9733;</span>
+                        </div>
+
+                        <!-- Testo della recensione -->
+                        <p class="review-text" th:text="${recensione.testo}">Testo completo della recensione scritta dall'utente.</p>
+                  </div>
+                  </div>
+            </div>
+      </main>
+
+      <!-- Footer Principale -->
+      <footer class="main-footer">
+            <p>&copy; 2025 SIWBOOKS.</p>
+      </footer>
+      </body>
+</html>
