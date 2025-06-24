@@ -238,7 +238,7 @@ public class LibroController {
         if (!fileImmagineCopertina.isEmpty()) {
             try {
                 // Genera un nome file unico per evitare sovrascritture
-                String fileName ="copertina"+fileImmagineCopertina.getOriginalFilename();
+                String fileName =System.currentTimeMillis() + "_copertina"+fileImmagineCopertina.getOriginalFilename();
                 Path filePath = Paths.get(UPLOAD_DIRECTORY, fileName);
                 
                 // Assicurati che la directory esista

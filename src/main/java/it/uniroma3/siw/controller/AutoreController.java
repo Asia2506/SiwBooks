@@ -132,7 +132,7 @@ public class AutoreController {
         if (!fileFotografia.isEmpty()) {
             try {
                 // Genera un nome file unico per evitare sovrascritture
-                String fileName =fileFotografia.getOriginalFilename();
+                String fileName =System.currentTimeMillis() +"_"+fileFotografia.getOriginalFilename();
                 Path filePath = Paths.get(UPLOAD_DIRECTORY, fileName);
                 
                 // Assicurati che la directory esista
